@@ -64,3 +64,4 @@ class WordGuesserApp < Sinatra::Base
     erb :lose # You may change/remove this line
   end
 end
+
