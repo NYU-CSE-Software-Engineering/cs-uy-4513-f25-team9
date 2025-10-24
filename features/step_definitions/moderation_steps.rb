@@ -105,3 +105,50 @@ Then("I should be redirected to the 403 access denied page") do
   expect(page).to have_content("403 Permission Denied")
   expect(current_path).to eq(moderations_access_denied_path)
 end
+
+Given("I am on the User List page") do
+  visit users_path
+end
+
+Given("there is a User with name {string} and User ID {string}") do |name, user_id|
+  @user = User.create!(name: name, email: "#{name.downcase}@example.com", password: 'password123')
+  @user.id = user_id
+  @user.save!
+end
+
+When("I click the {string} button for User ID {string}") do |button_text, user_id|
+  within("tr:has(td:contains('#{@user.name}'))") do
+    click_button button_text
+  end
+end
+
+Then("the User with ID {string} should be deleted from the database") do |user_id|
+  expect(User.find_by(id: user_id)).to be_nil
+end
+
+Given("I don't have the {string} privilege") do |privilege|
+  @moderator = User.find_by(email: 'moderator_test@thryft.com')
+  @moderator.roles.delete(Role.find_by(name: privilege))
+  @moderator.save!
+end
+
+Given("there is a Moderator with name {string} and User ID {string}") do |name, user_id|
+  @moderator = User.create!(name: name, email: "#{name.downcase}@example.com", password: 'password123')
+  @moderator.id = user_id
+  @moderator.save!
+end
+
+Given("User ID {string} has the {string} privilege") do |user_id, privilege|
+  @user = User.find_by(id: user_id)
+  @user.roles << Role.find_by(name: privilege)
+  @user.save!
+end
+
+When('I submit a delete request for User ID {string} \(non-existent)') do |user_id|
+  visit moderation_user_list_path
+  page.driver.post(
+    moderation_user_list_path,
+    { id: user_id }
+  )
+  follow_redirect!
+end
