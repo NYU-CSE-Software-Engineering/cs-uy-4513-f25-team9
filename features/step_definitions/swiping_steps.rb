@@ -9,7 +9,7 @@ Given("I am a signed-in buyer") do
     click_button "Log in"
   end
   
-  Given("the following listings exist:") do |table|
+  Given("the following swipeable listings exist:") do |table|
     table.hashes.each do |row|
       seller = User.create!(email: "seller_#{SecureRandom.hex(4)}@ex.com",
                             password: "secret123", role: "seller")

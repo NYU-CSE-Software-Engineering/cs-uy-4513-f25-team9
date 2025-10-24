@@ -5,7 +5,7 @@ Feature: Browse and swipe listings
 
   Background:
     Given I am a signed-in buyer
-    And the following listings exist:
+    And the following swipeable listings exist:
       | title       | category | price_cents | status |
       | Blue Guitar | Music    | 15000       | active |
       | Desk Lamp   | Home     | 3000        | active |

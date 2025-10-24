@@ -90,3 +90,15 @@ Then("the unread messages should be marked as read") do
   @message.reload
   expect(@message.read).to be true
 end
+
+When("I click {string} without entering any text") do |button_text|
+  click_button button_text
+end
+
+Then("I should see an error message {string}") do |error_message|
+  expect(page).to have_content(error_message)
+end
+
+When("when I view the conversation") do
+  visit conversation_path(@conversation)
+end
