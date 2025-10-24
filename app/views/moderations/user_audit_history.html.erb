@@ -1,0 +1,30 @@
+# app/views/moderations/user_audit_history.html.erb
+<h1>Audit History for <%= @user.name %></h1>
+<p>Current Status: <%= @user.status.humanize %></p >
+<% if @user.banned? %>
+  <p>Ban Reason: <%= @user.ban_reason %></p >
+  <p><%= @user.banned_until ? "Banned until: #{@user.banned_until}" : "Permanently banned" %></p >
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operation Time</th>
+      <th>Moderator</th>
+      <th>Action</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @ban_logs.each do |log| %>
+      <tr>
+        <td><%= log.created_at %></td>
+        <td><%= log.moderator.name %></td>
+        <td><%= log.operation_type.humanize %></td>
+        <td><%= log.operation_notes %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Back to Reported Users', moderations_reported_users_path %>

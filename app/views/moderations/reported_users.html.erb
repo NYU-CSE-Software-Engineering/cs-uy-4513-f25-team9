@@ -1,0 +1,49 @@
+# app/views/moderations/reported_users.html.erb
+<h1>Reported Users Pending Review</h1>
+<% if flash[:success] %>
+  <div class="alert alert-success"><%= flash[:success] %></div>
+<% end %>
+<% if flash[:error] %>
+  <div class="alert alert-error"><%= flash[:error] %></div>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>User Name</th>
+      <th>Email</th>
+      <th>Report Reason</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reported_users.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.email %></td>
+        <td><%= item.reason %></td>
+        <td>
+          <%= form_tag moderations_ban_user_path do %>
+            <%= hidden_field_tag 'user_id', item.id %>
+            <%= hidden_field_tag 'report_id', item.report_id %>
+            
+            <div class="form-group">
+              <%= label_tag 'ban_reason', 'Ban Reason:' %>
+              <%= text_field_tag 'ban_reason', '', required: true %>
+            </div>
+            
+            <div class="form-group">
+              <%= label_tag 'ban_duration', 'Temporary Ban (days):' %>
+              <%= number_field_tag 'ban_duration', 7, min: 1 %>
+              <%= check_box_tag 'is_permanent', 'true' %>
+              <%= label_tag 'is_permanent', 'Permanent Ban' %>
+            </div>
+            
+            <%= submit_tag 'Ban User' %>
+            <%= link_to 'View History', moderations_user_audit_history_path(item.id) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

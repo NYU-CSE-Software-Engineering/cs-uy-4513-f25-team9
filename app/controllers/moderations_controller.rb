@@ -51,5 +51,82 @@ class ModerationsController < ApplicationController
       render json: { error: 'Product does not exist' }, status: :not_found
     end
   end
+  # User review-related actions
+  def reported_users
+    # Get unprocessed user reports
+    @reported_users = UserReport.where(status: 'unprocessed')
+                               .joins(:reported_user)
+                               .where(users: { status: 'active' })
+                               .select('users.id, users.email, users.name, user_reports.reason, user_reports.id as report_id')
+  end
+
+  # Handle user banning
+  def ban_user
+    @user = User.find_by(id: params[:user_id], status: 'active')
+    @report = UserReport.find_by(id: params[:report_id])
+    
+    if @user && @report
+      # Update user status
+      @user.update(
+        status: 'banned',
+        ban_reason: params[:ban_reason],
+        banned_until: params[:is_permanent] == 'true' ? nil : params[:ban_duration].to_i.days.from_now
+      )
+      
+      # Mark report as processed
+      @report.update(status: 'processed')
+      
+      # Record moderation log
+      ModerationLog.create(
+        moderator: current_user,
+        target_user: @user,
+        operation_type: 'user_ban',
+        operation_notes: "Banned #{params[:is_permanent] == 'true' ? 'permanently' : "for #{params[:ban_duration]} days"}. Reason: #{params[:ban_reason]}"
+      )
+      
+      flash[:success] = "User has been successfully banned"
+      redirect_to moderations_reported_users_path
+    else
+      flash[:error] = "User not found or already banned"
+      redirect_to moderations_reported_users_path
+    end
+  end
+
+  # View user review history
+  def user_audit_history
+    @user = User.find(params[:user_id])
+    @ban_logs = ModerationLog.where(target_user: @user, operation_type: 'user_ban')
+  end
+  # User ban API
+  def api_ban_user
+    # Verify internal API key
+    unless request.headers['X-Thryft-Internal-API'] == ENV['INTERNAL_API_KEY']
+      render json: { error: 'No API access permission' }, status: :forbidden
+      return
+    end
+
+    user = User.find_by(id: params[:user_id], status: 'active')
+    if user
+      user.update(
+        status: 'banned',
+        ban_reason: params[:ban_reason],
+        banned_until: params[:is_permanent] ? nil : params[:ban_duration].to_i.days.from_now
+      )
+      
+      # Record log
+      ModerationLog.create(
+        moderator: User.find_by(role: 'moderator'), # Adjust according to actual situation
+        target_user: user,
+        operation_type: 'user_ban',
+        operation_notes: params[:ban_reason]
+      )
+      
+      render json: { message: 'User banned successfully' }, status: :ok
+    else
+      render json: { error: 'User not found or already banned' }, status: :not_found
+    end
+  end
+end
+
 
 end

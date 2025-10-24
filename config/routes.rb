@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     post 'confirm_remove', to: 'moderations#confirm_remove'
     get 'delete_confirmation', to: 'moderations#delete_confirmation'
     get 'access_denied', to: 'moderations#access_denied'
+    get 'reported_users', to: 'moderations#reported_users'
+    post 'ban_user', to: 'moderations#ban_user'
+    get 'user_audit_history/:user_id', to: 'moderations#user_audit_history', as: 'user_audit_history'
   end
 
   Rails.application.routes.draw do
@@ -17,6 +20,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       delete 'moderations/listing/:listing_id', to: 'moderations#api_remove_listing'
+      post 'moderations/ban_user/:user_id', to: 'moderations#api_ban_user'
     end
   end
 
