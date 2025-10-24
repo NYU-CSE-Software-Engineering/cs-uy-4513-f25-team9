@@ -9,14 +9,14 @@ As a user, I want to send and receive messages about products so that I can ask 
 
 ## MVC Components Outline
 
-# Models
+### Models
 - A Message model with content:text, read:boolean, user_id:references attributes
 - A Conversation model with buyer_id:references, seller_id:references, listing_id:references
 
-# Views
+### Views
 - conversations/index.html.erb - Lists all of user's conversations
 - conversations/show.html.erb - Shows individual conversation with reply form
 
-# Controllers
+### Controllers
 - ConversationsController (index, show, create)
 - MessagesController (create, update)
