@@ -83,7 +83,7 @@ Then("I should see the last message preview and timestamp for each conversation"
 end
 
 Then("I should see a notification indicator for unread messages") do
-  expect(page).to have_css('.unread-indicator') || expect(page).to have_content('New messages')
+  expect(page.has_css?('.unread-indicator') || page.has_content?('New messages')).to be true
 end
 
 Then("the unread messages should be marked as read") do

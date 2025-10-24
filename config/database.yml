@@ -1,39 +1,41 @@
-## Use PostgreSQL in development, test and production.
-# This configuration uses ENV vars where helpful but provides
-# sensible defaults for local development.
+# SQLite. Versions 3.8.0 and up are supported.
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem "sqlite3"
+#
 default: &default
-  adapter: postgresql
-  encoding: unicode
+  adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("PGUSER", "postgres") %>
-  password: <%= ENV.fetch("PGPASSWORD", "") %>
-  host: <%= ENV.fetch("PGHOST", "localhost") %>
-  port: <%= ENV.fetch("PGPORT", 5432) %>
+  timeout: 5000
 
 development:
   <<: *default
-  database: cs_uy_4513_team9_development
+  database: storage/development.sqlite3
 
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: cs_uy_4513_team9_test
+  database: storage/test.sqlite3
 
 
-# Production has multiple named databases (primary/cache/queue/cable)
-# Keep the migrations_paths entries from the original file.
+# Store production database in the storage/ directory, which by default
+# is mounted as a persistent Docker volume in config/deploy.yml.
 production:
   primary:
     <<: *default
-    database: cs_uy_4513_team9_production
+    database: storage/production.sqlite3
   cache:
     <<: *default
-    database: cs_uy_4513_team9_production_cache
+    database: storage/production_cache.sqlite3
     migrations_paths: db/cache_migrate
   queue:
     <<: *default
-    database: cs_uy_4513_team9_production_queue
+    database: storage/production_queue.sqlite3
     migrations_paths: db/queue_migrate
   cable:
     <<: *default
-    database: cs_uy_4513_team9_production_cable
+    database: storage/production_cable.sqlite3
     migrations_paths: db/cable_migrate
