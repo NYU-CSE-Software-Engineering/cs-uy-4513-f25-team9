@@ -36,3 +36,5 @@
 #Ignore Gemfile.lock
 /Gemfile.lock
 
+/.ruby-version
+
