@@ -1,80 +1,76 @@
 # User Story
 
 ## Feature: User Login and Registration
-  As a new or returning Thryft user,
-  I want to register for an account and securely log in or out,
-  so that I can access personalized features like buying, selling, and messaging safely.
 
-  Background:
-    Given the application is initialized
+As a new or returning Thryft user,
+I want to register for an account and securely log in or out,
+so that I can access personalized features like buying, selling, and messaging safely.
 
-  Scenario: User successfully signs up
-    Given I am on the Sign Up page
-    When I fill in "Email" with "newuser@example.com"
-    And I fill in "Password" with "Password!23"
-    And I fill in "Password confirmation" with "Password!23"
-    And I press the "Sign up" button
-    Then I should be redirected to the Home page
-    And I should see the message "Welcome! You have signed up successfully."
-    And I should see the "Log out" link
+### Acceptance Criteria
 
-  Scenario: User fails to sign up due to password mismatch
-    Given I am on the Sign Up page
-    When I fill in "Email" with "baduser@example.com"
-    And I fill in "Password" with "Password!23"
-    And I fill in "Password confirmation" with "Different!23"
-    And I press the "Sign up" button
-    Then I should see the error message "Password confirmation doesn't match Password"
-    And I should remain on the Sign Up page
+#### **Criterion 1 (Happy Path – Successful Sign Up)**
 
-  Scenario: Registered user successfully logs in
-    Given a User exists with email "member@example.com" and password "Password!23"
-    And I am on the Sign In page
-    When I fill in "Email" with "member@example.com"
-    And I fill in "Password" with "Password!23"
-    And I press the "Log in" button
-    Then I should be redirected to the Home page
-    And I should see the message "Signed in successfully."
-    And I should see the "Log out" link
+When I correctly fill in all required registration fields (Email, Password, and Password Confirmation),  
+the system should create my account, redirect me to the Home page, and display a success message:  
+**“Welcome! You have signed up successfully.”**
 
-  Scenario: User fails to log in with invalid credentials
-    Given a User exists with email "wrong@example.com" and password "Password!23"
-    And I am on the Sign In page
-    When I fill in "Email" with "wrong@example.com"
-    And I fill in "Password" with "Invalid123"
-    And I press the "Log in" button
-    Then I should see the error message "Invalid Email or password."
-    And I should remain on the Sign In page
+---
 
-  Scenario: Signed-in user logs out
-    Given I am signed in as "member@example.com" with password "Password!23"
-    When I click the "Log out" link
-    Then I should be redirected to the Home page
-    And I should see the message "Signed out successfully."
-    And I should see the "Log in" link
+#### **Criterion 2 (Sad Path – Password Mismatch)**
 
+When I enter a password that doesn’t match the password confirmation,  
+the system should not create my account and should display an error message:  
+**“Password confirmation doesn't match Password.”**
 
+---
+
+#### **Criterion 3 (Happy Path – Successful Login)**
+
+When I log in using a valid registered email and password,  
+I should be redirected to the Home page, see the message  
+**“Signed in successfully.”**,  
+and have access to a **“Log out”** link.
+
+---
+
+#### **Criterion 4 (Sad Path – Invalid Login)**
+
+When I enter an incorrect email or password,  
+I should remain on the Sign In page and see the error message:  
+**“Invalid Email or password.”**
+
+---
+
+#### **Criterion 5 (Happy Path – Logout)**
+
+When I click the **“Log out”** link while signed in,  
+I should be redirected to the Home page, see  
+**“Signed out successfully.”**,  
+and the **“Log in”** link should reappear.
 
 ---
 
 # MVC Component Outline
 
 Model:  
-A **User** model with the following attributes:  
-- `email:string`  
-- `encrypted_password:string`  
-- `role:string` (optional, used for authorization)  
-Validations ensure presence and uniqueness of email and proper password confirmation.  
-Authentication is handled using **Devise**.
+A **User** model with the following attributes:
 
-Views:  
-- `devise/registrations/new.html.erb`: Registration (Sign Up) form for new users.  
-- `devise/sessions/new.html.erb`: Login (Sign In) form for existing users.  
+- `email:string`
+- `encrypted_password:string`
+- `role:string` (optional, used for authorization)  
+  Validations ensure presence and uniqueness of email and proper password confirmation.  
+  Authentication is handled using **Devise**.
+
+Views:
+
+- `devise/registrations/new.html.erb`: Registration (Sign Up) form for new users.
+- `devise/sessions/new.html.erb`: Login (Sign In) form for existing users.
 - Shared layout includes a navigation bar displaying:
-  - “Log in / Sign up” links when logged out  
+  - “Log in / Sign up” links when logged out
   - “Log out” link when logged in
 
-Controllers:  
-- **Devise::RegistrationsController**: Handles new user registration (`new`, `create`)  
-- **Devise::SessionsController**: Handles user login/logout (`new`, `create`, `destroy`)  
+Controllers:
+
+- **Devise::RegistrationsController**: Handles new user registration (`new`, `create`)
+- **Devise::SessionsController**: Handles user login/logout (`new`, `create`, `destroy`)
 - **HomeController**: Displays the home or dashboard page depending on authentication status
