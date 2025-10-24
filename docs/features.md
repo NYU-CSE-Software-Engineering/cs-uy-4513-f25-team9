@@ -14,3 +14,6 @@ Alicia Tian:
 
 Uriel Olayinka:
 [Messaging System](./messaging_system.md)
+
+Pengcheng Wang:
+[Moderation Remove Fraudulent Projects](./moderator_remove_fraudulent_listings.md)
