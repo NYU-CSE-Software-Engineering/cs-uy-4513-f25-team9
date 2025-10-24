@@ -144,6 +144,10 @@ Given("User ID {string} has the {string} privilege") do |user_id, privilege|
   @user.save!
 end
 
+When('I submit a delete request for listing ID {string} \(non-existent)') do |string|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
 When('I submit a delete request for User ID {string} \(non-existent)') do |user_id|
   visit moderation_user_list_path
   page.driver.post(
