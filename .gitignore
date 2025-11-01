@@ -30,11 +30,6 @@
 
 /public/assets
 
-# Ignore master key for decrypting credentials and more.
-/config/master.key
-
-#Ignore Gemfile.lock
-/Gemfile.lock
-
-/.ruby-version
+# Ignore key files for decrypting credentials and more.
+/config/*.key
 
