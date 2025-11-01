@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    # Set up the PostgreSQL service container
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: thryft_test 
+        ports:
+          - 5432:5432 
+        # Healthcheck to wait until Postgres is ready
+        options: >-
+          --health-cmd "pg_isready -U rails -d thryft_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    # Set environment variables for the job
+    # These are used by Rails to connect to the database service
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/thryft_test"
+
+    steps:
+      # Check out your code
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      # Set up Ruby and install gems
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.7'
+          bundler-cache: true # This automatically runs 'bundle install' and caches your gems
+
+      # Set up the database
+      # This runs 'rails db:create', 'rails db:schema:load', and 'rails db:seed'
+      - name: Set up database
+        run: bin/rails db:setup
+
+      # Run RSpec
+      - name: Run RSpec tests
+        run: bundle exec rspec
+
+      # Run Cucumber
+      - name: Run Cucumber tests
+        run: bundle exec cucumber
