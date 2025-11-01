@@ -1,0 +1,25 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  # Change 'my_app_name' to your app's name
+  database: thryft_development
+  
+  # You may not need these if your local Postgres user 
+  # matches your system user and has no password.
+  # username: my_postgres_user
+  # password: my_postgres_password
+  # host: localhost
+
+test:
+  <<: *default
+  # Change 'my_app_name' to your app's name
+  database: thryft_test
+
+production:
+  <<: *default
+  # This will be set by your hosting environment (e.g., Heroku)
+  url: <%= ENV["DATABASE_URL"] %>
