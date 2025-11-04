@@ -10,8 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 0) do
+ActiveRecord::Schema[8.1].define(version: 2025_11_04_213654) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  create_table "listings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.string "status", default: "active"
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["status"], name: "index_listings_on_status"
+    t.index ["user_id"], name: "index_listings_on_user_id"
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.bigint "buyer_id", null: false
+    t.datetime "created_at", null: false
+    t.bigint "listing_id", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.datetime "purchased_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_id", "purchased_at"], name: "index_purchases_on_buyer_id_and_purchased_at"
+    t.index ["buyer_id"], name: "index_purchases_on_buyer_id"
+    t.index ["listing_id"], name: "index_purchases_on_listing_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.string "location"
+    t.string "name"
+    t.string "role", default: "buyer"
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  add_foreign_key "listings", "users"
+  add_foreign_key "purchases", "listings"
+  add_foreign_key "purchases", "users", column: "buyer_id"
 end
