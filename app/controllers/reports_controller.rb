@@ -4,6 +4,7 @@ class ReportsController < ApplicationController
 
   def new
     @report = @listing.reports.new
+    render plain: "OK"
   end
 
   def create
