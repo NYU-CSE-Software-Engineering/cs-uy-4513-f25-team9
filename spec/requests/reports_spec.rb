@@ -9,7 +9,9 @@ RSpec.describe "Reports", type: :request do
       get new_listing_report_path(listing)
 
       expect(response).to be_successful
-      expect(response).to render_template(:new)
+      # `render_template` matcher requires the `rails-controller-testing` gem in request specs;
+      # assert the rendered content instead.
+      expect(response.body).to include("Report Listing")
     end
   end
 end
