@@ -1,22 +1,23 @@
+# app/controllers/reports_controller.rb
 class ReportsController < ApplicationController
-  before_action :set_listing, only: [:new, :create]
+  before_action :set_listing, only: [:new, :create] # <--- 把 :create 加到这里
 
   def new
-    # Build a new report for the form
     @report = @listing.reports.new
   end
 
   def create
     @report = @listing.reports.new(report_params)
-    # Assign current_user if available (works with Devise or similar). If no user, leave nil.
-    @report.user = current_user if respond_to?(:current_user) && current_user
+    @report.user = @listing.user
 
     if @report.save
-      redirect_to @listing, notice: "Report submitted."
+      redirect_to @listing, notice: 'Report was successfully created.'
     else
-      render :new, status: :unprocessable_entity
+
+      render :new
     end
   end
+  # ----------------------------
 
   private
 
@@ -27,4 +28,5 @@ class ReportsController < ApplicationController
   def report_params
     params.require(:report).permit(:reason)
   end
+  # ----------------------------------
 end
