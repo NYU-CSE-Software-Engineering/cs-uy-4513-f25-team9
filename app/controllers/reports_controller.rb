@@ -1,6 +1,6 @@
 # app/controllers/reports_controller.rb
 class ReportsController < ApplicationController
-  before_action :set_listing, only: [:new, :create] # <--- 把 :create 加到这里
+  before_action :set_listing, only: [:new, :create] 
 
   def new
     @report = @listing.reports.new
