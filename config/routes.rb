@@ -14,4 +14,7 @@ Rails.application.routes.draw do
   resources :listings do
     resources :reports, only: [:new, :create]
   end
+
+  # Purchase history
+  get '/purchases', to: 'purchases#index'
 end
