@@ -19,4 +19,11 @@ RSpec.describe Report, type: :model do
     report.validate
     expect(report.errors[:reason]).to include("can't be blank")
   end
+
+  it "is invalid if the reason is too long" do
+    long_reason = 'a' * 501
+    report = Report.new(user: user, listing: listing, reason: long_reason)
+    report.validate
+    expect(report.errors[:reason]).to include("is too long (maximum is 500 characters)")
+  end
 end
