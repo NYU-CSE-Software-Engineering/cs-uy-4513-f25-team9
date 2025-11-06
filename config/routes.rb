@@ -11,4 +11,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # Purchase history
+  get '/purchases', to: 'purchases#index'
 end
