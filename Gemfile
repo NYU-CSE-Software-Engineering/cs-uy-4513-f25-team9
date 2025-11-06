@@ -66,6 +66,9 @@ group :development, :test do
   
   # Cleans your database between test runs
   gem 'database_cleaner-active_record'
+  
+  # Load environment variables from .env file
+  gem 'dotenv-rails'
 end
 
 group :development do
