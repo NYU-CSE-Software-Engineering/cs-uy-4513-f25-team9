@@ -1,0 +1,14 @@
+<!-- app/views/sessions/new.html.erb -->
+<h1>Log In</h1>
+
+<%= form_with url: login_path, method: :post, local: true do %>
+  <div>
+    <%= label_tag :email, "Email" %>
+    <%= text_field_tag :email %>
+  </div>
+  <div>
+    <%= label_tag :password, "Password" %>
+    <%= password_field_tag :password %>
+  </div>
+  <%= submit_tag "Log in" %>
+<% end %>

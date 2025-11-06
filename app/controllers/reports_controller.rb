@@ -1,24 +1,22 @@
 # app/controllers/reports_controller.rb
 class ReportsController < ApplicationController
-  before_action :set_listing, only: [:new, :create] 
+  before_action :set_listing
+  before_action :require_login
 
   def new
     @report = @listing.reports.new
-    render plain: "OK"
   end
 
   def create
     @report = @listing.reports.new(report_params)
-    @report.user = @listing.user
+    @report.user = current_user
 
     if @report.save
-      redirect_to @listing, notice: 'Report was successfully created.'
+      redirect_to @listing, notice: "Thanks—our moderators will review this"
     else
-
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
-  # ----------------------------
 
   private
 
@@ -29,5 +27,4 @@ class ReportsController < ApplicationController
   def report_params
     params.require(:report).permit(:reason)
   end
-  # ----------------------------------
 end

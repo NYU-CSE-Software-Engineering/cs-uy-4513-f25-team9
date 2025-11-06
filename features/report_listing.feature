@@ -8,7 +8,7 @@ Feature: Buyer reports a suspicious or fraudulent listing
     And I am viewing a listing that I believe is fraudulent
     When I click "Report listing"
     And I select a reason and submit the report
-    Then a flag should be recorded for that listing and my account
+    Then a report should be recorded for that listing and my account
     And I should see "Thanks—our moderators will review this"
     
   Scenario: Must be logged in to report
