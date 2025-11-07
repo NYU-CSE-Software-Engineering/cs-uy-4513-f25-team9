@@ -52,18 +52,18 @@ group :development, :test do
 
   # Use RSpec as your primary testing framework
   gem 'rspec-rails', '~> 8.0.0'
-  
+
   # Use Cucumber for Behavior-Driven Development (BDD)
-  # 'require: false' prevents it from being loaded by default 
+  # 'require: false' prevents it from being loaded by default
   # by Bundler, as Cucumber has its own boot process.
   gem 'cucumber-rails', require: false
-  
+
   # Integration/feature testing library
   gem 'capybara'
-  
+
   # Cleans your database between test runs
-  gem 'database_cleaner-active_record'
-  
+  gem 'database_cleaner-active_record'  
+
   # Load environment variables from .env file
   gem 'dotenv-rails'
 end
