@@ -7,8 +7,8 @@ RSpec.describe 'Purchase History', type: :request do
 
   describe 'GET /purchases' do
     context 'when the buyer has past purchases' do
-      let(:buyer)  { User.create!(email: 'buyer@example.com', role: 'buyer') }
-      let(:seller) { User.create!(email: 'seller@example.com', role: 'seller') }
+      let(:buyer)  { User.create!(email: 'buyer@example.com', password: 'password123') }
+      let(:seller) { User.create!(email: 'seller@example.com', password: 'password123') }
 
       let!(:older_listing) { Listing.create!(title: 'Old Item',  price: 10.00, user: seller) }
       let!(:newer_listing) { Listing.create!(title: 'New Item',  price: 20.00, user: seller) }
@@ -52,7 +52,7 @@ RSpec.describe 'Purchase History', type: :request do
     end
 
     context 'when the buyer has no purchases' do
-      let(:buyer) { User.create!(email: 'newbuyer@example.com', role: 'buyer') }
+      let(:buyer) { User.create!(email: 'newbuyer@example.com', password: 'password123') }
 
       before { stub_current_user(buyer) }
 
