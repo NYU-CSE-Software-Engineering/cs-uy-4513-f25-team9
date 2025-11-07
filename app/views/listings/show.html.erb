@@ -1,0 +1,5 @@
+<h1><%= @listing.title %></h1>
+<p><%= @listing.description %></p>
+<p>Price: $<%= @listing.price %></p>
+
+<%= link_to "Report listing", new_listing_report_path(@listing), class: "btn btn-danger" %>
