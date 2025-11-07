@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :listings, dependent: :destroy
+  has_many :purchases, foreign_key: :buyer_id, dependent: :destroy
   has_many :reports, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true

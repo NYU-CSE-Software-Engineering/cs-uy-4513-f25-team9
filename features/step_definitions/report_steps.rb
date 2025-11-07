@@ -41,7 +41,3 @@ end
 Then('I should be redirected to the login page') do
   expect(page).to have_current_path(login_path)
 end
-
-Then('I should see {string}') do |text|
-  expect(page).to have_content(text)
-end
