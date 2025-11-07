@@ -1,0 +1,10 @@
+<!-- app/views/reports/new.html.erb -->
+<h2>Report This Listing</h2>
+
+<%= form_with(model: [@listing, @report], local: true) do |f| %>
+  <div>
+    <%= f.label :reason, "Reason" %>
+    <%= f.text_field :reason %>
+  </div>
+  <%= f.submit "Submit Report" %>
+<% end %>
