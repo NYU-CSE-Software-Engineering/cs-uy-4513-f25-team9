@@ -16,7 +16,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_07_211944) do
 
   create_table "listings", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.decimal "price", precision: 8, scale: 2
+    t.text "description"
+    t.decimal "price"
     t.string "title"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
@@ -34,6 +35,16 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_07_211944) do
     t.index ["listing_id"], name: "index_purchases_on_listing_id"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "listing_id", null: false
+    t.text "reason"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["listing_id"], name: "index_reports_on_listing_id"
+    t.index ["user_id"], name: "index_reports_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email"
@@ -45,4 +56,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_07_211944) do
   add_foreign_key "listings", "users"
   add_foreign_key "purchases", "listings"
   add_foreign_key "purchases", "users", column: "buyer_id"
+  add_foreign_key "reports", "listings"
+  add_foreign_key "reports", "users"
 end
