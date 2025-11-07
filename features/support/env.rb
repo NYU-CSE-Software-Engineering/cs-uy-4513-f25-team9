@@ -10,9 +10,6 @@ require 'rspec/mocks'
 World(RSpec::Mocks::ExampleMethods)
 
 # Enable RSpec mocking so we can stub methods (like current_user)
-require 'rspec/mocks'
-
-World(RSpec::Mocks::ExampleMethods)
 
 Before do
   RSpec::Mocks.setup
@@ -24,10 +21,6 @@ After do
   ensure
     RSpec::Mocks.teardown
   end
-end
-
-  RSpec::Mocks.verify
-  RSpec::Mocks.teardown
 end
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how

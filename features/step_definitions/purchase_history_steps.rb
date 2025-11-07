@@ -2,8 +2,8 @@
 
 Given('I am logged in as a buyer who has at least one completed purchase') do
   # Create a buyer and seller
-  @buyer = User.create!(email: 'buyer@example.com', role: 'buyer')
-  @seller = User.create!(email: 'seller@example.com', role: 'seller')
+  @buyer = User.create!(email: 'buyer@example.com', role: 'buyer', password: 'password123')
+  @seller = User.create!(email: 'seller@example.com', role: 'seller', password: 'password123')
   
   # Create listings
   @older_listing = Listing.create!(
@@ -40,7 +40,7 @@ Given('I am logged in as a buyer who has at least one completed purchase') do
 end
 
 Given('I am logged in as a new buyer with no purchases') do
-  @buyer = User.create!(email: 'newbuyer@example.com', role: 'buyer')
+  @buyer = User.create!(email: 'newbuyer@example.com', role: 'buyer', password: 'password123')
   
   # Stub the current_user method
   allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@buyer)

@@ -1,0 +1,25 @@
+<h1>My Purchases</h1>
+
+<% if @purchases.empty? %>
+  <p>No purchases yet</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Price</th>
+        <th>Purchase Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @purchases.each do |purchase| %>
+        <tr>
+          <td><%= purchase.listing&.title %></td>
+          <td>$<%= number_to_currency(purchase.price, unit: '') %></td>
+          <td><%= purchase.purchased_at.to_date %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
