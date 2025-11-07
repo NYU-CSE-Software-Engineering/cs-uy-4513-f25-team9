@@ -1,0 +1,5 @@
+<h1>All Listings</h1>
+
+<% @listings.each do |listing| %>
+  <p><%= listing.title %> - $<%= listing.price %></p>
+<% end %>
