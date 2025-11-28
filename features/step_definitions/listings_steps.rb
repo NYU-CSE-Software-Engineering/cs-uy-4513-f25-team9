@@ -38,7 +38,3 @@ When('I delete that listing') do
     click_link 'Delete'
   end
 end
-
-Then('I should see {string}') do |text|
-  expect(page).to have_content(text)
-end

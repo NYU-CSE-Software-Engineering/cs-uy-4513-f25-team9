@@ -1,5 +1,12 @@
 <h1>All Listings</h1>
 
 <% @listings.each do |listing| %>
-  <p><%= listing.title %> - $<%= listing.price %></p>
+  <div id="listing_<%= listing.id %>">
+    <p><%= listing.title %> - $<%= listing.price %></p>
+    <%= link_to "View", listing_path(listing) %>
+    <% if current_user && listing.user == current_user %>
+      <%= link_to "Edit", edit_listing_path(listing) %>
+      <%= link_to "Delete", listing_path(listing), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+    <% end %>
+  </div>
 <% end %>
