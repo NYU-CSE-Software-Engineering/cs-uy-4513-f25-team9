@@ -1,0 +1,29 @@
+<h1>New Listing</h1>
+
+<%= form_with(model: @listing, local: true) do |f| %>
+  <% if @listing.errors.any? %>
+    <div>
+      <% @listing.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :title, "Title" %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :price, "Price" %>
+    <%= f.number_field :price, step: 0.01 %>
+  </div>
+
+  <div>
+    <%= f.label :description, "Description" %>
+    <%= f.text_area :description %>
+  </div>
+
+  <%= f.submit "Submit" %>
+<% end %>
+
