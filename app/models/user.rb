@@ -7,4 +7,21 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
+
+  # Moderator helper methods
+  def moderator?
+    is_moderator
+  end
+
+  def admin?
+    is_admin
+  end
+
+  def can_delete_user?(target_user)
+    return false unless moderator?
+    # Moderators can delete non-moderators
+    return true unless target_user.moderator?
+    # Only admins can delete other moderators
+    admin?
+  end
 end
