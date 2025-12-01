@@ -24,6 +24,17 @@
       <%= number_field_tag :max_price, params[:max_price], step: 0.01, placeholder: "No limit" %>
     </div>
 
+    <div class="field">
+      <%= label_tag :sort, "Sort By" %>
+      <%= select_tag :sort,
+          options_for_select([
+            ["Newest", "newest"],
+            ["Price: Low to High", "price_asc"],
+            ["Price: High to Low", "price_desc"]
+          ], params[:sort]),
+          include_blank: false %>
+    </div>
+
     <%= submit_tag "Filter", class: "btn" %>
     <% if params[:q].present? || params[:category].present? || params[:min_price].present? || params[:max_price].present? %>
       <%= link_to "Clear", listings_path, class: "btn-secondary" %>

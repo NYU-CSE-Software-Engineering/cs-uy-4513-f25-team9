@@ -7,7 +7,7 @@ class ListingsController < ApplicationController
     @categories = Listing.available_categories
 
     listings = build_filtered_listings
-    @listings = listings.order(created_at: :desc)
+    @listings = listings.by_sort(params[:sort])
   end
 
   def show

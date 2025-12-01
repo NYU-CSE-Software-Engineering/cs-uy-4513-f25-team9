@@ -22,6 +22,18 @@ class Listing < ApplicationRecord
           query: "%#{query.downcase}%")
   }
 
+  # Sort by various fields
+  scope :by_sort, lambda { |sort|
+    case sort
+    when 'price_asc'
+      order(price: :asc)
+    when 'price_desc'
+      order(price: :desc)
+    else
+      order(created_at: :desc)  # Default to newest
+    end
+  }
+
   # Fetch available categories from database (distinct and sorted)
   def self.available_categories
     distinct.order(:category).pluck(:category).compact
