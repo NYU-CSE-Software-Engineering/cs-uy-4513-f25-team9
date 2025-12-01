@@ -11,11 +11,17 @@ Given("I am on the message composition page for a product") do
 end
 
 When("I click {string}") do |button_text|
-  # Try link first, then button
-  if page.has_link?(button_text)
+  if button_text == "Report listing"
+    click_link button_text
+  elsif button_text == "Message Seller"
     click_link button_text
   else
-    click_button button_text
+    # Try link first, then button
+    if page.has_link?(button_text)
+      click_link button_text
+    else
+      click_button button_text
+    end
   end
 end
 
