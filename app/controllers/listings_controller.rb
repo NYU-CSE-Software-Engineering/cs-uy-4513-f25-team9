@@ -4,7 +4,10 @@ class ListingsController < ApplicationController
   before_action :authorize_owner, only: [:edit, :update, :destroy]
 
   def index
-    @listings = Listing.all
+    @categories = Listing.available_categories
+
+    listings = build_filtered_listings
+    @listings = listings.by_sort(params[:sort])
   end
 
   def show
@@ -44,12 +47,23 @@ class ListingsController < ApplicationController
 
   private
 
+  def build_filtered_listings
+    listings = Listing.all
+    listings = listings.by_category(params[:category]) if params[:category].present?
+    listings = listings.by_price_range(
+      min_price: params[:min_price],
+      max_price: params[:max_price]
+    )
+    listings = listings.by_search(params[:q]) if params[:q].present?
+    listings
+  end
+
   def set_listing
     @listing = Listing.find(params[:id])
   end
 
   def listing_params
-    params.require(:listing).permit(:title, :description, :price)
+    params.require(:listing).permit(:title, :description, :price, :category)
   end
 
   def authorize_owner
