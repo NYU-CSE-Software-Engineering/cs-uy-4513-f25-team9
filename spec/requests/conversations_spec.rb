@@ -19,7 +19,9 @@ RSpec.describe "Conversations", type: :request do
   describe "POST /create" do
     it "creates a new conversation and redirects" do
       expect {
-        post listing_conversations_path(listing_id: listing.id)
+        post listing_conversations_path(listing_id: listing.id), params: {
+          conversation: { initial_message: "Hello, I'm interested in this item" }
+        }
       }.to change(Conversation, :count).by(1)
       expect(response).to redirect_to(conversation_path(Conversation.last))
     end
