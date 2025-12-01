@@ -1,9 +1,23 @@
 class UsersController < ApplicationController
-  before_action :require_moderator
+  # Only require moderator for administrative actions (index/destroy).
+  before_action :require_moderator, only: [:index, :destroy]
   before_action :set_user, only: [:destroy]
 
   def index
     @users = User.all
+  end
+
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to root_path, notice: "Welcome! You have signed up successfully."
+    else
+      render :new
+    end
   end
 
   def destroy
@@ -30,6 +44,10 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find_by(id: params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
   end
 
   def require_moderator
