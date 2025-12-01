@@ -1,10 +1,31 @@
 require 'rails_helper'
+require 'cgi'
 
 RSpec.describe "User Login and Registration", type: :request do
   describe "GET /users/new" do
     it "renders the sign up page" do
       get '/users/new'
       expect(response).to have_http_status(:ok)
+    end
+  end
+end
+
+RSpec.describe "User Sign Up (mismatch)", type: :request do
+  require 'cgi'
+
+  describe "POST /users (registration)" do
+    context "when password confirmation does not match" do
+      it "does not create the user and shows a validation message and stays on signup" do
+        expect {
+          post '/users', params: { user: { email: 'mismatch@example.com', password: 'password123', password_confirmation: 'different' } }
+        }.not_to change(User, :count)
+
+        expect(response).to have_http_status(:ok)
+        expect(CGI.unescapeHTML(response.body)).to include("Password confirmation doesn't match Password.")
+
+        actual_path = response.request.fullpath
+        expect(['/users/new', '/users']).to include(actual_path)
+      end
     end
   end
 end
