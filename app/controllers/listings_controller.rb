@@ -6,14 +6,7 @@ class ListingsController < ApplicationController
   def index
     @categories = Listing.available_categories
 
-    listings = Listing.all
-    listings = listings.by_category(params[:category]) if params[:category].present?
-    listings = listings.by_price_range(
-      min_price: params[:min_price],
-      max_price: params[:max_price]
-    )
-    listings = listings.by_search(params[:q]) if params[:q].present?
-
+    listings = build_filtered_listings
     @listings = listings.order(created_at: :desc)
   end
 
@@ -53,6 +46,17 @@ class ListingsController < ApplicationController
   end
 
   private
+
+  def build_filtered_listings
+    listings = Listing.all
+    listings = listings.by_category(params[:category]) if params[:category].present?
+    listings = listings.by_price_range(
+      min_price: params[:min_price],
+      max_price: params[:max_price]
+    )
+    listings = listings.by_search(params[:q]) if params[:q].present?
+    listings
+  end
 
   def set_listing
     @listing = Listing.find(params[:id])
