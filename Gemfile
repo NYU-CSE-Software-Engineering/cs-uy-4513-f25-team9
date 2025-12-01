@@ -58,6 +58,9 @@ group :development, :test do
   # by Bundler, as Cucumber has its own boot process.
   gem 'cucumber-rails', require: false
 
+  # Code coverage reporting for tests
+  gem 'simplecov', require: false
+
   # Integration/feature testing library
   gem 'capybara'
 
