@@ -90,7 +90,7 @@ RSpec.describe 'Listings filtering', type: :request do
       it 'shows "No listings found" message' do
         get '/listings', params: { category: 'NonExistent' }
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('No listings found in this category.')
+        expect(response.body).to include('No listings found matching your filters.')
       end
 
       it 'does not show any listings' do
@@ -160,7 +160,7 @@ RSpec.describe 'Listings filtering', type: :request do
       it 'shows no listings found in this category for any category filter' do
         get '/listings', params: { category: 'Books' }
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('No listings found in this category.')
+        expect(response.body).to include('No listings found matching your filters.')
       end
     end
   end

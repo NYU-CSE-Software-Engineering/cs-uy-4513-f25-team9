@@ -1,21 +1,34 @@
 <h1>Listings</h1>
 
 <%= form_with url: listings_path, method: :get, local: true do %>
-  <div class="field">
-    <%= label_tag :category, "Category" %>
-    <%= select_tag :category,
-        options_for_select([["All Categories", ""]] + (@categories || []).map { |c| [c, c] }, params[:category]),
-        include_blank: false %>
+  <div class="filters">
+    <div class="field">
+      <%= label_tag :category, "Category" %>
+      <%= select_tag :category,
+          options_for_select([["All Categories", ""]] + (@categories || []).map { |c| [c, c] }, params[:category]),
+          include_blank: false %>
+    </div>
+
+    <div class="field">
+      <%= label_tag :min_price, "Min Price ($)" %>
+      <%= number_field_tag :min_price, params[:min_price], step: 0.01, placeholder: "0.00" %>
+    </div>
+
+    <div class="field">
+      <%= label_tag :max_price, "Max Price ($)" %>
+      <%= number_field_tag :max_price, params[:max_price], step: 0.01, placeholder: "No limit" %>
+    </div>
+
     <%= submit_tag "Filter", class: "btn" %>
-    <% if params[:category].present? %>
+    <% if params[:category].present? || params[:min_price].present? || params[:max_price].present? %>
       <%= link_to "Clear", listings_path, class: "btn-secondary" %>
     <% end %>
   </div>
 <% end %>
 
 <% if @listings.empty? %>
-  <% if params[:category].present? %>
-    <p>No listings found in this category.</p>
+  <% if params[:category].present? || params[:min_price].present? || params[:max_price].present? %>
+    <p>No listings found matching your filters.</p>
   <% else %>
     <p>No listings available.</p>
   <% end %>
