@@ -33,9 +33,6 @@
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 
-# Ignore TDD assignment instruction files
-INSTRUCTIONS_*.txt
-PERSON_*.txt
-MASTER_*.txt
-
+# Ignore personal JetBrains IDE settings
 .idea/
+
