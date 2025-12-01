@@ -45,10 +45,11 @@ jobs:
           bundler-cache: true # This automatically runs 'bundle install' and caches your gems
 
       # Set up the database
-      # Run migrations and seed data (db already exists from service container)
+      # Drop, create, and load schema 
       - name: Set up database
         run: |
-          bin/rails db:migrate
+          bin/rails db:drop db:create
+          bin/rails db:schema:load
           bin/rails db:seed
 
       # Run RSpec
