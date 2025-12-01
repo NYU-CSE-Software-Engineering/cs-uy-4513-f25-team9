@@ -22,15 +22,12 @@ class Listing < ApplicationRecord
           query: "%#{query.downcase}%")
   }
 
-  # Sort by various fields
+  # Sort by various fields with sensible defaults
   scope :by_sort, lambda { |sort|
     case sort
-    when 'price_asc'
-      order(price: :asc)
-    when 'price_desc'
-      order(price: :desc)
-    else
-      order(created_at: :desc)  # Default to newest
+    when 'price_asc' then order(price: :asc)
+    when 'price_desc' then order(price: :desc)
+    else order(created_at: :desc)  # Default to newest
     end
   }
 
