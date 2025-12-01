@@ -3,7 +3,26 @@
 <p>Listing: <%= @conversation.listing.title %></p>
 <p>Between: <%= @conversation.buyer.email %> and <%= @conversation.seller.email %></p>
 
-<!-- To be added soon -->
+<h1>Conversation</h1>
+
+<p>Listing: <%= @conversation.listing.title %></p>
+<p>Between: <%= @conversation.buyer.email %> and <%= @conversation.seller.email %></p>
+
 <div id="messages">
-  <p>No messages yet. Start the conversation!</p>
+  <% @conversation.messages.each do |message| %>
+    <div class="message">
+      <strong><%= message.user.email %>:</strong>
+      <%= message.content %>
+    </div>
+  <% end %>
 </div>
+
+<%= form_with model: [@conversation, Message.new], local: true do |form| %>
+  <div>
+    <%= form.label :content, "Your message:" %>
+    <%= form.text_area :content, rows: 3 %>
+  </div>
+  <div>
+    <%= form.submit "Send Message" %>
+  </div>
+<% end %>
