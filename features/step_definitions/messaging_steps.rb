@@ -1,31 +1,37 @@
-Given("I am logged in as a buyer") do
-  pending "Step implementation to be driven by TDD"
-end
-
 Given("I am viewing a product listing from another user") do
-  pending "Step implementation to be driven by TDD"
+  @seller = User.create!(email: "seller@example.com", password: "password123")
+  @listing = Listing.create!(title: "Test Camera", description: "Great condition", price: 100, user: @seller)
+  visit listing_path(@listing)
 end
 
 Given("I am on the message composition page for a product") do
-  pending "Step implementation to be driven by TDD"
+  @seller = User.create!(email: "seller@example.com", password: "password123")
+  @listing = Listing.create!(title: "Test Item", description: "Test description", price: 50, user: @seller)
+  visit new_listing_conversation_path(listing_id: @listing.id)
 end
 
 When("I click {string}") do |button_text|
-  pending "Step implementation to be driven by TDD"
+  # Try link first, then button
+  if page.has_link?(button_text)
+    click_link button_text
+  else
+    click_button button_text
+  end
 end
 
 When("I fill in the message with {string}") do |message_content|
-  pending "Step implementation to be driven by TDD"
+  fill_in "Your message:", with: message_content
 end
 
 When("I click {string} without entering any text") do |button_text|
-  pending "Step implementation to be driven by TDD"
-end
-
-Then("I should see {string}") do |expected_text|
-  pending "Step implementation to be driven by TDD"
+  click_button button_text
 end
 
 Then("I should see an error message {string}") do |error_message|
-  pending "Step implementation to be driven by TDD"
+  expect(page).to have_content(error_message)
+end
+
+Then("the message should be saved in the conversation") do
+  expect(Message.last.content).to eq("Is this item still available?")
+  expect(Message.last.conversation).to eq(Conversation.last)
 end

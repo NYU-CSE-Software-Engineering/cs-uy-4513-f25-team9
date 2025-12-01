@@ -3,11 +3,6 @@
 <p>Listing: <%= @conversation.listing.title %></p>
 <p>Between: <%= @conversation.buyer.email %> and <%= @conversation.seller.email %></p>
 
-<h1>Conversation</h1>
-
-<p>Listing: <%= @conversation.listing.title %></p>
-<p>Between: <%= @conversation.buyer.email %> and <%= @conversation.seller.email %></p>
-
 <div id="messages">
   <% @conversation.messages.each do |message| %>
     <div class="message">

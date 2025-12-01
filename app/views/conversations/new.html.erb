@@ -5,6 +5,10 @@
 
 <%= form_with model: [@listing, @conversation], local: true do |form| %>
   <div>
-    <%= form.submit "Start Conversation" %>
+    <%= form.label :initial_message, "Your message:" %>
+    <%= form.text_area :initial_message, rows: 3 %>
+  </div>
+  <div>
+    <%= form.submit "Send Message" %>
   </div>
 <% end %>
