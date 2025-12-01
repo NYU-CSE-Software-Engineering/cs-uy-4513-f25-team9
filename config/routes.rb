@@ -7,6 +7,11 @@ Rails.application.routes.draw do
 
   resources :listings do
     resources :reports, only: [:new, :create]
+    resources :conversations, only: [:new, :create]
+  end
+
+  resources :conversations, only: [:show] do
+    resources :messages, only: [:create]
   end
 
   get '/login', to: 'sessions#new'

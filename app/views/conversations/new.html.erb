@@ -1,0 +1,14 @@
+<h1>Start Conversation</h1>
+
+<p>About: <%= @listing.title %></p>
+<p>With: <%= @listing.user.email %></p>
+
+<%= form_with model: [@listing, @conversation], local: true do |form| %>
+  <div>
+    <%= form.label :initial_message, "Your message:" %>
+    <%= form.text_area :initial_message, rows: 3 %>
+  </div>
+  <div>
+    <%= form.submit "Send Message" %>
+  </div>
+<% end %>
