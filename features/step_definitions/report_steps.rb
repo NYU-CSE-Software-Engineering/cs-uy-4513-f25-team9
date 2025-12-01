@@ -14,10 +14,6 @@ Given('I am viewing a listing that I believe is fraudulent') do
   visit listing_path(@listing)
 end
 
-When('I click "Report listing"') do
-  click_link "Report listing"
-end
-
 When('I select a reason and submit the report') do
   fill_in "Reason", with: "This looks fraudulent"
   click_button "Submit Report"

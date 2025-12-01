@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_01_004021) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_01_025423) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "conversations", force: :cascade do |t|
+    t.bigint "buyer_id", null: false
+    t.datetime "created_at", null: false
+    t.bigint "listing_id", null: false
+    t.bigint "seller_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_id"], name: "index_conversations_on_buyer_id"
+    t.index ["listing_id"], name: "index_conversations_on_listing_id"
+    t.index ["seller_id"], name: "index_conversations_on_seller_id"
+  end
 
   create_table "listings", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -22,6 +33,17 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_01_004021) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_listings_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.bigint "conversation_id", null: false
+    t.datetime "created_at", null: false
+    t.boolean "read"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "purchases", force: :cascade do |t|
@@ -56,7 +78,12 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_01_004021) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "conversations", "listings"
+  add_foreign_key "conversations", "users", column: "buyer_id"
+  add_foreign_key "conversations", "users", column: "seller_id"
   add_foreign_key "listings", "users"
+  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
   add_foreign_key "purchases", "listings"
   add_foreign_key "purchases", "users", column: "buyer_id"
   add_foreign_key "reports", "listings"
