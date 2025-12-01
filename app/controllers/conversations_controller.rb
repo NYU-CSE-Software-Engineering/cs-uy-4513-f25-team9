@@ -8,13 +8,16 @@ class ConversationsController < ApplicationController
 
   def create
     @listing = Listing.find(params[:listing_id])
-    initial_message = params[:conversation][:initial_message]
+
+    # Check if params[:conversation] exists
+    conversation_params = params[:conversation] || {}
+    initial_message = conversation_params[:initial_message]
 
     # Validate that initial message is present
     if initial_message.blank?
       @conversation = Conversation.new
       flash.now[:alert] = "Message content cannot be empty"
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
       return
     end
 
@@ -31,7 +34,7 @@ class ConversationsController < ApplicationController
       )
       redirect_to @conversation, notice: "Message sent successfully"
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
