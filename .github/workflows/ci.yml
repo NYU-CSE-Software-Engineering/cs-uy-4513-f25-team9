@@ -44,10 +44,11 @@ jobs:
           bundler-cache: true # This automatically runs 'bundle install' and caches your gems
 
       # Set up the database
-      # Create, run all migrations, then seed
+      # Use prepared statements to handle if db exists, then migrate
       - name: Set up database
         run: |
-          bin/rails db:create
+          PGPASSWORD=password psql -h localhost -U rails -d postgres -c "DROP DATABASE IF EXISTS thryft_test;"
+          PGPASSWORD=password psql -h localhost -U rails -d postgres -c "CREATE DATABASE thryft_test;"
           bin/rails db:migrate
           bin/rails db:seed
 
