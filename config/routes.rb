@@ -7,7 +7,10 @@ Rails.application.routes.draw do
 
   resources :listings do
     resources :reports, only: [:new, :create]
+    resources :conversations, only: [:new, :create]
   end
+
+  resources :conversations, only: [:show]
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

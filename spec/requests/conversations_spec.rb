@@ -6,7 +6,7 @@ RSpec.describe "Conversations", type: :request do
   let(:listing) { Listing.create!(title: 'Test Item', description: 'Test', price: 100, user: other_user) }
 
   before do
-    sign_in user
+    post login_path, params: { email: user.email, password: 'password' }
   end
 
   describe "GET /new" do

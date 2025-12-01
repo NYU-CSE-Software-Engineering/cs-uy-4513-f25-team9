@@ -1,0 +1,10 @@
+<h1>Start Conversation</h1>
+
+<p>About: <%= @listing.title %></p>
+<p>With: <%= @listing.user.email %></p>
+
+<%= form_with model: [@listing, @conversation], local: true do |form| %>
+  <div>
+    <%= form.submit "Start Conversation" %>
+  </div>
+<% end %>
