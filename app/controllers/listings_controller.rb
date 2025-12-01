@@ -8,6 +8,10 @@ class ListingsController < ApplicationController
 
     listings = Listing.all
     listings = listings.by_category(params[:category]) if params[:category].present?
+    listings = listings.by_price_range(
+      min_price: params[:min_price],
+      max_price: params[:max_price]
+    )
 
     @listings = listings.order(created_at: :desc)
   end

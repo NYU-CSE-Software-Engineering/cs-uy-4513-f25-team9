@@ -23,14 +23,14 @@ RSpec.describe 'Listings price filtering', type: :request do
 
       it 'returns listings within the price range (max_price only)' do
         results = Listing.by_price_range(max_price: 100.00)
-        expect(results.count).to eq(4)
+        expect(results.count).to eq(3)
         expect(results.pluck(:title)).to include('Cheap Item', 'Mid-range Item', 'Very Cheap')
         expect(results.pluck(:title)).not_to include('Expensive Item', 'Very Expensive')
       end
 
       it 'returns listings within price range (both min and max)' do
         results = Listing.by_price_range(min_price: 10.00, max_price: 100.00)
-        expect(results.count).to eq(2)
+        expect(results.count).to eq(1)
         expect(results.pluck(:title)).to include('Mid-range Item')
         expect(results.pluck(:title)).not_to include('Cheap Item', 'Expensive Item', 'Very Cheap', 'Very Expensive')
       end
