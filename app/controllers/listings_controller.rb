@@ -4,7 +4,12 @@ class ListingsController < ApplicationController
   before_action :authorize_owner, only: [:edit, :update, :destroy]
 
   def index
-    @listings = Listing.all
+    @categories = Listing.available_categories
+
+    listings = Listing.all
+    listings = listings.by_category(params[:category]) if params[:category].present?
+
+    @listings = listings.order(created_at: :desc)
   end
 
   def show
@@ -49,7 +54,7 @@ class ListingsController < ApplicationController
   end
 
   def listing_params
-    params.require(:listing).permit(:title, :description, :price)
+    params.require(:listing).permit(:title, :description, :price, :category)
   end
 
   def authorize_owner

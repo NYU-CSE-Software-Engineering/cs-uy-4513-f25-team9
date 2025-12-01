@@ -1,12 +1,36 @@
-<h1>All Listings</h1>
+<h1>Listings</h1>
 
-<% @listings.each do |listing| %>
-  <div id="listing_<%= listing.id %>">
-    <p><%= listing.title %> - $<%= listing.price %></p>
-    <%= link_to "View", listing_path(listing) %>
-    <% if current_user && listing.user == current_user %>
-      <%= link_to "Edit", edit_listing_path(listing) %>
-      <%= link_to "Delete", listing_path(listing), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+<%= form_with url: listings_path, method: :get, local: true do %>
+  <div class="field">
+    <%= label_tag :category, "Category" %>
+    <%= select_tag :category,
+        options_for_select([["All Categories", ""]] + (@categories || []).map { |c| [c, c] }, params[:category]),
+        include_blank: false %>
+    <%= submit_tag "Filter", class: "btn" %>
+    <% if params[:category].present? %>
+      <%= link_to "Clear", listings_path, class: "btn-secondary" %>
     <% end %>
   </div>
+<% end %>
+
+<% if @listings.empty? %>
+  <% if params[:category].present? %>
+    <p>No listings found in this category.</p>
+  <% else %>
+    <p>No listings available.</p>
+  <% end %>
+<% else %>
+  <% @listings.each do |listing| %>
+    <div id="listing_<%= listing.id %>">
+      <p>
+        <%= link_to listing.title, listing_path(listing) %>
+        - <%= number_to_currency(listing.price) %>
+        <span class="category"><%= listing.category.presence || "Uncategorized" %></span>
+      </p>
+      <% if current_user && listing.user == current_user %>
+        <%= link_to "Edit", edit_listing_path(listing) %>
+        <%= link_to "Delete", listing_path(listing), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
