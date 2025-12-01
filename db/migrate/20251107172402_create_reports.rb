@@ -1,5 +1,5 @@
 module ThryftMigrations
-  class CreateReports < ActiveRecord::Migration[8.1]
+  class CreateReportsMigration < ActiveRecord::Migration[8.1]
     def change
       create_table :reports do |t|
         t.text :reason

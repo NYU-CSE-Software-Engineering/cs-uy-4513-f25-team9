@@ -1,5 +1,5 @@
 module ThryftMigrations
-  class CreateInitialUsers < ActiveRecord::Migration[8.1]
+  class CreateInitialUsersMigration < ActiveRecord::Migration[8.1]
     def change
       create_table :users do |t|
         t.string :email
