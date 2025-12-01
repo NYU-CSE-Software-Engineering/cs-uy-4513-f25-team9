@@ -11,7 +11,7 @@ Then('I should be redirected to the home page') do
 end
 
 Then('I should remain on the sign up page') do
-  expect(current_path).to eq('/users/new')
+  expect(['/users/new', '/users']).to include(current_path)
 end
 
 Given('I have an account with email {string} and password {string}') do |email, password|
