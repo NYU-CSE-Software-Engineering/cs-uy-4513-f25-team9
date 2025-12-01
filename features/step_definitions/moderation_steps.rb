@@ -12,10 +12,18 @@ Given("I am a signed-in Moderator") do
   )
   
   # Simulate login
-  visit login_path
-  fill_in 'Email', with: @moderator.email
-  fill_in 'Password', with: 'password123'
-  click_button 'Log in'
+  # Simulate login via direct POST to avoid driver/session flakiness
+  if page.driver.respond_to?(:submit)
+    page.driver.submit :post, login_path, { email: @moderator.email, password: 'password123' }
+  else
+    visit login_path
+    fill_in 'Email', with: @moderator.email
+    fill_in 'Password', with: 'password123'
+    click_button 'Log in'
+  end
+  # Ensure the session persisted and we are signed in by visiting the users list
+  visit users_path
+  expect(page).to have_content('User List')
 end
 
 # Step: Verify success message
@@ -62,8 +70,9 @@ end
 When("I click the {string} button for User ID {string}") do |button_text, user_id|
   # Visit or refresh the users page to ensure latest data
   visit users_path
-  # Find the row containing the user ID and click the button in that row
-  row = find('tr', text: user_id)
+  # Find the exact table row where the first <td> equals the user_id and click the button in that row
+  xpath = "//tr[td[normalize-space(text())='#{user_id}']]"
+  row = find(:xpath, xpath)
   within(row) do
     click_button button_text
   end
