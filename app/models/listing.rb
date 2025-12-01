@@ -14,6 +14,17 @@ class Listing < ApplicationRecord
     scope
   }
 
+  # Search in title and description (case-insensitive)
+  scope :by_search, ->(query) do
+    if query.present?
+      where('LOWER(title) ILIKE ? OR LOWER(description) ILIKE ?',
+            "%#{query.downcase}%",
+            "%#{query.downcase}%")
+    else
+      all
+    end
+  end
+
   # Fetch available categories from database (distinct and sorted)
   def self.available_categories
     distinct.order(:category).pluck(:category).compact

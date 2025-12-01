@@ -3,6 +3,11 @@
 <%= form_with url: listings_path, method: :get, local: true do %>
   <div class="filters">
     <div class="field">
+      <%= label_tag :q, "Search" %>
+      <%= text_field_tag :q, params[:q], placeholder: "Search by title or description" %>
+    </div>
+
+    <div class="field">
       <%= label_tag :category, "Category" %>
       <%= select_tag :category,
           options_for_select([["All Categories", ""]] + (@categories || []).map { |c| [c, c] }, params[:category]),
@@ -20,14 +25,14 @@
     </div>
 
     <%= submit_tag "Filter", class: "btn" %>
-    <% if params[:category].present? || params[:min_price].present? || params[:max_price].present? %>
+    <% if params[:q].present? || params[:category].present? || params[:min_price].present? || params[:max_price].present? %>
       <%= link_to "Clear", listings_path, class: "btn-secondary" %>
     <% end %>
   </div>
 <% end %>
 
 <% if @listings.empty? %>
-  <% if params[:category].present? || params[:min_price].present? || params[:max_price].present? %>
+  <% if params[:q].present? || params[:category].present? || params[:min_price].present? || params[:max_price].present? %>
     <p>No listings found matching your filters.</p>
   <% else %>
     <p>No listings available.</p>

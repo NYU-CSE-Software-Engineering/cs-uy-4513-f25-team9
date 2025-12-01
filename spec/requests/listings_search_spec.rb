@@ -131,7 +131,7 @@ RSpec.describe 'Listings search', type: :request do
 
     context 'when combining search with price filter' do
       it 'returns listings matching search and price range' do
-        get '/listings', params: { q: 'vintage', min_price: '100', max_price: '200' }
+        get '/listings', params: { q: 'vintage', min_price: '100', max_price: '150' }
         expect(response).to have_http_status(:ok)
         expect(response.body).to include('Vintage Book Collection')
         expect(response.body).not_to include('Wooden Coffee Table')

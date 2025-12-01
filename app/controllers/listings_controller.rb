@@ -12,6 +12,7 @@ class ListingsController < ApplicationController
       min_price: params[:min_price],
       max_price: params[:max_price]
     )
+    listings = listings.by_search(params[:q]) if params[:q].present?
 
     @listings = listings.order(created_at: :desc)
   end
