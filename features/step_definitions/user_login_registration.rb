@@ -14,8 +14,14 @@ When('I fill in "Password confirmation" with {string}') do |value|
   fill_in 'Password confirmation', with: value
 end
 
-When('I click the auth button {string}') do |button|
-  click_button button
+When('I click the auth button {string}') do |text|
+  if page.has_button?(text)
+    click_button text
+  elsif page.has_link?(text)
+    click_link text
+  else
+    raise "No button or link found for '#{text}'"
+  end
 end
 
 Then('I should be redirected to the home page') do
@@ -43,9 +49,7 @@ Then('I should remain on the sign in page') do
   expect(current_path).to eq('/login')
 end
 
-Given('I am logged in as a user with email {string}') do |email|
-  password = "password123"
-
+Given('I am logged in as a user with email {string} and password {string}') do |email, password|
   User.where(email: email).destroy_all
   User.create!(email: email, password: password)
 
@@ -53,4 +57,7 @@ Given('I am logged in as a user with email {string}') do |email|
   fill_in 'Email', with: email
   fill_in 'Password', with: password
   click_button 'Log in'
+
+  puts "DEBUG CURRENT PATH = #{current_path}"   # <--- ADD THIS
+  puts page.body      
 end

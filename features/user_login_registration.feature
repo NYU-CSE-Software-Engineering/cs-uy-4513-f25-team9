@@ -39,7 +39,7 @@ Feature: User Login and Registration
     And I should see "Invalid email or password"
 
   Scenario: Logout
-    Given I am logged in as a user with email "user@example.com"
+    Given I am logged in as a user with email "user@example.com" and password "SecurePassword123"
     When I click the auth button "Log out"
     Then I should be redirected to the home page
     And I should see "Logged out"

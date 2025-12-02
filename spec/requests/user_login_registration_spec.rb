@@ -43,3 +43,31 @@ RSpec.describe "Logout link in layout", type: :request do
     end
   end
 end
+
+
+RSpec.describe SessionsController, type: :controller do
+  describe "DELETE #destroy" do
+    let(:user) { User.create!(email: "test@example.com", password: "password123") }
+
+    before do
+      # simulate login
+      session[:user_id] = user.id
+    end
+
+    it "clears the session" do
+      delete :destroy
+      expect(session[:user_id]).to be_nil
+    end
+
+    it "redirects to the home page" do
+      delete :destroy
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "sets a Logged out notice" do
+      delete :destroy
+      expect(flash[:notice]).to eq("Logged out")
+    end
+  end
+end
+
