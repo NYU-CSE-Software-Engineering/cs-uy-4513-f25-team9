@@ -15,6 +15,7 @@ Then('I should remain on the sign up page') do
 end
 
 Given('I have an account with email {string} and password {string}') do |email, password|
+  User.where(email: email).destroy_all
   @user = User.create!(email: email, password: password)
 end
 
@@ -31,7 +32,7 @@ Then('I should remain on the sign in page') do
 end
 
 Given('I am logged in as a user with email {string}') do |email|
-
+  User.where(email: email).destroy_all
   @user = User.create!(email: email, password: 'password123')
   allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 end
