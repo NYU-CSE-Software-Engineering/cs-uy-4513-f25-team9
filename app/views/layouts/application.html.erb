@@ -24,11 +24,20 @@
   </head>
 
   <body>
+    <nav>
+      <% if current_user %>
+        <%= link_to 'Log out', logout_path, method: :delete %>
+      <% else %>
+        <%= link_to 'Log in', login_path %>
+      <% end %>
+    </nav>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <% if flash[:error] %>
       <p class="error"><%= flash[:error] %></p>
     <% end %>
+
     <%= yield %>
   </body>
 </html>
