@@ -20,7 +20,7 @@ RSpec.describe "User Sign Up (mismatch)", type: :request do
           post '/users', params: { user: { email: 'mismatch@example.com', password: 'password123', password_confirmation: 'different' } }
         }.not_to change(User, :count)
 
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(CGI.unescapeHTML(response.body)).to include("Password confirmation doesn't match Password.")
 
         actual_path = response.request.fullpath
