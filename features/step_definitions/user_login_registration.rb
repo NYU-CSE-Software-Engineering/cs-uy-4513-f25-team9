@@ -2,8 +2,20 @@ Given('I am on the sign up page') do
   visit '/users/new'
 end
 
-When('I fill in {string} with {string}') do |field, value|
-  fill_in field, with: value
+When('I fill in "Email" with {string}') do |value|
+  fill_in 'Email', with: value
+end
+
+When('I fill in "Password" with {string}') do |value|
+  fill_in 'Password', with: value
+end
+
+When('I fill in "Password confirmation" with {string}') do |value|
+  fill_in 'Password confirmation', with: value
+end
+
+When('I click the auth button {string}') do |button|
+  click_button button
 end
 
 Then('I should be redirected to the home page') do
@@ -32,7 +44,13 @@ Then('I should remain on the sign in page') do
 end
 
 Given('I am logged in as a user with email {string}') do |email|
+  password = "password123"
+
   User.where(email: email).destroy_all
-  @user = User.create!(email: email, password: 'password123')
-  allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+  User.create!(email: email, password: password)
+
+  visit '/login'
+  fill_in 'Email', with: email
+  fill_in 'Password', with: password
+  click_button 'Log in'
 end
