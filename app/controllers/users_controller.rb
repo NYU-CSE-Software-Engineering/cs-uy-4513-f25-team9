@@ -16,7 +16,8 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to root_path, notice: "Welcome! You have signed up successfully."
     else
-      render :new
+      flash.now[:alert] = @user.errors.full_messages.to_sentence
+      render :new, status: :unprocessable_entity
     end
   end
 
