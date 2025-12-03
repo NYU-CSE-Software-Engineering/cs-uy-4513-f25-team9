@@ -32,5 +32,5 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   # Purchase history
-  get '/purchases', to: 'purchases#index'
+  get '/purchases', to: 'purchases#index', as: 'purchases'
 end
