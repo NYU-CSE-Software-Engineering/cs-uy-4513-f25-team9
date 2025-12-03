@@ -1,4 +1,4 @@
-module ThryftMigrations
+# module ThryftMigrations
   class CreateConversationsMigration < ActiveRecord::Migration[8.1]
     def change
       create_table :conversations do |t|
@@ -10,4 +10,4 @@ module ThryftMigrations
       end
     end
   end
-end
+# end

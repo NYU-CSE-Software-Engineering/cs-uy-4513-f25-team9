@@ -1,4 +1,4 @@
-module ThryftMigrations
+# module ThryftMigrations
   class CreateListingsMigration < ActiveRecord::Migration[8.1]
     def change
       create_table :listings do |t|
@@ -11,4 +11,4 @@ module ThryftMigrations
       end
     end
   end
-end
+# end

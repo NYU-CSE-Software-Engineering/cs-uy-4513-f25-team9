@@ -15,3 +15,22 @@ Feature: Buyer views purchase history
     Given I am logged in as a new buyer with no purchases
     When I visit "My Purchases"
     Then I should see "No purchases yet"
+
+  # Security
+  Scenario: Unauthenticated user cannot access purchase history
+    Given I am not logged in
+    When I visit "My Purchases"
+    Then I should be redirected to the login page
+
+  # Edge cases
+  Scenario: Purchase with deleted listing
+    Given I am logged in as a buyer with a purchase of a deleted listing
+    When I visit "My Purchases"
+    Then I should see the purchase in my history
+    And I should see "Listing no longer available" for that purchase
+
+  Scenario: Multiple purchases on the same day
+    Given I am logged in as a buyer with multiple purchases on the same day
+    When I visit "My Purchases"
+    Then I should see all purchases from that day
+    And they should be ordered by creation time
