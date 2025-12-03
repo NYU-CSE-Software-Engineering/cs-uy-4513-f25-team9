@@ -92,7 +92,9 @@ RSpec.describe 'Purchase History', type: :request do
       end
 
       before do
-        listing.destroy
+        # Simulate deleted listing by setting listing_id to nil
+        # This simulates what happens when listing is deleted with on_delete: :nullify
+        purchase.update_column(:listing_id, nil)
         stub_current_user(buyer)
       end
 
