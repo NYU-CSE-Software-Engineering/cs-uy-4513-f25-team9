@@ -76,3 +76,84 @@ end
 Then('I should see {string}') do |text|
   expect(page).to have_content(text)
 end
+
+# Note: "I am not logged in" and "I should be redirected to the login page" 
+# are defined in report_steps.rb to avoid ambiguity
+# These steps are removed from here to prevent duplicate step definitions
+
+Given('I am logged in as a buyer with a purchase of a deleted listing') do
+  @buyer = User.create!(email: 'buyer@example.com', password: 'password123')
+  @seller = User.create!(email: 'seller@example.com', password: 'password123')
+  
+  @listing = Listing.create!(
+    title: 'Deleted Item',
+    price: 50.00,
+    user: @seller
+  )
+  
+  @purchase = Purchase.create!(
+    buyer: @buyer,
+    listing: @listing,
+    price: 50.00,
+    purchased_at: 1.day.ago
+  )
+  
+  # Simulate deleted listing by setting listing_id to nil
+  # This simulates what happens when listing is deleted with on_delete: :nullify
+  # In real scenario, the migration would handle this automatically
+  @purchase.update_column(:listing_id, nil)
+  
+  allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@buyer)
+end
+
+Then('I should see the purchase in my history') do
+  expect(page.status_code).to eq(200)
+  expect(page).to have_content('50.00')
+end
+
+Then('I should see {string} for that purchase') do |text|
+  expect(page).to have_content(text)
+end
+
+Given('I am logged in as a buyer with multiple purchases on the same day') do
+  @buyer = User.create!(email: 'buyer@example.com', password: 'password123')
+  @seller = User.create!(email: 'seller@example.com', password: 'password123')
+  
+  same_day = 2.days.ago.beginning_of_day
+  
+  @first_purchase = Purchase.create!(
+    buyer: @buyer,
+    listing: Listing.create!(title: 'First Item', price: 10.00, user: @seller),
+    price: 10.00,
+    purchased_at: same_day + 2.hours
+  )
+  
+  @second_purchase = Purchase.create!(
+    buyer: @buyer,
+    listing: Listing.create!(title: 'Second Item', price: 20.00, user: @seller),
+    price: 20.00,
+    purchased_at: same_day + 4.hours
+  )
+  
+  @third_purchase = Purchase.create!(
+    buyer: @buyer,
+    listing: Listing.create!(title: 'Third Item', price: 30.00, user: @seller),
+    price: 30.00,
+    purchased_at: same_day + 6.hours
+  )
+  
+  allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@buyer)
+end
+
+Then('I should see all purchases from that day') do
+  expect(page).to have_content('First Item')
+  expect(page).to have_content('Second Item')
+  expect(page).to have_content('Third Item')
+end
+
+Then('they should be ordered by creation time') do
+  body = page.body
+  # Third should appear first (most recent), then second, then first
+  expect(body.index('Third Item')).to be < body.index('Second Item')
+  expect(body.index('Second Item')).to be < body.index('First Item')
+end
