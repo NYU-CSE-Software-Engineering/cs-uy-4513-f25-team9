@@ -115,17 +115,17 @@
           null,
           null,
           1,
-          2,
+          18,
           null,
           null,
           null,
           1,
-          0,
+          16,
           null,
           null,
           null,
           1,
-          0,
+          16,
           null
         ]
       },
@@ -148,7 +148,7 @@
           1,
           null,
           1,
-          415,
+          451,
           null,
           null,
           1,
@@ -203,12 +203,12 @@
           1,
           null,
           1,
-          244,
+          245,
           null,
           null,
           1,
-          15,
-          1,
+          25,
+          2,
           null,
           null,
           null
@@ -399,6 +399,17 @@
           null
         ]
       },
+      "/Users/wangpengcheng/Desktop/4513/cs-uy-4513-f25-team9/app/controllers/purchases_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          9,
+          null,
+          null,
+          null
+        ]
+      },
       "/Users/wangpengcheng/Desktop/4513/cs-uy-4513-f25-team9/app/controllers/users_controller.rb": {
         "lines": [
           1,
@@ -462,19 +473,6 @@
           null
         ]
       },
-      "/Users/wangpengcheng/Desktop/4513/cs-uy-4513-f25-team9/app/controllers/purchases_controller.rb": {
-        "lines": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {}
-      },
       "/Users/wangpengcheng/Desktop/4513/cs-uy-4513-f25-team9/app/jobs/application_job.rb": {
         "lines": [
           0,
@@ -497,6 +495,6 @@
         "branches": {}
       }
     },
-    "timestamp": 1764772339
+    "timestamp": 1764773105
   }
 }

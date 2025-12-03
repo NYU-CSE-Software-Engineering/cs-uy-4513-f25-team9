@@ -159,4 +159,4 @@ RSpec.describe 'Purchase History', type: :request do
       end
     end
   end
-ends
+end
