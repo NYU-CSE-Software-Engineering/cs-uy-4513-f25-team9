@@ -36,4 +36,8 @@ Rails.application.routes.draw do
 
   # Purchase history
   get '/purchases', to: 'purchases#index'
+
+  # Moderations
+  get '/moderations/reported_listings', to: 'moderations#reported_listings', as: :reported_listings
+  delete '/moderations/listings/:id', to: 'moderations#destroy', as: :moderations_listing
 end
