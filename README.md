@@ -60,6 +60,7 @@ rails generate rails_icons:install --libraries=heroicons
 ```
 
 ## How to Run the Project
+Run the script `bin/dev`
 ```
 bin/dev
 ```
