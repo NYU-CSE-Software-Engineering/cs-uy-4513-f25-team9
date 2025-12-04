@@ -212,14 +212,6 @@ Then("the listing with ID {string} should be deleted from the database") do |lis
   expect(Listing.find_by(id: listing_id)).to be_nil
 end
 
-When("I submit a delete request for listing ID {string} \(non-existent)") do |listing_id|
+When('I submit a delete request for listing ID {string} \(non-existent)') do |listing_id|
   page.driver.submit :delete, "/moderations/listings/#{listing_id}", {}
-end
-
-Then("I should see {string}") do |text|
-  expect(page).to have_content(text)
-end
-
-Then("I should be redirected to the home page") do
-  expect(page.current_path).to eq(root_path)
 end

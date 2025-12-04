@@ -24,21 +24,39 @@
   </head>
 
   <body>
-    <nav>
-      <% if current_user %>
-        <%= link_to 'Log out', logout_path, method: :delete %>
-      <% else %>
-        <%= link_to 'Log in', login_path %> |
-        <%= link_to 'Sign Up', new_user_path %>
-      <% end %>
+    <nav class="main-navigation">
+      <div class="nav-container">
+        <div class="nav-brand">
+          <%= link_to 'Thryft', root_path, class: 'brand-link' %>
+        </div>
+        <div class="nav-links">
+          <% if current_user %>
+            <%= link_to 'Listings', listings_path, class: 'nav-link' %>
+            <%= link_to 'My Purchases', purchases_path, class: 'nav-link' %>
+            <% if current_user.moderator? %>
+              <%= link_to 'User Management', users_path, class: 'nav-link moderator-link' %>
+              <%= link_to 'Reported Listings', reported_listings_path, class: 'nav-link moderator-link' %>
+            <% end %>
+            <%= button_to 'Log out', logout_path, method: :delete, class: 'nav-link logout-btn', form: { class: 'logout-form' } %>
+          <% else %>
+            <%= link_to 'Log in', login_path, class: 'nav-link' %>
+          <% end %>
+        </div>
+      </div>
     </nav>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <% if flash[:error] %>
-      <p class="error"><%= flash[:error] %></p>
+    <% if notice.present? %>
+      <p class="notice"><%= notice %></p >
+    <% end %>
+    <% if alert.present? %>
+      <p class="alert"><%= alert %></p >
+    <% end %>
+    <% if flash[:error].present? %>
+      <p class="error"><%= flash[:error] %></p >
     <% end %>
 
-    <%= yield %>
+    <div class="main-content">
+      <%= yield %>
+    </div>
   </body>
 </html>
