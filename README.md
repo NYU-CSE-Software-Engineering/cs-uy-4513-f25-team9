@@ -50,6 +50,18 @@ Windows:
 Run this when setting up the project for the first time:
 ```
 rails db:setup
+rails db:migrate
+```
+
+**Required Gem Setup**
+```
+rails dartsass:install
+rails generate rails_icons:install --libraries=heroicons
+```
+
+## How to Run the Project
+```
+bin/dev
 ```
 
 ## How to run the test suite
