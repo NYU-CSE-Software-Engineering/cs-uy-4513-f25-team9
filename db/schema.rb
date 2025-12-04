@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_01_185125) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_02_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,6 +23,17 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_01_185125) do
     t.index ["buyer_id"], name: "index_conversations_on_buyer_id"
     t.index ["listing_id"], name: "index_conversations_on_listing_id"
     t.index ["seller_id"], name: "index_conversations_on_seller_id"
+  end
+
+  create_table "interests", force: :cascade do |t|
+    t.bigint "buyer_id", null: false
+    t.datetime "created_at", null: false
+    t.bigint "listing_id", null: false
+    t.string "state", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_id", "listing_id"], name: "index_interests_on_buyer_id_and_listing_id", unique: true
+    t.index ["buyer_id"], name: "index_interests_on_buyer_id"
+    t.index ["listing_id"], name: "index_interests_on_listing_id"
   end
 
   create_table "listings", force: :cascade do |t|
@@ -83,6 +94,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_01_185125) do
   add_foreign_key "conversations", "listings"
   add_foreign_key "conversations", "users", column: "buyer_id"
   add_foreign_key "conversations", "users", column: "seller_id"
+  add_foreign_key "interests", "listings"
+  add_foreign_key "interests", "users", column: "buyer_id"
   add_foreign_key "listings", "users"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"

@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   def require_login
     unless current_user
-      redirect_to login_path, notice: "Please sign in to report listings"
+      redirect_to login_path, notice: "Please sign in"
     end
   end
 end
