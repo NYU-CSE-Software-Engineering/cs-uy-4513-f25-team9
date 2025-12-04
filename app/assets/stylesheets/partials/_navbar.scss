@@ -1,0 +1,112 @@
+.navbar-vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    width: 80px;
+    padding: 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
+    z-index: 1000;
+    
+    .navbar-top {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+
+        .navbar-logo {
+            background-color: #e6e6e6;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            width: 64px;
+            height: 64px;
+            
+            .logo-text {
+                color: #333;
+                font-size: 1rem;
+                font-weight: 400;
+            }
+        }
+    }
+    
+    .navbar-center {
+        
+        .navbar-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+            
+            li {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                
+                .nav-link {
+                    text-decoration: none;
+                    color: #333;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    //   padding: 15px;
+                    background-color: #e6e6e6;
+                    border-radius: 16px;
+                    transition: background-color 0.2s;
+                    width: 64px;
+                    height: 64px;
+                    
+                    .nav-icon {
+                        width: 40px;
+                        height: 40px;
+                        stroke: #333;
+                    }
+                    
+                    &:hover {
+                        background-color: #a7333f;
+                        
+                        .nav-icon {
+                            stroke: #fff;
+                        }
+                    }
+
+                    &.active {
+                        background-color: #a7333f;
+                        
+                        .nav-icon {
+                            stroke: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    .navbar-bottom {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        
+        .profile-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #e6e6e6;
+            
+        }
+    }
+}
+
+// Adjust main content to not be hidden behind navbar
+body {
+    padding-left: 80px;
+}
