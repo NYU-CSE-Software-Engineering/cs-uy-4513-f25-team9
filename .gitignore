@@ -40,3 +40,5 @@
 /app/assets/svg/*
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+/coverage/*
