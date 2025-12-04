@@ -12,7 +12,7 @@ RSpec.describe 'Feed', type: :request do
     it 'requires login' do
       get '/feed'
       expect(response).to redirect_to(login_path)
-      expect(response.body).to include('Please sign in')
+      expect(flash[:notice]).to include('Please sign in')
     end
 
     it 'shows the next unswiped listing' do
