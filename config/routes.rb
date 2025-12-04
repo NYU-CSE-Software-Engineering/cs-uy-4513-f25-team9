@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   
   resources :users, only: [:index, :destroy, :new, :create]
   
-  root "feed#index"
+  root "listings#index"
 
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
