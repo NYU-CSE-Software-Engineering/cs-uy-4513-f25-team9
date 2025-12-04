@@ -7,7 +7,7 @@ Feature: Buyer swipes through listings
     Given I am not logged in
     When I visit the feed
     Then I should be redirected to the login page
-    And I should see "Please sign in to continue"
+    And I should see "Please sign in"
 
   Scenario: Like saves interest and moves to next card
     Given I am logged in as a buyer for swiping

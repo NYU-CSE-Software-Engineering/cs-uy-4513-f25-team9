@@ -13,11 +13,5 @@ class FeedController < ApplicationController
     listings = listings.excluding_ids(swiped_ids)
 
     @listing = listings.order(created_at: :desc).first
-
-    if @listing
-      render plain: @listing.title
-    else
-      render plain: "You're all caught up"
-    end
   end
 end

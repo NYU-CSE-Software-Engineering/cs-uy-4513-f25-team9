@@ -51,7 +51,3 @@ Then('I should see the next listing on the feed') do
   titles = [@first_listing, @second_listing].compact.map(&:title)
   expect(titles.any? { |title| page.has_content?(title) }).to be true
 end
-
-Then('I should be redirected to the login page') do
-  expect(page).to have_current_path(login_path)
-end
