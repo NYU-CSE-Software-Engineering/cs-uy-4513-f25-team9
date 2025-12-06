@@ -1,15 +1,31 @@
-<h1>Login</h1>
 
-<%= form_with url: login_path do |f| %>
-  <div>
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-
-  <div>
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
-  </div>
-
-  <%= f.submit "Log in" %>
-<% end %>
+<div class="login-container">
+  <div class="login-box">
+    <h1>Login</h1>
+    <% if flash[:alert] %>
+      <div style="color: #e53e3e; background: #fff5f5; border: 1px solid #feb2b2; border-radius: 8px; padding: 0.75rem; margin-bottom: 1rem; width: 100%; text-align: center; font-weight: 500;">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+    <% if flash[:error] %>
+      <div style="color: #e53e3e; background: #fff5f5; border: 1px solid #feb2b2; border-radius: 8px; padding: 0.75rem; margin-bottom: 1rem; width: 100%; text-align: center; font-weight: 500;">
+        <%= flash[:error] %>
+      </div>
+    <% end %>
+    <%= form_with url: login_path, scope: nil do |f| %>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field :email, autocomplete: "email" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "current-password" %>
+      </div>
+      <%= f.submit "Log in" %>
+    <% end %>
+      <div style="margin-top: 1.5rem; width: 100%; text-align: center;">
+        <span style="color: #a0aec0; font-size: 0.95rem;">or</span>
+      </div>
+      <%= link_to 'Sign Up', new_user_path, class: 'btn', style: 'margin-top: 0.5rem; width: 100%; background: #e2e8f0; color: #2563eb; border-radius: 8px; font-weight: 600; padding: 0.75rem; display: inline-block; text-align: center; text-decoration: none; transition: background 0.2s;' %>
+    </div>
+</div>
