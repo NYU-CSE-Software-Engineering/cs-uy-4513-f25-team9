@@ -69,7 +69,44 @@
 }
 
 .login-box input[type="submit"]:hover,
-.lo gin-box button:hover,
+.login-box button:hover,
 .login-box .btn:hover {
   background: #2563eb;
+}
+
+/* Global flash styling so layout flashes match login/signup visuals */
+#global-flash {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 1rem auto;
+  padding: 0 1rem;
+}
+
+#global-flash .flash {
+  width: 100%;
+  max-width: 350px;
+  border-radius: 8px;
+  padding: 0.75rem;
+  text-align: center;
+  font-weight: 600;
+  box-sizing: border-box;
+}
+
+#global-flash .flash-notice {
+  color: #1e293b;
+  background: #e6f2ff;
+  border: 1px solid #bbdefb;
+}
+
+#global-flash .flash-alert,
+#global-flash .flash-error {
+  color: #e53e3e;
+  background: #fff5f5;
+  border: 1px solid #feb2b2;
+}
+
+/* Make the global flash sit visually close to the login box on those pages */
+body.sessions.new #global-flash,
+body.users.new #global-flash {
+  margin-top: 0.5rem;
 }

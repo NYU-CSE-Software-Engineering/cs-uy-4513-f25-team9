@@ -2,16 +2,8 @@
 <div class="login-container">
   <div class="login-box">
     <h1>Login</h1>
-    <% if flash[:alert] %>
-      <div style="color: #e53e3e; background: #fff5f5; border: 1px solid #feb2b2; border-radius: 8px; padding: 0.75rem; margin-bottom: 1rem; width: 100%; text-align: center; font-weight: 500;">
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
-    <% if flash[:error] %>
-      <div style="color: #e53e3e; background: #fff5f5; border: 1px solid #feb2b2; border-radius: 8px; padding: 0.75rem; margin-bottom: 1rem; width: 100%; text-align: center; font-weight: 500;">
-        <%= flash[:error] %>
-      </div>
-    <% end %>
+    <%= render 'layouts/global_flash' %>
+    <!-- flash messages are handled globally in the layout to keep tests stable -->
     <%= form_with url: login_path, scope: nil do |f| %>
       <div class="form-group">
         <%= f.label :email %>

@@ -2,15 +2,9 @@
 <div class="login-container">
   <div class="login-box">
     <h1>Sign Up</h1>
-    <% if @user && @user.errors.any? %>
-      <div style="color: #e53e3e; background: #fff5f5; border: 1px solid #feb2b2; border-radius: 8px; padding: 0.75rem; margin-bottom: 1rem; width: 100%; text-align: center; font-weight: 500;">
-        <ul style="list-style: none; padding: 0; margin: 0;">
-          <% @user.errors.full_messages.each do |msg| %>
-            <li><%= msg.ends_with?(".") ? msg : "#{msg}." %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+    <%# global flash is rendered by the layout for this page, but we want it inside the box %>
+    <%= render 'layouts/global_flash' %>
+    <!-- Only global flash is rendered for errors; no duplicate model error block -->
     <%= form_with model: @user, url: users_path, local: true do |f| %>
       <div class="form-group">
         <%= f.label :email %>

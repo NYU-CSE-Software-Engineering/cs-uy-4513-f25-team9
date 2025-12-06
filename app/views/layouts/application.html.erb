@@ -23,17 +23,15 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="<%= controller.controller_name %> <%= controller.action_name %>">
     <%= render "partials/navbar" %>
 
     <% if current_user %>
       <%= link_to 'Log out', logout_path, method: :delete %>
     <% end %>
     
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <% if flash[:error] %>
-      <p class="error"><%= flash[:error] %></p>
+    <% unless ["sessions", "users"].include?(controller.controller_name) && ["new"].include?(controller.action_name) %>
+      <%= render 'layouts/global_flash' %>
     <% end %>
 
     <%= yield %>
