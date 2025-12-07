@@ -24,7 +24,13 @@ Rails.application.routes.draw do
   
   resources :users, only: [:index, :destroy, :new, :create]
   
-  root "listings#index"
+
+  # Show login page as root for unauthenticated users, listings#index for logged-in users
+  authenticated = lambda { |req| req.session[:user_id].present? }
+  constraints authenticated do
+    root to: "listings#index", as: :authenticated_root
+  end
+  root to: "sessions#new"
 
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
