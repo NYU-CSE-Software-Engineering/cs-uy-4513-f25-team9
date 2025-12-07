@@ -40,19 +40,17 @@
             <%= button_to 'Log out', logout_path, method: :delete, class: 'nav-link logout-btn', form: { class: 'logout-form' } %>
           <% else %>
             <%= link_to 'Log in', login_path, class: 'nav-link' %>
+            <%= link_to 'Sign Up', new_user_path %>
           <% end %>
+          
         </div>
       </div>
     </nav>
 
-    <% if notice.present? %>
-      <p class="notice"><%= notice %></p >
-    <% end %>
-    <% if alert.present? %>
-      <p class="alert"><%= alert %></p >
-    <% end %>
-    <% if flash[:error].present? %>
-      <p class="error"><%= flash[:error] %></p >
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <% if flash[:error] %>
+      <p class="error"><%= flash[:error] %></p> 
     <% end %>
 
     <div class="main-content">
