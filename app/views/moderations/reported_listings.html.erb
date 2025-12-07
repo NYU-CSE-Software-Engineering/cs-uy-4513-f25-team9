@@ -1,0 +1,47 @@
+<div class="reported-listings-container">
+  <h1>Reported Listings</h1>
+
+  <% if @reported_listings.empty? %>
+    <p class="empty-message">No reported listings pending review.</p>
+  <% else %>
+    <div class="listings-table-container">
+      <table class="listings-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Seller</th>
+            <th>Price</th>
+            <th>Report Reasons</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @reported_listings.each do |listing| %>
+            <tr class="listing-row">
+              <td class="listing-id"><%= listing.id %></td>
+              <td class="listing-title"><%= listing.title %></td>
+              <td class="listing-seller"><%= listing.user.email %></td>
+              <td class="listing-price"><%= number_to_currency(listing.price) %></td>
+              <td class="listing-reports">
+                <% listing.reports.each do |report| %>
+                  <div class="report-reason">
+                    <strong>Reason:</strong> <%= report.reason %>
+                    <small>(Reported by: <%= report.user.email %>)</small>
+                  </div>
+                <% end %>
+              </td>
+              <td class="listing-actions">
+                <%= button_to "Remove Listing", moderations_listing_path(listing), 
+                    method: :delete, 
+                    class: "btn-remove",
+                    data: { confirm: "Are you sure you want to remove this listing?" } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>
+
