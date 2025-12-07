@@ -1,0 +1,36 @@
+<nav class="navbar-vertical">
+    <div class="navbar-top">
+        <div class="navbar-logo">
+            <span class="logo-text">logo</span>
+        </div>
+    </div>
+
+    <div class="navbar-center">
+        <ul class="navbar-links">
+            <li>
+                <%= link_to feed_path, class: "nav-link #{current_page?(feed_path) ? 'active' : ''}" do %>
+                    <%= icon "square-3-stack-3d", class: "nav-icon" %>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to "#", class: "nav-link #{current_page?('#') ? 'active' : ''}" do %>
+                    <%= icon "chat-bubble-oval-left", class: "nav-icon" %>
+                <% end %>
+            </li>
+
+            <% if current_user&.moderator? %>
+                <li>
+                    <%= link_to users_path, class: "nav-link #{current_page?(users_path) ? 'active' : ''}" do %>
+                        <%= icon "user-group", class: "nav-icon" %>
+                    <% end %>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+
+    <div class="navbar-bottom">
+        <div class="profile-avatar">
+            <%= icon "user-circle" %>
+        </div>
+    </div>
+</nav>
