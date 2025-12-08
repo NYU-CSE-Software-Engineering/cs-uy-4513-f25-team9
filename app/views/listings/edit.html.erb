@@ -1,34 +1,33 @@
-<h1>Edit Listing</h1>
-
-<%= form_with(model: @listing, local: true) do |f| %>
-  <% if @listing.errors.any? %>
-    <div>
-      <% @listing.errors.full_messages.each do |message| %>
-        <p><%= message %></p>
-      <% end %>
-    </div>
-  <% end %>
-
-  <div>
-    <%= f.label :title, "Title" %>
-    <%= f.text_field :title %>
+<div class="page-container">
+  <div class="page-header">
+    <h1>Edit Listing</h1>
+    <p class="subtitle">Update your listing details</p>
   </div>
 
-  <div>
-    <%= f.label :price, "Price" %>
-    <%= f.number_field :price, step: 0.01 %>
-  </div>
+  <%= render 'form', listing: @listing, button_text: "Update Listing" %>
+</div>
 
-  <div>
-    <%= f.label :description, "Description" %>
-    <%= f.text_area :description %>
-  </div>
+<style>
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
 
-  <div>
-    <%= f.label :category, "Category" %>
-    <%= f.text_field :category %>
-  </div>
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
 
-  <%= f.submit "Submit" %>
-<% end %>
+.page-header h1 {
+  font-size: 2rem;
+  margin: 0 0 8px 0;
+  color: #333;
+}
 
+.page-header .subtitle {
+  color: #666;
+  font-size: 1rem;
+  margin: 0;
+}
+</style>

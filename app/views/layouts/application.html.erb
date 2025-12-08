@@ -24,12 +24,10 @@
   </head>
 
   <body>
-  
-
     <% if current_user %>
-      <%= link_to 'Log out', logout_path, method: :delete %>
+      <%= render 'partials/navbar' %>
     <% end %>
-    
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <% if flash[:error] %>
