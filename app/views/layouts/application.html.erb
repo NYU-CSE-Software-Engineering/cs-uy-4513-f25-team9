@@ -26,6 +26,7 @@
   <body>
     <% if current_user %>
       <%= render 'partials/navbar' %>
+      <%= link_to 'Log out', logout_path, method: :delete %>
     <% end %>
 
     <p class="notice"><%= notice %></p>
@@ -38,5 +39,4 @@
       <%= yield %>
     </div>
   </body>
-</html>
 </html>
