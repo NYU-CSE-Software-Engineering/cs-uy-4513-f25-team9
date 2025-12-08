@@ -24,7 +24,7 @@
   </head>
 
   <body>
-  
+    <%= render "partials/navbar" %>
 
     <% if current_user %>
       <%= link_to 'Log out', logout_path, method: :delete %>
