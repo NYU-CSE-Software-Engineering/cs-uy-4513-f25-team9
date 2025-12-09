@@ -49,9 +49,11 @@
         </div>
 
         <div class="listing-actions-section">
-          <%= link_to new_listing_conversation_path(@listing), class: "btn btn-primary btn-large" do %>
-            <%= icon "chat-bubble-oval-left", class: "btn-icon" %>
-            <span>Message Seller</span>
+          <% if current_user && current_user != @listing.user %>
+            <%= link_to new_listing_conversation_path(@listing), class: "btn btn-primary btn-large" do %>
+              <%= icon "chat-bubble-oval-left", class: "btn-icon" %>
+              <span>Message Seller</span>
+            <% end %>
           <% end %>
           
           <% if current_user && @listing.user == current_user %>

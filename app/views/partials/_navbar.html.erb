@@ -13,7 +13,7 @@
                 <% end %>
             </li>
             <li>
-                <%= link_to "#", class: "nav-link #{current_page?('#') ? 'active' : ''}" do %>
+                <%= link_to conversations_path, class: "nav-link #{current_page?('#') ? 'active' : ''}" do %>
                     <%= icon "chat-bubble-oval-left", class: "nav-icon" %>
                 <% end %>
             </li>
