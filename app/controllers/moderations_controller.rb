@@ -2,6 +2,10 @@ class ModerationsController < ApplicationController
   before_action :require_moderator
   before_action :set_listing, only: [:destroy]
 
+  def index
+    @users = User.all
+  end
+
   def reported_listings
     @reported_listings = fetch_reported_listings
   end

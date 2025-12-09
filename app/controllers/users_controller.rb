@@ -24,13 +24,13 @@ class UsersController < ApplicationController
   def destroy
     if @user.nil?
       flash[:error] = "User does not exist"
-      redirect_to users_path
+      redirect_to moderations_path
       return
     end
 
     unless current_user.can_delete_user?(@user)
       flash[:error] = "You don't have permission to delete User with ID #{params[:id]}"
-      redirect_to users_path
+      redirect_to moderations_path
       return
     end
 
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     user_id = @user.id
     @user.destroy
     flash[:notice] = "User #{user_name} with ID #{user_id} has been deleted"
-    redirect_to users_path
+    redirect_to moderations_path
   end
 
   private
