@@ -19,7 +19,7 @@ When('I create a listing titled {string} with price {string}') do |title, price|
   fill_in 'Title', with: title
   fill_in 'Price', with: price
   fill_in 'Description', with: 'Test description'
-  click_button 'Submit'
+  click_button 'Create Listing'
 end
 
 When('I visit the listings page') do
@@ -29,7 +29,7 @@ end
 When('I update that listing to {string}') do |new_title|
   visit edit_listing_path(@listing)
   fill_in 'Title', with: new_title
-  click_button 'Submit'
+  click_button 'Update Listing'
 end
 
 When('I delete that listing') do

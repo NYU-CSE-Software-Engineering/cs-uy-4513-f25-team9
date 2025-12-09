@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :conversations, only: [:new, :create]
   end
 
+  get '/seller_home', to: 'listings#seller_home', as: :seller_home
+
   resources :conversations, only: [:show] do
     resources :messages, only: [:create]
   end
@@ -25,10 +27,10 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :destroy, :new, :create]
   
 
-  # Show login page as root for unauthenticated users, listings#index for logged-in users
+  # Show login page as root for unauthenticated users, feed#index for logged-in users
   authenticated = lambda { |req| req.session[:user_id].present? }
   constraints authenticated do
-    root to: "listings#index", as: :authenticated_root
+    root to: "feed#index", as: :authenticated_root
   end
   root to: "sessions#new"
 

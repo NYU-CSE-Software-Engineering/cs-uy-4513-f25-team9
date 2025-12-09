@@ -1,5 +1,5 @@
 class ListingsController < ApplicationController
-  before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
+  before_action :require_login, only: [:new, :create, :edit, :update, :destroy, :seller_home]
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
   before_action :authorize_owner, only: [:edit, :update, :destroy]
 
@@ -8,6 +8,10 @@ class ListingsController < ApplicationController
 
     listings = build_filtered_listings
     @listings = listings.by_sort(params[:sort])
+  end
+
+  def seller_home
+    @listings = current_user.listings.order(created_at: :desc)
   end
 
   def show
@@ -20,7 +24,7 @@ class ListingsController < ApplicationController
   def create
     @listing = current_user.listings.new(listing_params)
     if @listing.save
-      redirect_to @listing, notice: "Listing created successfully"
+      redirect_to seller_home_path, notice: "Listing created successfully"
     else
       render :new, status: :unprocessable_entity
     end
@@ -31,7 +35,7 @@ class ListingsController < ApplicationController
 
   def update
     if @listing.update(listing_params)
-      redirect_to @listing, notice: "Listing updated successfully"
+      redirect_to seller_home_path, notice: "Listing updated successfully"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -39,9 +43,9 @@ class ListingsController < ApplicationController
 
   def destroy
     if @listing.destroy
-      redirect_to listings_path, notice: "Listing deleted successfully"
+      redirect_to seller_home_path, notice: "Listing deleted successfully"
     else
-      redirect_to listings_path, alert: "Failed to delete listing"
+      redirect_to seller_home_path, alert: "Failed to delete listing"
     end
   end
 
