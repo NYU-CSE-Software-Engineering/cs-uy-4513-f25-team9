@@ -55,7 +55,7 @@
           <div class="message <%= message.user == current_user ? 'message-sent' : 'message-received' %>">
             <div class="message-header">
               <span class="message-sender"><%= message.user.email %></span>
-              <span class="message-time"><%= message.created_at.strftime("%b %d, %I:%M %p") %></span>
+              <span class="message-time"><%= message.created_at.strftime("%b %d, %I:%M %p") if message.created_at %></span>
             </div>
             <div class="message-content">
               <%= message.content %>
