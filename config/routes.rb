@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   get '/purchases', to: 'purchases#index'
 
   # Moderations
-  get '/moderations', to: 'moderations#index', as: :moderations
+  get '/moderations/user_list', to: 'moderations#user_list', as: :moderations
   get '/moderations/reported_listings', to: 'moderations#reported_listings', as: :reported_listings
   delete '/moderations/listings/:id', to: 'moderations#destroy', as: :moderations_listing
   delete '/moderations/users/:id', to: 'users#destroy', as: :moderations_user

@@ -2,7 +2,7 @@ class ModerationsController < ApplicationController
   before_action :require_moderator
   before_action :set_listing, only: [:destroy]
 
-  def index
+  def user_list
     @users = User.all
   end
 
