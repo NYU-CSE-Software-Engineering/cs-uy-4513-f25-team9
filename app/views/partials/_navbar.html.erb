@@ -20,7 +20,7 @@
 
             <% if current_user&.moderator? %>
                 <li>
-                    <%= link_to users_path, class: "nav-link #{current_page?(users_path) ? 'active' : ''}" do %>
+                    <%= link_to moderations_path, class: "nav-link #{current_page?(moderations_path) ? 'active' : ''}" do %>
                         <%= icon "user-group", class: "nav-icon" %>
                     <% end %>
                 </li>

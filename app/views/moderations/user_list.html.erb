@@ -16,7 +16,7 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td>
-          <%= button_to "Delete User", user_path(user), method: :delete %>
+          <%= button_to "Delete User", moderations_user_path(user), method: :delete %>
         </td>
       </tr>
     <% end %>
