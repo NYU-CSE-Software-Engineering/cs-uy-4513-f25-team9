@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   get '/seller_home', to: 'listings#seller_home', as: :seller_home
 
-  resources :conversations, only: [:show] do
+  resources :conversations, only: [:index, :show] do
     resources :messages, only: [:create]
   end
 
