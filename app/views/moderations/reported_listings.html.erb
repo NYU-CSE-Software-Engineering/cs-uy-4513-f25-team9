@@ -1,41 +1,86 @@
-<div class="reported-listings-container">
-  <h1>Reported Listings</h1>
+<div class="reported-listings-container" data-controller="moderation resizable-table">
+  <div class="page-header">
+    <h1>Reported Listings</h1>
+    <p class="page-subtitle">Review and manage listings that have been reported by users</p>
+  </div>
 
   <% if @reported_listings.empty? %>
-    <p class="empty-message">No reported listings pending review.</p>
+    <div class="empty-message">
+      <p>No reported listings pending review.</p>
+    </div>
   <% else %>
-    <div class="listings-table-container">
-      <table class="listings-table">
+    <div class="table-container">
+      <table class="listings-table" data-controller="resizable-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Seller</th>
-            <th>Price</th>
-            <th>Report Reasons</th>
-            <th>Actions</th>
+            <th class="resizable-header">
+              <span>ID</span>
+              <div class="resizer" data-action="mousedown->resizable-table#startResize" data-column="0"></div>
+            </th>
+            <th class="resizable-header">
+              <span>Title</span>
+              <div class="resizer" data-action="mousedown->resizable-table#startResize" data-column="1"></div>
+            </th>
+            <th class="resizable-header">
+              <span>Description</span>
+              <div class="resizer" data-action="mousedown->resizable-table#startResize" data-column="2"></div>
+            </th>
+            <th class="resizable-header">
+              <span>Seller</span>
+              <div class="resizer" data-action="mousedown->resizable-table#startResize" data-column="3"></div>
+            </th>
+            <th class="resizable-header">
+              <span>Price</span>
+              <div class="resizer" data-action="mousedown->resizable-table#startResize" data-column="4"></div>
+            </th>
+            <th class="resizable-header">
+              <span>Category</span>
+              <div class="resizer" data-action="mousedown->resizable-table#startResize" data-column="5"></div>
+            </th>
+            <th class="resizable-header">
+              <span>Reports</span>
+              <div class="resizer" data-action="mousedown->resizable-table#startResize" data-column="6"></div>
+            </th>
+            <th class="resizable-header">
+              <span>Actions</span>
+              <div class="resizer" data-action="mousedown->resizable-table#startResize" data-column="7"></div>
+            </th>
           </tr>
         </thead>
         <tbody>
           <% @reported_listings.each do |listing| %>
-            <tr class="listing-row">
-              <td class="listing-id"><%= listing.id %></td>
+            <tr class="listing-row" data-moderation-target="row" data-listing-id="<%= listing.id %>">
+              <td class="listing-id">#<%= listing.id %></td>
               <td class="listing-title"><%= listing.title %></td>
+              <td class="listing-description">
+                <%= listing.description.present? ? truncate(listing.description, length: 80) : "No description" %>
+              </td>
               <td class="listing-seller"><%= listing.user.email %></td>
               <td class="listing-price"><%= number_to_currency(listing.price) %></td>
+              <td class="listing-category"><%= listing.category.present? ? listing.category : "N/A" %></td>
               <td class="listing-reports">
-                <% listing.reports.each do |report| %>
-                  <div class="report-reason">
-                    <strong>Reason:</strong> <%= report.reason %>
-                    <small>(Reported by: <%= report.user.email %>)</small>
+                <div class="reports-info">
+                  <span class="report-count"><strong><%= listing.reports.count %></strong> report(s)</span>
+                  <div class="report-reasons">
+                    <% listing.reports.each do |report| %>
+                      <div class="report-reason-item">
+                        <div class="reason-text"><%= report.reason %></div>
+                        <div class="reason-meta">
+                          By: <%= report.user.email %> | <%= report.created_at.strftime("%Y-%m-%d") %>
+                        </div>
+                      </div>
+                    <% end %>
                   </div>
-                <% end %>
+                </div>
               </td>
               <td class="listing-actions">
-                <%= button_to "Remove Listing", moderations_listing_path(listing), 
+                <%= button_to "Remove", moderations_listing_path(listing), 
                     method: :delete, 
                     class: "btn-remove",
-                    data: { confirm: "Are you sure you want to remove this listing?" } %>
+                    data: { 
+                      turbo_confirm: "Are you sure you want to remove this fraudulent listing? This action cannot be undone.",
+                      action: "click->moderation#handleRemove"
+                    } %>
               </td>
             </tr>
           <% end %>
