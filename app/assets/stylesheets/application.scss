@@ -1,4 +1,7 @@
-// Partial Styles
+// Page styles
+@use "feed";
+@use "login";
+
+// Component styles
 @use "partials/navbar";
-@use "partials/login";
 @use "partials/feed"
