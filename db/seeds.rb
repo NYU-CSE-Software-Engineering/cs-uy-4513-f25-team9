@@ -26,6 +26,15 @@ user3 = User.create!(
   password_confirmation: "password123"
 )
 
+# Create moderator user
+moderator = User.create!(
+  email: "moderator@example.com",
+  name: "Moderator User",
+  password: "password123",
+  password_confirmation: "password123",
+  is_moderator: true
+)
+
 puts "Created #{User.count} users"
 
 # Categories
@@ -124,11 +133,42 @@ user3.listings.create!(
 )
 
 puts "Created #{Listing.count} listings"
+
+# Create some reports for testing moderation
+puts "Creating test reports..."
+# Report some listings as fraudulent for testing
+fraudulent_listing1 = user1.listings.first
+fraudulent_listing2 = user2.listings.first
+
+if fraudulent_listing1 && fraudulent_listing2
+  Report.create!(
+    user: user2,
+    listing: fraudulent_listing1,
+    reason: "Suspicious pricing - too good to be true"
+  )
+  
+  Report.create!(
+    user: user3,
+    listing: fraudulent_listing1,
+    reason: "Product description seems fake"
+  )
+  
+  Report.create!(
+    user: user1,
+    listing: fraudulent_listing2,
+    reason: "Fraudulent listing - seller not responding"
+  )
+  
+  puts "Created #{Report.count} reports"
+end
+
 puts "\n=== Seed Data Summary ==="
 puts "Users created: #{User.count}"
 puts "Listings created: #{Listing.count}"
+puts "Reports created: #{Report.count}"
 puts "\nTest accounts:"
 puts "Email: seller@example.com | Password: password123 (#{user1.listings.count} listings)"
 puts "Email: john@example.com | Password: password123 (#{user2.listings.count} listings)"
 puts "Email: test@example.com | Password: password123 (#{user3.listings.count} listing)"
+puts "Email: moderator@example.com | Password: password123 (Moderator - can access moderation pages)"
 puts "\nRun: rails db:seed"
