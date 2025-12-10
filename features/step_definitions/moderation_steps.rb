@@ -22,7 +22,7 @@ Given("I am a signed-in Moderator") do
     click_button 'Log in'
   end
   # Ensure the session persisted and we are signed in by visiting the users list
-  visit users_path
+  visit moderations_path
   expect(page).to have_content('User List')
 end
 
@@ -55,7 +55,7 @@ Given("I am a signed-in Buyer") do
 end
 
 Given("I am on the User List page") do
-  visit users_path
+  visit moderations_path
 end
 
 Given("there is a User with name {string} and User ID {string}") do |name, user_id|
@@ -71,7 +71,7 @@ end
 
 When("I click the {string} button for User ID {string}") do |button_text, user_id|
   # Visit or refresh the users page to ensure latest data
-  visit users_path
+  visit moderations_path
   
   # Find the user by ID and submit DELETE request directly
   # This bypasses JavaScript confirmation dialogs which may not be supported by the driver
@@ -79,7 +79,7 @@ When("I click the {string} button for User ID {string}") do |button_text, user_i
   if user
     # Use page.driver.submit to directly submit the DELETE request
     # This works regardless of JavaScript support
-    page.driver.submit :delete, user_path(user), {}
+    page.driver.submit :delete, moderations_user_path(user), {}
   else
     raise "User with ID #{user_id} not found"
   end
@@ -116,7 +116,7 @@ Given("User ID {string} has the {string} privilege") do |user_id, privilege|
 end
 
 When('I submit a delete request for User ID {string} \(non-existent)') do |user_id|
-  page.driver.submit :delete, user_path(user_id), {}
+  page.driver.submit :delete, moderations_user_path(user_id), {}
 end
 
 # Steps for Moderator Remove Fraudulent Listings

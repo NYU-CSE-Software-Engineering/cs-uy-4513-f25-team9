@@ -29,7 +29,7 @@ RSpec.describe "Listings", type: :request do
         post listings_path, params: { listing: { title: 'Bike', price: 200 } }
       }.to change(Listing, :count).by(1)
       
-      expect(response).to redirect_to(listing_path(Listing.last))
+      expect(response).to redirect_to(seller_home_path)
     end
   end
   
@@ -46,6 +46,7 @@ RSpec.describe "Listings", type: :request do
       
       listing.reload
       expect(listing.title).to eq('New')
+      expect(response).to redirect_to(seller_home_path)
     end
   end
   
@@ -61,6 +62,8 @@ RSpec.describe "Listings", type: :request do
       expect {
         delete listing_path(listing)
       }.to change(Listing, :count).by(-1)
+      
+      expect(response).to redirect_to(seller_home_path)
     end
 
   end

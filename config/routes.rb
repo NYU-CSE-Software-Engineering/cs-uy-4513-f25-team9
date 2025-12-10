@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     resources :conversations, only: [:new, :create]
   end
 
-  resources :conversations, only: [:show] do
+  get '/seller_home', to: 'listings#seller_home', as: :seller_home
+
+  resources :conversations, only: [:index, :show] do
     resources :messages, only: [:create]
   end
 
@@ -25,10 +27,10 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :destroy, :new, :create]
   
 
-  # Show login page as root for unauthenticated users, listings#index for logged-in users
+  # Show login page as root for unauthenticated users, feed#index for logged-in users
   authenticated = lambda { |req| req.session[:user_id].present? }
   constraints authenticated do
-    root to: "listings#index", as: :authenticated_root
+    root to: "feed#index", as: :authenticated_root
   end
   root to: "sessions#new"
 
@@ -44,6 +46,8 @@ Rails.application.routes.draw do
   get '/purchases', to: 'purchases#index'
 
   # Moderations
+  get '/moderations/user_list', to: 'moderations#user_list', as: :moderations
   get '/moderations/reported_listings', to: 'moderations#reported_listings', as: :reported_listings
-  delete '/moderations/listings/:id', to: 'moderations#destroy', as: :moderations_listing
+  delete '/moderations/listings/:id', to: 'moderations#destroy_listing', as: :moderations_listing
+  delete '/moderations/users/:id', to: 'moderations#destroy_user', as: :moderations_user
 end

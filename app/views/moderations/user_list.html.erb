@@ -1,0 +1,24 @@
+<h1>User List</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td>
+          <%= button_to "Delete User", moderations_user_path(user), method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

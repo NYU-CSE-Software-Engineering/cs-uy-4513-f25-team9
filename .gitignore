@@ -45,3 +45,5 @@
 !/app/assets/builds/.keep
 
 /coverage/*
+/app/assets/builds/*
+!/app/assets/builds/.keep
