@@ -24,6 +24,11 @@
                         <%= icon "user-group", class: "nav-icon" %>
                     <% end %>
                 </li>
+                <li>
+                    <%= link_to reported_listings_path, class: "nav-link #{current_page?(reported_listings_path) ? 'active' : ''}" do %>
+                        <%= icon "exclamation-triangle", class: "nav-icon" %>
+                    <% end %>
+                </li>
             <% end %>
         </ul>
     </div>
