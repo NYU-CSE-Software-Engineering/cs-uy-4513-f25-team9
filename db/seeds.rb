@@ -26,6 +26,16 @@ user3 = User.create!(
   password_confirmation: "password123"
 )
 
+# Create admin user
+user4 = User.create!(
+  email: "admin@example.com",
+  name: "Admin User",
+  password: "adminpassword",
+  password_confirmation: "adminpassword",
+  is_admin: true,
+  is_moderator: true
+)
+
 # Create moderator user
 moderator = User.create!(
   email: "moderator@example.com",
@@ -170,5 +180,6 @@ puts "\nTest accounts:"
 puts "Email: seller@example.com | Password: password123 (#{user1.listings.count} listings)"
 puts "Email: john@example.com | Password: password123 (#{user2.listings.count} listings)"
 puts "Email: test@example.com | Password: password123 (#{user3.listings.count} listing)"
+puts "Email: admin@example.com | Password: adminpassword (Admin User)"
 puts "Email: moderator@example.com | Password: password123 (Moderator - can access moderation pages)"
 puts "\nRun: rails db:seed"

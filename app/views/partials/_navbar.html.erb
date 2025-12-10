@@ -21,7 +21,12 @@
             <% if current_user&.moderator? %>
                
                 <li>
-                    <%= link_to reported_listings_path, class: "nav-link #{current_page?(reported_listings_path) ? 'active' : ''}", title: "Reported Listings" do %>
+                    <%= link_to moderations_path, class: "nav-link #{current_page?(moderations_path) ? 'active' : ''}", title: "User List" do %>
+                        <%= icon "user-group", class: "nav-icon" %>
+                    <% end %>
+                </li>
+                <li>
+                    <%= link_to reported_listings_path, class: "nav-link #{current_page?(reported_listings_path) ? 'active' : ''}" do %>
                         <%= icon "flag", class: "nav-icon" %>
                     <% end %>
                 </li>
