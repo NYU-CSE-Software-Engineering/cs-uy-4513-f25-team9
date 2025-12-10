@@ -1,4 +1,9 @@
 <h1><%= @listing.title %></h1>
+
+<% if @listing.image.attached? %>
+  <%= image_tag @listing.image, alt: @listing.title, style: "max-width: 500px; height: auto;" %>
+<% end %>
+
 <p><%= @listing.description %></p>
 <p>Price: $<%= @listing.price %></p>
 

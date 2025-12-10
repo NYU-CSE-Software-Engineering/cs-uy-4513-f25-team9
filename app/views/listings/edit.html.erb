@@ -29,6 +29,14 @@
     <%= f.text_field :category %>
   </div>
 
+  <div>
+    <%= f.label :image, "Product Image" %>
+    <%= f.file_field :image, accept: 'image/*' %>
+    <% if @listing.image.attached? %>
+      <p>Current image: <%= @listing.image.filename %></p>
+    <% end %>
+  </div>
+
   <%= f.submit "Submit" %>
 <% end %>
 
