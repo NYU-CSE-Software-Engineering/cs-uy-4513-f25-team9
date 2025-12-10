@@ -29,9 +29,13 @@
       <%= link_to 'Log out', logout_path, method: :delete %>
     <% end %>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <% if flash[:error] %>
+    <% if notice.present? %>
+      <p class="notice"><%= notice %></p>
+    <% end %>
+    <% if alert.present? %>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+    <% if flash[:error].present? %>
       <p class="error"><%= flash[:error] %></p> 
     <% end %>
 
