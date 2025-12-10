@@ -67,8 +67,12 @@ class ModerationsController < ApplicationController
   def remove_listing_successfully
     listing_title = @listing.title
     listing_id = @listing.id
-    @listing.destroy
-    flash[:notice] = "Listing #{listing_title} with ID #{listing_id} has been removed"
+    # @listing.destroy
+    if @listing.destroy
+      flash[:notice] = "Listing #{listing_title} with ID #{listing_id} has been removed"
+    else
+      flash[:error] = "Failed to remove listing #{listing_title} with ID #{listing_id}"
+    end
     redirect_to reported_listings_path
   end
 end

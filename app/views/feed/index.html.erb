@@ -1,49 +1,68 @@
-<h1>Swipe Feed</h1>
-
-<%= form_with url: feed_path, method: :get, local: true do %>
-  <div class="filters">
-    <div class="field">
-      <%= label_tag :q, "Search" %>
-      <%= text_field_tag :q, params[:q], placeholder: "Search by title or description" %>
-    </div>
-
-    <div class="field">
-      <%= label_tag :category, "Category" %>
-      <%= select_tag :category,
-        options_for_select([["All Categories", ""]] + Listing.available_categories.map { |c| [c, c] }, params[:category]),
-        include_blank: false %>
-    </div>
-
-    <div class="field">
-      <%= label_tag :min_price, "Min Price ($)" %>
-      <%= number_field_tag :min_price, params[:min_price], step: 0.01, placeholder: "0.00" %>
-    </div>
-
-    <div class="field">
-      <%= label_tag :max_price, "Max Price ($)" %>
-      <%= number_field_tag :max_price, params[:max_price], step: 0.01, placeholder: "No limit" %>
-    </div>
-
-    <%= submit_tag "Filter", class: "btn" %>
-    <% if params[:q].present? || params[:category].present? || params[:min_price].present? || params[:max_price].present? %>
-      <%= link_to "Clear", feed_path, class: "btn-secondary" %>
-    <% end %>
+<div class="page-feed">
+  <div class="feed-header">
+    <h1>Swipe Feed</h1>
   </div>
-<% end %>
 
-<% if @listing %>
-  <div class="card">
-    <h2><%= @listing.title %></h2>
-    <p><%= @listing.description %></p>
-    <p>Price: <%= number_to_currency(@listing.price) %></p>
+  <%= form_with url: feed_path, method: :get, local: true do %>
+    <div class="filters">
+      <div class="field">
+        <%= label_tag :q, "Search" %>
+        <%= text_field_tag :q, params[:q], placeholder: "Search by title or description" %>
+      </div>
 
-    <div class="actions">
-      <%= button_to "Like", swipes_path(listing_id: @listing.id, state: :liked), method: :post, class: "btn btn-primary" %>
-      <%= button_to "Pass", swipes_path(listing_id: @listing.id, state: :passed), method: :post, class: "btn btn-secondary" %>
+      <div class="field">
+        <%= label_tag :category, "Category" %>
+        <%= select_tag :category,
+          options_for_select([["All Categories", ""]] + Listing.available_categories.map { |c| [c, c] }, params[:category]),
+          include_blank: false %>
+      </div>
+
+      <div class="field">
+        <%= label_tag :min_price, "Min Price ($)" %>
+        <%= number_field_tag :min_price, params[:min_price], step: 0.01, placeholder: "0.00" %>
+      </div>
+
+      <div class="field">
+        <%= label_tag :max_price, "Max Price ($)" %>
+        <%= number_field_tag :max_price, params[:max_price], step: 0.01, placeholder: "No limit" %>
+      </div>
+
+      <%= submit_tag "Filter", class: "btn" %>
+      <% if params[:q].present? || params[:category].present? || params[:min_price].present? || params[:max_price].present? %>
+        <%= link_to "Clear", feed_path, class: "btn-secondary" %>
+      <% end %>
     </div>
-  </div>
-<% else %>
-  <p>You're all caught up</p>
-  <%= link_to "Adjust filters", feed_path %>
-  <%= link_to "Browse listings", listings_path %>
-<% end %>
+  <% end %>
+
+  <% if @listing %>
+    <div class="listing-card">
+      <div class="listing-image-placeholder">
+        <%= icon "photo", class: "placeholder-icon" %>
+        <p class="placeholder-text">Image preview</p>
+      </div>
+      <div class="divider"></div>
+
+      <h2><%= @listing.title %></h2>
+      <div class="listing-meta">
+        <span class="pill"><%= number_to_currency(@listing.price) %></span>
+        <% if @listing.category.present? %>
+          <span><%= @listing.category %></span>
+        <% end %>
+      </div>
+      <p><%= @listing.description %></p>
+
+      <div class="swipe-actions">
+        <%= button_to "Like", swipes_path(listing_id: @listing.id, state: :liked), method: :post, class: "btn-like" %>
+        <%= button_to "Pass", swipes_path(listing_id: @listing.id, state: :passed), method: :post, class: "btn-pass" %>
+      </div>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <p>You're all caught up</p>
+      <div class="links">
+        <%= link_to "Adjust filters", feed_path %>
+        <%= link_to "Browse listings", listings_path %>
+      </div>
+    </div>
+  <% end %>
+</div>
