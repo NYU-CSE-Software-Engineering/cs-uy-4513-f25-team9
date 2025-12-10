@@ -36,6 +36,12 @@
 
   <% if @listing %>
     <div class="listing-card">
+      <div class="listing-image-placeholder">
+        <%= icon "photo", class: "placeholder-icon" %>
+        <p class="placeholder-text">Image preview</p>
+      </div>
+      <div class="divider"></div>
+
       <h2><%= @listing.title %></h2>
       <div class="listing-meta">
         <span class="pill"><%= number_to_currency(@listing.price) %></span>
