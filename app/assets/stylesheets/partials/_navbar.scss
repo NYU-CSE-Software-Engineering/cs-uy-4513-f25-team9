@@ -63,11 +63,27 @@
                     transition: background-color 0.2s;
                     width: 64px;
                     height: 64px;
+                    // new line for unread dot
+                    position: relative;
                     
                     .nav-icon {
                         width: 36px;
                         height: 36px;
                         stroke: #333;
+                    }
+
+                    // new block for unread message dot
+                    .message-badge {
+                        position: absolute;
+                        top: -8px;
+                        right: -8px;
+                        width: 16px;
+                        height: 16px;
+                        background: #a7333f;
+                        border-radius: 50%;
+                        border: 2px solid #e6e6e6;
+                        z-index: 10;
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
                     }
                     
                     &:hover {
