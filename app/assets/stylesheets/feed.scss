@@ -75,10 +75,13 @@
     border: 1px solid #e6e6e6;
     border-radius: 16px;
     padding: 18px 18px 16px;
+    max-width: 620px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
 
     h2 {
       margin: 0;
@@ -111,6 +114,15 @@
         color: #556;
         font-weight: 600;
       }
+    }
+
+    .listing-image {
+      width: 100%;
+      max-height: 320px;
+      object-fit: contain;
+      border-radius: 12px;
+      border: 1px solid #e6e6e6;
+      background: #f5f5f5;
     }
 
     .divider {
@@ -157,17 +169,30 @@
         font-weight: 700;
         font-size: 14px;
         text-align: center;
+        transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease, border-color 0.1s ease;
       }
 
       .btn-like {
         background: #a7333f;
         color: #fff;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(167, 51, 63, 0.2);
+        }
       }
 
       .btn-pass {
         background: transparent;
         border-color: #d0d0d0;
         color: #374151;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+          background: #f9f9f9;
+          border-color: #c7c7c7;
+        }
       }
     }
   }
