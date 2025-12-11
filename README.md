@@ -1,13 +1,13 @@
-# Thryft 🛍️
+# Thryft
 
 CS-UY 4513 Software Engineering Project
 
 The system, named Thryft, will be a centralized platform for buying and selling goods through a swipe-based interface inspired by Tinder. It is intended to be used by students, local sellers, and administrators who want a streamlined, engaging way to exchange goods. It features user authentication, listings, messaging, moderation, and more.
-**We are online! 🚀 [thryft-team9-34327d4250fb.herokuapp.com](https://thryft-team9-34327d4250fb.herokuapp.com/)**
+**We are online! [thryft-team9-34327d4250fb.herokuapp.com](https://thryft-team9-34327d4250fb.herokuapp.com/)**
 
 ---
 
-## Table of Contents 📚
+## Table of Contents
 
 - [Features](#features)
 - [API & Routes Overview](#api--routes-overview)
@@ -37,31 +37,31 @@ See the linked documents for detailed writeups on each feature.
 
 ---
 
-## Features ✨
+## Features
 
-### Authentication, Sessions & Security 🔐
+### Authentication, Sessions & Security
 
 - User registration, login, and logout
 - Session helpers for authentication and role-based access
 - Role-based guards for restricted features (user, moderator, admin)
 
-### Listings & Purchases 🛒
+### Listings & Purchases
 
 - Users can create, edit, and delete listings
 - Listings can be browsed, filtered, and purchased
 - Moderation tools for removing fraudulent listings
 
-### Messaging & Notifications ✉️🔔
+### Messaging & Notifications
 
 - Direct messaging between users
 - Notifications for purchases, messages, and moderation actions
 
-### Moderation & Reporting 🚨
+### Moderation & Reporting
 
 - Users can report listings or users
 - Moderators can remove users or listings
 
-### Swiping & Feed 🔄
+### Swiping & Feed
 
 - Browse listings with a swipe interface
 - Personalized feed based on user activity
@@ -72,7 +72,7 @@ See the linked documents for detailed writeups on each feature.
 
 The application exposes a RESTful interface. Below are the key endpoints based on the current implementation:
 
-### 🔐 Authentication
+### Authentication
 
 - `POST /login` — Log in a user
 - `DELETE /logout` — End the current session
@@ -93,23 +93,23 @@ The application exposes a RESTful interface. Below are the key endpoints based o
 - `GET /liked_listings` — View listings you have liked
 - `GET /seller_home` — Seller dashboard
 
-### 💬 Conversations & Messages
+### Conversations & Messages
 
 - `GET /conversations` — List all conversations for current user
 - `GET /conversations/:id` — View a specific conversation
 - `POST /listings/:listing_id/conversations` — Start a new conversation about a listing
 - `POST /conversations/:conversation_id/messages` — Send a message in a conversation
 
-### 🔄 Feed & Swiping
+### Feed & Swiping
 
 - `GET /feed` — Personalized feed (listings to swipe)
 - `POST /swipes` — Like or pass on a listing
 
-### 🛍️ Purchases
+### Purchases
 
 - `GET /purchases` — View your purchase history
 
-### 🛡️ Moderation
+### Moderation
 
 - `GET /moderations/user_list` — List all users (admin/moderator)
 - `GET /moderations/reported_listings` — List all reported listings
@@ -119,7 +119,7 @@ The application exposes a RESTful interface. Below are the key endpoints based o
 
 ---
 
-## Core Domain Concepts 🧱
+## Core Domain Concepts
 
 ### User
 
@@ -169,7 +169,7 @@ The application exposes a RESTful interface. Below are the key endpoints based o
 
 ---
 
-## Navigation Overview 🧭
+## Navigation Overview
 
 The main navigation (in `app/views/layouts/application.html.erb`) includes:
 
@@ -185,7 +185,7 @@ The main navigation (in `app/views/layouts/application.html.erb`) includes:
 
 ---
 
-## My Feed 🔄
+## My Feed
 
 The My Feed feature is implemented in:
 
@@ -206,7 +206,7 @@ The My Feed feature is implemented in:
 
 ---
 
-## Following, Swiping, and Interests 🌐
+## Following, Swiping, and Interests
 
 - Users can swipe (like/pass) on listings in the feed
 - Swipes are tracked as `Interest` records (liked or passed)
@@ -215,7 +215,7 @@ The My Feed feature is implemented in:
 
 ---
 
-## Architecture Notes 🏗️
+## Architecture Notes
 
 **Controllers:**
 
@@ -244,7 +244,7 @@ The My Feed feature is implemented in:
 
 ---
 
-## Getting Started 🚀
+## Getting Started
 
 ### Requirements
 
@@ -320,7 +320,7 @@ Then restart your Rails server and refresh your browser (clear cache if needed).
 
 ---
 
-## Testing ✅
+## Testing
 
 **Rspec:**
 
