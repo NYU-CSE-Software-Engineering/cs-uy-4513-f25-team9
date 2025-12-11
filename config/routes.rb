@@ -10,7 +10,11 @@ Rails.application.routes.draw do
     resources :conversations, only: [:new, :create]
   end
 
+  get '/liked_listings', to: 'listings#liked', as: :liked_listings
+
   get '/seller_home', to: 'listings#seller_home', as: :seller_home
+
+  get "/my_listings", to: "listings#my_listings"
 
   resources :conversations, only: [:index, :show] do
     resources :messages, only: [:create]
