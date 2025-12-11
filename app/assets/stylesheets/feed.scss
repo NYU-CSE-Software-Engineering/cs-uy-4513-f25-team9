@@ -163,8 +163,16 @@
 
     .swipe-actions {
       display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 10px;
       margin-top: 8px;
+
+      .main-actions {
+        display: flex;
+        gap: 10px;
+        flex: 1;
+      }
 
       .btn-like,
       .btn-pass {
@@ -199,6 +207,27 @@
           box-shadow: 0 6px 16px var(--shadow-md);
           background: var(--color-gray-50);
           border-color: var(--color-gray-400);
+        }
+      }
+
+      .secondary-actions {
+        display: flex;
+        align-items: center;
+
+        .btn-report {
+          color: var(--color-gray-500);
+          font-size: 13px;
+          text-decoration: none;
+          font-weight: 500;
+          padding: 6px 10px;
+          border-radius: 6px;
+          transition: color 0.2s ease, background-color 0.2s ease;
+          white-space: nowrap;
+
+          &:hover {
+            color: var(--color-gray-700);
+            background: var(--color-gray-100);
+          }
         }
       }
     }
