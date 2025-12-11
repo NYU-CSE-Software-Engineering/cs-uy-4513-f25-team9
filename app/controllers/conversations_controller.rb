@@ -66,5 +66,11 @@ class ConversationsController < ApplicationController
 
   def show
     @conversation = Conversation.find(params[:id])
+
+    # Mark other user's messages as read when viewing conversation
+    @conversation.messages
+                 .where.not(user: current_user)
+                 .where(read: false)
+                 .update_all(read: true)
   end
 end

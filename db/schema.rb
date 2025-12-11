@@ -80,7 +80,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_10_234844) do
     t.text "content"
     t.bigint "conversation_id", null: false
     t.datetime "created_at", null: false
-    t.boolean "read"
+    t.boolean "read", default: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
