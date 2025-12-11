@@ -72,8 +72,5 @@ class ConversationsController < ApplicationController
                  .where.not(user: current_user)
                  .where(read: false)
                  .update_all(read: true)
-
-    # Alternative: If you want to mark ALL messages as read (including user's own)
-    # @conversation.messages.where(read: false).update_all(read: true)
   end
 end
