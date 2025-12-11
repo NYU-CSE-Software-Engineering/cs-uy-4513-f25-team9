@@ -18,7 +18,7 @@
         margin-top: 20px;
 
         .navbar-logo {
-            background-color: var(--color-white);
+            background-color: var(--color-primary-light);
             text-align: center;
             display: flex;
             align-items: center;
@@ -29,6 +29,7 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.2s;
             cursor: pointer;
+            text-decoration: none;
             
             &:hover {
                 transform: translateY(-2px);
@@ -40,10 +41,10 @@
                 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             }
             
-            .logo-text {
-                color: var(--color-gray-800);
-                font-size: 1rem;
-                font-weight: 400;
+            .logo-icon {
+                width: 36px;
+                height: 36px;
+                stroke: var(--color-white);
             }
         }
     }
