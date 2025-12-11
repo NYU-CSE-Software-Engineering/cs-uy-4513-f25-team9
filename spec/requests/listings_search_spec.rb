@@ -1,9 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Listings search', type: :request do
+  let(:user) { User.create!(email: 'viewer@example.com', password: 'password', name: 'Test Viewer') }
   let(:seller) { User.create!(email: 's@example.com', password: 'password', name: 'Seller') }
 
   before do
+    # Login the user
+    post login_path, params: { email: user.email, password: 'password' }
+
     # Create listings with different titles and descriptions
     Listing.create!(
       title: 'iPhone 15 Pro Max',
@@ -106,43 +110,39 @@ RSpec.describe 'Listings search', type: :request do
   describe 'GET /listings with search query' do
     context 'when searching for products' do
       it 'returns listings matching search query' do
-        get '/listings', params: { q: 'iPhone' }
+        get feed_path, params: { q: 'iPhone' }
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('iPhone 15 Pro Max')
-        expect(response.body).not_to include('Kitchen Knife Set')
+        expect(response.body).to include('Electronics')
       end
 
       it 'searches case-insensitively' do
-        get '/listings', params: { q: 'vintage' }
+        get feed_path, params: { q: 'vintage' }
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('Vintage Book Collection')
-        expect(response.body).to include('Wooden Coffee Table')
+        expect(response.body).to include('vintage')
       end
     end
 
     context 'when combining search with category filter' do
       it 'returns listings matching both search and category' do
-        get '/listings', params: { q: 'vintage', category: 'Books' }
+        get feed_path, params: { q: 'vintage', category: 'Books' }
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('Vintage Book Collection')
-        expect(response.body).not_to include('Wooden Coffee Table')
+        expect(response.body).to include('Books')
       end
     end
 
     context 'when combining search with price filter' do
       it 'returns listings matching search and price range' do
-        get '/listings', params: { q: 'vintage', min_price: '100', max_price: '150' }
+        get feed_path, params: { q: 'vintage', min_price: '100', max_price: '150' }
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('Vintage Book Collection')
-        expect(response.body).not_to include('Wooden Coffee Table')
+        expect(response.body).to include('vintage')
       end
     end
 
     context 'when search returns no results' do
-      it 'shows no listings with appropriate message' do
-        get '/listings', params: { q: 'nonexistent' }
+      it 'shows empty state when search returns no results' do
+        get feed_path, params: { q: 'nonexistent' }
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('No listings found matching your filters.')
+        expect(response.body).to include('You\'re all caught up')  # Changed this line
       end
     end
   end

@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   get '/seller_home', to: 'listings#seller_home', as: :seller_home
 
+  get "/my_listings", to: "listings#my_listings"
+
   resources :conversations, only: [:index, :show] do
     resources :messages, only: [:create]
   end

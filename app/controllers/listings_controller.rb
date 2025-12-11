@@ -4,8 +4,43 @@ class ListingsController < ApplicationController
   before_action :authorize_owner, only: [:edit, :update, :destroy]
 
   def index
-    # Seller's own listings (for cucumber test)
-    @listings = current_user ? current_user.listings : Listing.none
+    @listings = Listing.all
+
+    # Category filter
+    if params[:category].present?
+      @listings = @listings.where(category: params[:category])
+    end
+
+    # Price filters
+    if params[:min_price].present?
+      @listings = @listings.where("price >= ?", params[:min_price].to_f)
+    end
+
+    if params[:max_price].present?
+      @listings = @listings.where("price <= ?", params[:max_price].to_f)
+    end
+
+    # Search filter
+    if params[:search].present?
+      query = "%#{params[:search].downcase}%"
+      @listings = @listings.where(
+        "LOWER(title) LIKE ? OR LOWER(description) LIKE ?",
+        query, query
+      )
+    end
+
+    # Sorting
+    case params[:sort]
+    when "price_asc"
+      @listings = @listings.order(price: :asc)
+    when "price_desc"
+      @listings = @listings.order(price: :desc)
+    else
+      @listings = @listings.order(created_at: :desc)
+    end
+
+    # For the dropdown
+    @categories = Listing.distinct.pluck(:category).compact
   end
 
   def liked

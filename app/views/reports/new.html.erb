@@ -1,7 +1,7 @@
 <div class="seller-home-container">
   <div class="seller-home-header">
     <div>
-      <h1>Report Listing</h1>
+      <h1>Report This Listing</h1>
       <p class="header-subtitle">Report: <%= link_to @listing.title, @listing, class: "listing-link" %></p>
     </div>
     <div>
@@ -17,7 +17,7 @@
   <div class="report-form-container">
     <div class="form-card">
       <h2>Why are you reporting this listing?</h2>
-      <p class="form-subtitle">Please provide details about what's wrong with this listing.</p>
+      <p class="form-subtitle">Please provide details.</p>
 
       <%= form_with(model: [@listing, @report], local: true, class: "report-form") do |f| %>
         <div class="form-group">
