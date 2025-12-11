@@ -44,7 +44,10 @@
   <% end %>
 <% else %>
   <% @listings.each do |listing| %>
-    <div id="listing_<%= listing.id %>">
+    <div id="listing_<%= listing.id %>" style="margin-bottom: 20px; padding: 15px; border: 1px solid #e0e0e0; border-radius: 8px;">
+      <% if listing.image.attached? %>
+        <%= image_tag listing.image, alt: listing.title, style: "max-width: 200px; height: auto; margin-bottom: 10px; border-radius: 4px;" %>
+      <% end %>
       <p>
         <%= link_to listing.title, listing_path(listing) %>
         - <%= number_to_currency(listing.price) %>

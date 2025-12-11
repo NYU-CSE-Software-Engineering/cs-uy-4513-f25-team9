@@ -35,6 +35,14 @@
     <%= f.text_area :description, rows: 5, placeholder: "Describe your item in detail...", class: "form-control" %>
   </div>
 
+  <div class="form-group">
+    <%= f.label :image, "Product Image" %>
+    <%= f.file_field :image, accept: 'image/*', class: "form-control" %>
+    <% if listing.image.attached? %>
+      <p style="margin-top: 8px; color: #666; font-size: 0.9rem;">Current image: <%= listing.image.filename %></p>
+    <% end %>
+  </div>
+
   <div class="form-actions">
     <%= f.submit button_text || "Save Listing", class: "btn btn-primary" %>
     <%= link_to "Cancel", seller_home_path, class: "btn btn-secondary" %>
