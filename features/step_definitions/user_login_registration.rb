@@ -61,3 +61,13 @@ Given('I am logged in as a user with email {string} and password {string}') do |
   puts "DEBUG CURRENT PATH = #{current_path}"   # <--- ADD THIS
   puts page.body      
 end
+
+When('I click the profile dropdown button') do
+  find('#profileDropdownBtn').click
+end
+
+When('I click the {string} link in the dropdown') do |link_text|
+  within('#profileDropdownMenu') do
+    click_link link_text
+  end
+end

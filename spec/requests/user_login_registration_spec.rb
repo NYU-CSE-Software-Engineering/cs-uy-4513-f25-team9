@@ -32,14 +32,15 @@ end
 
 RSpec.describe "Logout link in layout", type: :request do
   describe "Layout when user is signed in" do
-    it "shows a Log out link when current_user is present" do
+    it "shows a Log Out link in the profile dropdown when current_user is present" do
       user = User.create!(email: 'logout@example.com', password: 'password123', password_confirmation: 'password123')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
       get '/'
       expect(response).to have_http_status(:ok)
       body = CGI.unescapeHTML(response.body)
-      expect(body).to include('Log out')
+      expect(body).to include('Log Out')
+      expect(body).to include('profileDropdownMenu')
     end
   end
 end

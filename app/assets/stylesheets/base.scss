@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  // Primary Colors
+  --color-primary: #c52233;
+  --color-primary-dark: #9f1b29;
+  --color-primary-bright: #e63946;
+  --color-primary-light: #a7333f;
+  --color-primary-lightest: #fed7d7;
+
+  // Secondary Colors
+  --color-secondary: #d69e2e;
+  --color-secondary-dark: #b7791f;
+  --color-secondary-light: #ecc94b;
+
+  // Accent Colors
+  --color-accent-blue: #3182ce;
+  --color-accent-blue-light: #bee3f8;
+  --color-accent-green: #48bb78;
+  --color-accent-green-light: #c6f6d5;
+
+  // Neutral Colors
+  --color-white: #ffffff;
+  --color-gray-50: #f7fafc;
+  --color-gray-100: #edf2f7;
+  --color-gray-200: #e2e8f0;
+  --color-gray-300: #cbd5e0;
+  --color-gray-400: #a0aec0;
+  --color-gray-500: #718096;
+  --color-gray-600: #4a5568;
+  --color-gray-700: #2d3748;
+  --color-gray-800: #1a202c;
+  --color-gray-900: #171923;
+  --color-black: #000000;
+
+  // Semantic Colors
+  --color-success: #22543d;
+  --color-success-bg: #f0fff4;
+  --color-success-border: #9ae6b4;
+  --color-error: #c53030;
+  --color-error-bg: #fff5f5;
+  --color-error-border: #fc8181;
+  --color-warning: #d69e2e;
+  --color-warning-bg: #fefcbf;
+  --color-warning-border: #f6e05e;
+  --color-info: #2c5282;
+  --color-info-bg: #bee3f8;
+  --color-info-border: #4299e1;
+
+  // Background Colors
+  --bg-primary: #fdf8f0;
+  --bg-secondary: #fcfaf7;
+  --bg-tertiary: #0e0d0d;
+
+  // Text Colors
+  --text-primary: #1a202c;
+  --text-secondary: #4a5568;
+  --text-tertiary: #718096;
+  --text-inverse: #ffffff;
+
+  // Border Colors
+  --border-light: #e2e8f0;
+  --border-medium: #cbd5e0;
+  --border-dark: #a0aec0;
+
+  // Shadow Colors
+  --shadow-sm: rgba(0, 0, 0, 0.05);
+  --shadow-md: rgba(0, 0, 0, 0.1);
+  --shadow-lg: rgba(0, 0, 0, 0.15);
+  --shadow-primary: rgba(197, 34, 51, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}

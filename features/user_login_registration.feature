@@ -40,6 +40,7 @@ Feature: User Login and Registration
 
   Scenario: Logout
     Given I am logged in as a user with email "user@example.com" and password "SecurePassword123"
-    When I click the auth button "Log out"
+    When I click the profile dropdown button
+    And I click the "Log Out" link in the dropdown
     Then I should be redirected to the home page
     And I should see "Logged out"
