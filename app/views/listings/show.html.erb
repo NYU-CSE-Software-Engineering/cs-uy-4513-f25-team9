@@ -1,8 +1,20 @@
 <div class="listing-show-container">
   <div class="listing-show-header">
-    <%= link_to feed_path, class: "back-link" do %>
-      <%= icon "arrow-left", class: "back-icon" %>
-      <span>Back to Feed</span>
+    <% if params[:from] == 'liked' %>
+      <%= link_to listings_path, class: "back-link" do %>
+        <%= icon "arrow-left", class: "back-icon" %>
+        <span>Back to Liked Listings</span>
+      <% end %>
+    <% elsif params[:from] == 'messages' %>
+      <%= link_to conversations_path, class: "back-link" do %>
+        <%= icon "arrow-left", class: "back-icon" %>
+        <span>Back to Messages</span>
+      <% end %>
+    <% else %>
+      <%= link_to feed_path, class: "back-link" do %>
+        <%= icon "arrow-left", class: "back-icon" %>
+        <span>Back to Feed</span>
+      <% end %>
     <% end %>
   </div>
 
@@ -55,13 +67,17 @@
         </div>
 
         <div class="listing-actions-section">
-          <% if current_user && current_user != @listing.user %>
-            <%= link_to new_listing_conversation_path(@listing), class: "btn btn-primary btn-large" do %>
+          <%# Show "Message Seller" unless coming from conversations or if user is the seller %>
+          <% if params[:from] != 'messages' && current_user && current_user != @listing.user %>
+            <%= link_to listing_conversations_path(@listing),
+                        data: { turbo_method: :post },
+                        class: "btn btn-primary btn-large" do %>
               <%= icon "chat-bubble-oval-left", class: "btn-icon" %>
               <span>Message Seller</span>
             <% end %>
           <% end %>
-          
+
+          <%# Rest of your existing buttons... %>
           <% if current_user && @listing.user == current_user %>
             <%= link_to edit_listing_path(@listing), class: "btn btn-secondary btn-large" do %>
               <%= icon "pencil", class: "btn-icon" %>
