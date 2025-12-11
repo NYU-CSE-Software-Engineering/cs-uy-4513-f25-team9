@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/home/raymond-ubuntu/Projects/Thryft/app/helpers/application_helper.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/helpers/application_helper.rb": {
         "lines": [
           1,
           null,
@@ -17,7 +17,7 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/models/conversation.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/models/conversation.rb": {
         "lines": [
           1,
           1,
@@ -40,14 +40,14 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/models/application_record.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/models/application_record.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/models/interest.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/models/interest.rb": {
         "lines": [
           1,
           1,
@@ -67,11 +67,14 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/models/listing.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/models/listing.rb": {
         "lines": [
           1,
           1,
           1,
+          1,
+          1,
+          null,
           1,
           1,
           1,
@@ -119,7 +122,7 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/models/message.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/models/message.rb": {
         "lines": [
           1,
           1,
@@ -150,23 +153,31 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/models/purchase.rb": {
-        "lines": [
-          1,
-          1,
-          1
-        ]
-      },
-      "/home/raymond-ubuntu/Projects/Thryft/app/models/report.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/models/purchase.rb": {
         "lines": [
           1,
           1,
           1,
           null,
+          1,
+          1,
+          1,
           1
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/models/user.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/models/report.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/models/user.rb": {
         "lines": [
           1,
           1,
@@ -208,7 +219,7 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/controllers/sessions_controller.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/controllers/sessions_controller.rb": {
         "lines": [
           1,
           1,
@@ -232,7 +243,7 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/controllers/application_controller.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/controllers/application_controller.rb": {
         "lines": [
           1,
           1,
@@ -254,7 +265,7 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/controllers/feed_controller.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/controllers/feed_controller.rb": {
         "lines": [
           1,
           1,
@@ -275,7 +286,7 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/controllers/listings_controller.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/controllers/listings_controller.rb": {
         "lines": [
           1,
           1,
@@ -402,7 +413,7 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/controllers/reports_controller.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/controllers/reports_controller.rb": {
         "lines": [
           1,
           1,
@@ -434,7 +445,7 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/controllers/conversations_controller.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/controllers/conversations_controller.rb": {
         "lines": [
           1,
           1,
@@ -518,7 +529,7 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/controllers/messages_controller.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/controllers/messages_controller.rb": {
         "lines": [
           1,
           1,
@@ -546,7 +557,7 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/controllers/moderations_controller.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/controllers/moderations_controller.rb": {
         "lines": [
           1,
           1,
@@ -667,7 +678,7 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/controllers/purchases_controller.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/controllers/purchases_controller.rb": {
         "lines": [
           1,
           1,
@@ -677,7 +688,7 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/controllers/swipes_controller.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/controllers/swipes_controller.rb": {
         "lines": [
           1,
           1,
@@ -703,7 +714,7 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/controllers/users_controller.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/controllers/users_controller.rb": {
         "lines": [
           1,
           1,
@@ -728,7 +739,7 @@
           null
         ]
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/jobs/application_job.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/jobs/application_job.rb": {
         "lines": [
           0,
           null,
@@ -740,7 +751,7 @@
         ],
         "branches": {}
       },
-      "/home/raymond-ubuntu/Projects/Thryft/app/mailers/application_mailer.rb": {
+      "/Users/edwardkang/Desktop/NYU/SWE Project/cs-uy-4513-f25-team9/app/mailers/application_mailer.rb": {
         "lines": [
           0,
           0,
@@ -750,6 +761,6 @@
         "branches": {}
       }
     },
-    "timestamp": 1765481920
+    "timestamp": 1765487254
   }
 }
