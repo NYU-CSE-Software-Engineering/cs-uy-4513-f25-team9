@@ -18,7 +18,7 @@
         margin-top: 20px;
 
         .navbar-logo {
-            background-color: #e6e6e6;
+            background-color: var(--color-white);
             text-align: center;
             display: flex;
             align-items: center;
@@ -26,9 +26,22 @@
             border-radius: 16px;
             width: 64px;
             height: 64px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+            cursor: pointer;
+            
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+            
+            &:active {
+                transform: translateY(0);
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            }
             
             .logo-text {
-                color: #333;
+                color: var(--color-gray-800);
                 font-size: 1rem;
                 font-weight: 400;
             }
@@ -53,23 +66,23 @@
                 
                 .nav-link {
                     text-decoration: none;
-                    color: #333;
+                    color: var(--text-primary);
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    //   padding: 15px;
-                    background-color: #e6e6e6;
+                    background-color: var(--color-white);
                     border-radius: 16px;
-                    transition: background-color 0.2s;
+                    transition: all 0.2s;
                     width: 64px;
                     height: 64px;
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
                     // new line for unread dot
                     position: relative;
                     
                     .nav-icon {
                         width: 36px;
                         height: 36px;
-                        stroke: #333;
+                        stroke: var(--color-primary-dark);
                     }
 
                     // new block for unread message dot
@@ -79,26 +92,33 @@
                         right: -8px;
                         width: 16px;
                         height: 16px;
-                        background: #a7333f;
+                        background: var(--color-primary-dark);
                         border-radius: 50%;
-                        border: 2px solid #e6e6e6;
+                        border: 2px solid var(--color-gray-200);
                         z-index: 10;
                         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
                     }
                     
                     &:hover {
-                        background-color: #a7333f;
+                        background-color: var(--color-primary-dark);
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
                         
                         .nav-icon {
-                            stroke: #fff;
+                            stroke: var(--color-white);
                         }
                     }
 
+                    &:active {
+                        transform: translateY(0);
+                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                    }
+
                     &.active {
-                        background-color: #a7333f;
+                        background-color: var(--color-primary-dark);
                         
                         .nav-icon {
-                            stroke: #fff;
+                            stroke: var(--color-white);
                         }
                     }
                 }
@@ -120,17 +140,27 @@
                 height: 48px;
                 border-radius: 50%;
                 overflow: hidden;
-                background-color: #e6e6e6;
+                color: var(--color-primary-dark);
+                background-color: var(--color-white);
                 border: none;
                 cursor: pointer;
-                transition: background-color 0.2s;
+                transition: all 0.2s;
                 padding: 0;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
                 
                 &:hover {
-                    background-color: #d0d0d0;
+                    background-color: var(--color-primary-dark);
+                    color: var(--color-white);
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                }
+                
+                &:active {
+                    transform: translateY(0);
+                    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
                 }
                 
                 &:focus {
@@ -147,7 +177,7 @@
                 position: absolute;
                 bottom: 60px;
                 left: 10px;
-                background-color: white;
+                background-color: var(--color-white);
                 border-radius: 6px;
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
                 border: 1px solid rgba(0, 0, 0, 0.08);
@@ -170,7 +200,7 @@
                     align-items: center;
                     gap: 8px;
                     padding: 6px 12px;
-                    color: #333;
+                    color: var(--color-gray-800);
                     text-decoration: none;
                     transition: background-color 0.1s ease;
                     cursor: pointer;
@@ -178,7 +208,7 @@
                     .dropdown-icon {
                         width: 16px;
                         height: 16px;
-                        stroke: #333;
+                        stroke: var(--color-gray-800);
                         flex-shrink: 0;
                     }
                     
@@ -189,11 +219,11 @@
                     }
                     
                     &:hover:not(.disabled) {
-                        background-color: #0969da;
-                        color: white;
+                        background-color: var(--color-accent-blue);
+                        color: var(--color-white);
                         
                         .dropdown-icon {
-                            stroke: white;
+                            stroke: var(--color-white);
                         }
                     }
                     
@@ -203,10 +233,10 @@
                         
                         &:hover {
                             background-color: transparent;
-                            color: #333;
+                            color: var(--color-gray-800);
                             
                             .dropdown-icon {
-                                stroke: #333;
+                                stroke: var(--color-gray-800);
                             }
                         }
                     }
