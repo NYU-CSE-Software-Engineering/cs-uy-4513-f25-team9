@@ -2,20 +2,7 @@
 <div class="login-container">
   <div class="login-box">
     <h1>Welcome Back</h1>
-    <% if flash[:alert] %>
-      <div class="error-messages">
-        <ul>
-          <li><%= flash[:alert] %></li>
-        </ul>
-      </div>
-    <% end %>
-    <% if flash[:error] %>
-      <div class="error-messages">
-        <ul>
-          <li><%= flash[:error] %></li>
-        </ul>
-      </div>
-    <% end %>
+    
     <%= form_with url: login_path, scope: nil do |f| %>
       <div class="form-group">
         <%= f.label :email %>
