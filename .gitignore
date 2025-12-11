@@ -40,8 +40,6 @@
 .idea/
 
 /app/assets/builds/*
-/app/assets/svg/*
-/app/assets/builds/*
 !/app/assets/builds/.keep
 
 /coverage/*

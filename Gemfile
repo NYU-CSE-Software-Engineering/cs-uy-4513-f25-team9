@@ -79,3 +79,8 @@ group :development do
 end
 
 gem "rails_icons", "~> 1.5"
+
+# AWS SDK for S3 storage (Active Storage in production)
+gem "aws-sdk-s3", require: false
+
+ruby "3.4.7"
