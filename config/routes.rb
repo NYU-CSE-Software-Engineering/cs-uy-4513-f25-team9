@@ -50,4 +50,5 @@ Rails.application.routes.draw do
   get '/moderations/reported_listings', to: 'moderations#reported_listings', as: :reported_listings
   delete '/moderations/listings/:id', to: 'moderations#destroy_listing', as: :moderations_listing
   delete '/moderations/users/:id', to: 'moderations#destroy_user', as: :moderations_user
+  patch '/moderations/users/:id/remove_moderator', to: 'moderations#remove_moderator', as: :remove_moderator
 end

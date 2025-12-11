@@ -25,4 +25,14 @@ class User < ApplicationRecord
     # Only admins can delete other moderators
     admin?
   end
+
+  def user_type
+    return 'Admin' if admin?
+    return 'Moderator' if moderator?
+    'User'
+  end
+
+  def reported_listings_count
+    Report.joins(:listing).where(listings: { user_id: id }).count
+  end
 end
