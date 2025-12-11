@@ -1,9 +1,205 @@
-<h1>Report This Listing</h1>
-
-<%= form_with(model: [@listing, @report], local: true) do |f| %>
-  <div>
-    <%= f.label :reason, "Reason" %>
-    <%= f.text_field :reason %>
+<div class="seller-home-container">
+  <div class="seller-home-header">
+    <div>
+      <h1>Report This Listing</h1>
+      <p class="header-subtitle">Report: <%= link_to @listing.title, @listing, class: "listing-link" %></p>
+    </div>
+    <div>
+      <%= link_to listing_path(@listing, from: params[:from]), class: "btn btn-primary" do %>
+        <svg class="btn-icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path fill-rule="evenodd" d="M11.03 3.97a.75.75 0 010 1.06l-6.22 6.22H21a.75.75 0 010 1.5H4.81l6.22 6.22a.75.75 0 11-1.06 1.06l-7.5-7.5a.75.75 0 010-1.06l7.5-7.5a.75.75 0 011.06 0z" clip-rule="evenodd" />
+        </svg>
+        <span>Back to Listing</span>
+      <% end %>
+    </div>
   </div>
-  <%= f.submit "Submit Report" %>
-<% end %>
+
+  <div class="report-form-container">
+    <div class="form-card">
+      <h2>Why are you reporting this listing?</h2>
+      <p class="form-subtitle">Please provide details.</p>
+
+      <%= form_with(model: [@listing, @report], local: true, class: "report-form") do |f| %>
+        <div class="form-group">
+          <%= f.label :reason, "Reason", class: "form-label" %>
+          <%= f.text_field :reason,
+                           class: "form-input",
+                           required: true %>
+        </div>
+
+        <div class="form-actions">
+          <%= link_to @listing, class: "btn btn-outline" do %>
+            <span>Cancel</span>
+          <% end %>
+          <%= f.submit "Submit Report", class: "btn btn-primary", data: { confirm: "Are you sure you want to submit this report?" } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<style>
+    /* Reuse seller homepage container styles - they're already global */
+    .seller-home-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 30px 20px;
+    }
+
+    .seller-home-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .seller-home-header h1 {
+        font-size: 2.5rem;
+        margin: 0 0 4px 0;
+        color: #333;
+    }
+
+    .header-subtitle {
+        color: #666;
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    /* Icon sizing - same as your other pages */
+    .btn-icon-sm {
+        width: 16px;
+        height: 16px;
+    }
+
+    .btn-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Form styles */
+    .report-form-container {
+        margin-top: 30px;
+    }
+
+    .form-card {
+        background: white;
+        border-radius: 12px;
+        padding: 32px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .form-card h2 {
+        font-size: 1.75rem;
+        margin: 0 0 8px 0;
+        color: #333;
+    }
+
+    .form-subtitle {
+        color: #666;
+        margin: 0 0 30px 0;
+        font-size: 1rem;
+    }
+
+    .report-form {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #333;
+        font-size: 0.95rem;
+    }
+
+    .form-input {
+        padding: 12px;
+        border: 1px solid #d0d0d0;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-family: inherit;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: #a7333f;
+        box-shadow: 0 0 0 2px rgba(167, 51, 63, 0.1);
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
+
+    /* Button styles - matching your project */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .btn-primary {
+        background-color: #a7333f;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #8b2a35;
+    }
+
+    .btn-outline {
+        background-color: white;
+        color: #666;
+        border: 2px solid #d0d0d0;
+    }
+
+    .btn-outline:hover {
+        border-color: #a7333f;
+        color: #a7333f;
+    }
+
+    .listing-link {
+        color: #a7333f;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .listing-link:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .seller-home-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>

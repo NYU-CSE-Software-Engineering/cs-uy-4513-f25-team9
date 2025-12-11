@@ -4,10 +4,55 @@ class ListingsController < ApplicationController
   before_action :authorize_owner, only: [:edit, :update, :destroy]
 
   def index
-    @categories = Listing.available_categories
+    @listings = Listing.all
 
-    listings = build_filtered_listings
-    @listings = listings.by_sort(params[:sort])
+    # Category filter
+    if params[:category].present?
+      @listings = @listings.where(category: params[:category])
+    end
+
+    # Price filters
+    if params[:min_price].present?
+      @listings = @listings.where("price >= ?", params[:min_price].to_f)
+    end
+
+    if params[:max_price].present?
+      @listings = @listings.where("price <= ?", params[:max_price].to_f)
+    end
+
+    # Search filter
+    if params[:search].present?
+      query = "%#{params[:search].downcase}%"
+      @listings = @listings.where(
+        "LOWER(title) LIKE ? OR LOWER(description) LIKE ?",
+        query, query
+      )
+    end
+
+    # Sorting
+    case params[:sort]
+    when "price_asc"
+      @listings = @listings.order(price: :asc)
+    when "price_desc"
+      @listings = @listings.order(price: :desc)
+    else
+      @listings = @listings.order(created_at: :desc)
+    end
+
+    # For the dropdown
+    @categories = Listing.distinct.pluck(:category).compact
+  end
+
+  def liked
+    if current_user
+      # Show only listings the current user has shown interest in
+      @listings = Listing.joins(:interests)
+                         .where(interests: { buyer_id: current_user.id })
+                         .distinct
+    else
+      @listings = Listing.none
+    end
+    render :index
   end
 
   def seller_home
