@@ -1,117 +1,185 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-
-require 'open-uri'
-
-puts "Cleaning database..."
+# Clear existing data
+puts "Clearing existing data..."
 Listing.destroy_all
 User.destroy_all
 
+# Create users
 puts "Creating users..."
-users = []
-5.times do |i|
-  users << User.create!(
-    email: "user#{i+1}@example.com",
-    password: "password123",
-    password_confirmation: "password123",
-    name: "User #{i+1}"
-  )
-end
+user1 = User.create!(
+  email: "seller@example.com",
+  name: "Sarah Johnson",
+  password: "password123",
+  password_confirmation: "password123"
+)
 
-puts "Creating listings with images..."
+user2 = User.create!(
+  email: "john@example.com",
+  name: "John Smith",
+  password: "password123",
+  password_confirmation: "password123"
+)
 
-# Sample product data with image URLs from placeholder services
+user3 = User.create!(
+  email: "test@example.com",
+  name: "Test User",
+  password: "password123",
+  password_confirmation: "password123"
+)
+
+# Create admin user
+user4 = User.create!(
+  email: "admin@example.com",
+  name: "Admin User",
+  password: "adminpassword",
+  password_confirmation: "adminpassword",
+  is_admin: true,
+  is_moderator: true
+)
+
+# Create moderator user
+moderator = User.create!(
+  email: "moderator@example.com",
+  name: "Moderator User",
+  password: "password123",
+  password_confirmation: "password123",
+  is_moderator: true
+)
+
+puts "Created #{User.count} users"
+
+# Categories
+categories = ["Electronics", "Clothing", "Books", "Furniture", "Sports", "Home & Garden"]
+
+# Create listings for user1
+puts "Creating listings..."
+
 listings_data = [
   {
+    title: "MacBook Pro 2021 - 16 inch",
+    description: "Gently used MacBook Pro with M1 Pro chip, 16GB RAM, 512GB SSD. Includes original charger and box. Perfect condition, no scratches.",
+    price: 1899.99,
+    category: "Electronics"
+  },
+  {
     title: "Vintage Leather Jacket",
-    description: "Classic brown leather jacket in excellent condition. Size M. Perfect for fall weather.",
-    price: 85.00,
-    category: "Apparel",
-    image_url: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400"
+    description: "Classic brown leather jacket from the 80s. Size Medium. Genuine leather, well-maintained. Perfect for anyone looking for that retro style.",
+    price: 120.00,
+    category: "Clothing"
   },
   {
-    title: "iPhone 12 Pro",
-    description: "Gently used iPhone 12 Pro, 128GB, Space Gray. Includes charger and case.",
-    price: 599.99,
-    category: "Electronics",
-    image_url: "https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=400"
+    title: "The Great Gatsby - First Edition",
+    description: "Rare first edition of The Great Gatsby by F. Scott Fitzgerald. Great condition for its age. A must-have for collectors.",
+    price: 450.00,
+    category: "Books"
   },
   {
-    title: "IKEA Desk - White",
-    description: "Modern white desk, perfect for home office. Some minor scratches but fully functional.",
-    price: 45.00,
-    category: "Furniture",
-    image_url: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=400"
+    title: "Modern Coffee Table",
+    description: "Beautiful minimalist coffee table made of oak wood. Dimensions: 48x24x18 inches. Barely used, like new condition.",
+    price: 200.00,
+    category: "Furniture"
   },
   {
-    title: "Calculus Textbook",
-    description: "Calculus: Early Transcendentals, 8th Edition. Like new condition, minimal highlighting.",
-    price: 35.00,
-    category: "Books",
-    image_url: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400"
+    title: "Mountain Bike - Trek X-Caliber",
+    description: "Trek X-Caliber mountain bike with 29-inch wheels. Recently serviced, new tires. Perfect for trails and off-road adventures.",
+    price: 650.00,
+    category: "Sports"
   },
   {
-    title: "Coffee Maker - Keurig",
-    description: "Single-serve Keurig coffee maker. Works perfectly, includes 10 K-cups.",
-    price: 55.00,
-    category: "Kitchen",
-    image_url: "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=400"
+    title: "Electric Lawn Mower",
+    description: "Eco-friendly electric lawn mower with a 14-inch cutting width. Lightweight and easy to use. Great for small to medium yards.",
+    price: 180.00,
+    category: "Home & Garden"
   },
   {
-    title: "Nike Running Shoes",
-    description: "Men's Nike Air Zoom Pegasus, size 10. Worn only a few times.",
-    price: 70.00,
-    category: "Apparel",
-    image_url: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400"
+    title: "iPhone 13 Pro - 256GB",
+    description: "iPhone 13 Pro in Sierra Blue. 256GB storage, unlocked for all carriers. Includes original box and accessories. Screen protector applied since day one.",
+    price: 799.99,
+    category: "Electronics"
   },
   {
-    title: "MacBook Air 2020",
-    description: "MacBook Air M1, 8GB RAM, 256GB SSD. Excellent condition with original box.",
-    price: 750.00,
-    category: "Electronics",
-    image_url: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400"
-  },
-  {
-    title: "Wooden Bookshelf",
-    description: "5-tier wooden bookshelf, dark brown finish. Sturdy and spacious.",
-    price: 60.00,
-    category: "Furniture",
-    image_url: "https://images.unsplash.com/photo-1594620302200-9a762244a156?w=400"
-  },
-  {
-    title: "Psychology Textbook Bundle",
-    description: "3 psychology textbooks: Intro to Psych, Abnormal Psych, and Social Psych.",
-    price: 80.00,
-    category: "Books",
-    image_url: "https://images.unsplash.com/photo-1589998059171-988d887df646?w=400"
-  },
-  {
-    title: "Instant Pot 6 Qt",
-    description: "6-quart Instant Pot pressure cooker. Used once, practically new.",
-    price: 65.00,
-    category: "Kitchen",
-    image_url: "https://images.unsplash.com/photo-1585515320310-259814833e62?w=400"
+    title: "Designer Winter Coat",
+    description: "Women's winter coat from a luxury brand. Size Small. Navy blue, down-filled, extremely warm. Only worn a few times.",
+    price: 300.00,
+    category: "Clothing"
   }
 ]
 
-listings_data.each_with_index do |data, index|
-  listing = users[index % users.length].listings.create!(
-    title: data[:title],
-    description: data[:description],
-    price: data[:price],
-    category: data[:category]
-  )
-  
-  # Attach image from URL
-  begin
-    file = URI.open(data[:image_url])
-    listing.image.attach(io: file, filename: "#{data[:title].parameterize}.jpg")
-    puts "✓ Created: #{listing.title}"
-  rescue => e
-    puts "✗ Error attaching image for #{listing.title}: #{e.message}"
-  end
+listings_data.each do |listing_data|
+  user1.listings.create!(listing_data)
 end
 
-puts "\nSeeding completed!"
-puts "Created #{User.count} users and #{Listing.count} listings"
+# Create some listings for user2
+user2_listings = [
+  {
+    title: "Sony WH-1000XM4 Headphones",
+    description: "Premium noise-cancelling wireless headphones. Excellent sound quality, comfortable for long use. Includes carrying case.",
+    price: 280.00,
+    category: "Electronics"
+  },
+  {
+    title: "Yoga Mat & Block Set",
+    description: "High-quality yoga mat with alignment lines, includes two foam blocks. Perfect for home workouts or studio practice.",
+    price: 45.00,
+    category: "Sports"
+  },
+  {
+    title: "Vintage Record Player",
+    description: "Fully functional vintage record player from the 1970s. Great sound quality, comes with a collection of 20 vinyl records.",
+    price: 350.00,
+    category: "Electronics"
+  }
+]
+
+user2_listings.each do |listing_data|
+  user2.listings.create!(listing_data)
+end
+
+# Create one listing for user3
+user3.listings.create!(
+  title: "Gaming Chair - Racing Style",
+  description: "Ergonomic gaming chair with lumbar support and adjustable armrests. Red and black design. Very comfortable for long gaming sessions.",
+  price: 220.00,
+  category: "Furniture"
+)
+
+puts "Created #{Listing.count} listings"
+
+# Create some reports for testing moderation
+puts "Creating test reports..."
+# Report some listings as fraudulent for testing
+fraudulent_listing1 = user1.listings.first
+fraudulent_listing2 = user2.listings.first
+
+if fraudulent_listing1 && fraudulent_listing2
+  Report.create!(
+    user: user2,
+    listing: fraudulent_listing1,
+    reason: "Suspicious pricing - too good to be true"
+  )
+  
+  Report.create!(
+    user: user3,
+    listing: fraudulent_listing1,
+    reason: "Product description seems fake"
+  )
+  
+  Report.create!(
+    user: user1,
+    listing: fraudulent_listing2,
+    reason: "Fraudulent listing - seller not responding"
+  )
+  
+  puts "Created #{Report.count} reports"
+end
+
+puts "\n=== Seed Data Summary ==="
+puts "Users created: #{User.count}"
+puts "Listings created: #{Listing.count}"
+puts "Reports created: #{Report.count}"
+puts "\nTest accounts:"
+puts "Email: seller@example.com | Password: password123 (#{user1.listings.count} listings)"
+puts "Email: john@example.com | Password: password123 (#{user2.listings.count} listings)"
+puts "Email: test@example.com | Password: password123 (#{user3.listings.count} listing)"
+puts "Email: admin@example.com | Password: adminpassword (Admin User)"
+puts "Email: moderator@example.com | Password: password123 (Moderator - can access moderation pages)"
+puts "\nRun: rails db:seed"

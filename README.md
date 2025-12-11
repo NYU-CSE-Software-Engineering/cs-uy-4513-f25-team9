@@ -5,6 +5,7 @@ CS-UY 4513 Software Engineering Project
 ## Requirements:
 
 #### System dependencies:
+
 - Ruby 3.4.7
 - Rails 8.1.0
 - Postgres
@@ -15,7 +16,8 @@ After cloning the repo and having the necessary Ruby and Rails versions, run:
 `bundle install`
 
 **Installing Postgres and Setting Up Local Database**
-Linux (Ubuntu): 
+Linux (Ubuntu):
+
 ```
 # Update and install Postgres
 sudo apt update
@@ -27,6 +29,7 @@ sudo -u postgres createuser --superuser $(whoami)
 ```
 
 MacOS:
+
 ```
 # Install Homebrew if you don't have it
 
@@ -42,15 +45,42 @@ brew services start postgresql
 createuser --superuser $(whoami)
 ```
 
-Windows: 
+Windows:
 `Just use WSL and follow the Linux instructions. Makes life easier. Trust me.`
 
 **Database Initialization**
 
 Run this when setting up the project for the first time:
+
 ```
 rails db:setup
+rails db:migrate
 ```
+
+**Required Gem Setup**
+
+```
+rails dartsass:install
+rails generate rails_icons:install --libraries=heroicons
+```
+
+## How to Run the Project
+
+Run the script `bin/dev`
+
+```
+bin/dev
+```
+
+### If CSS changes are not showing up
+
+Sometimes, after adding or editing stylesheets, you may need to recompile Rails assets to see the changes. Run:
+
+```
+bundle exec rails assets:clobber && bundle exec rails assets:precompile
+```
+
+Then restart your Rails server and refresh your browser (clear cache if needed).
 
 ## How to run the test suite
 
@@ -60,12 +90,10 @@ rails db:setup
 **Cucumber:**
 `bundle exec cucumber`
 
-
-
 ## Things to add in the readme:
 
-* Services (job queues, cache servers, search engines, etc.)
+- Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+- Deployment instructions
 
-* ...
+- ...

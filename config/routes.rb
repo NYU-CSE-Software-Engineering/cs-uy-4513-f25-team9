@@ -10,9 +10,14 @@ Rails.application.routes.draw do
     resources :conversations, only: [:new, :create]
   end
 
-  resources :conversations, only: [:show] do
+  get '/seller_home', to: 'listings#seller_home', as: :seller_home
+
+  resources :conversations, only: [:index, :show] do
     resources :messages, only: [:create]
   end
+
+  get '/feed', to: 'feed#index'
+  post '/swipes', to: 'swipes#create'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
@@ -21,7 +26,13 @@ Rails.application.routes.draw do
   
   resources :users, only: [:index, :destroy, :new, :create]
   
-  root "listings#index"
+
+  # Show login page as root for unauthenticated users, feed#index for logged-in users
+  authenticated = lambda { |req| req.session[:user_id].present? }
+  constraints authenticated do
+    root to: "feed#index", as: :authenticated_root
+  end
+  root to: "sessions#new"
 
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
@@ -33,4 +44,10 @@ Rails.application.routes.draw do
 
   # Purchase history
   get '/purchases', to: 'purchases#index'
+
+  # Moderations
+  get '/moderations/user_list', to: 'moderations#user_list', as: :moderations
+  get '/moderations/reported_listings', to: 'moderations#reported_listings', as: :reported_listings
+  delete '/moderations/listings/:id', to: 'moderations#destroy_listing', as: :moderations_listing
+  delete '/moderations/users/:id', to: 'moderations#destroy_user', as: :moderations_user
 end

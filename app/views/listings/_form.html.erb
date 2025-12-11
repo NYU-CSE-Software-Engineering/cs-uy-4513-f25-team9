@@ -1,0 +1,147 @@
+<%= form_with(model: listing, local: true, class: "listing-form") do |f| %>
+  <% if listing.errors.any? %>
+    <div class="error-messages">
+      <h3><%= pluralize(listing.errors.count, "error") %> prevented this listing from being saved:</h3>
+      <ul>
+        <% listing.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :title, "Title" %>
+    <%= f.text_field :title, placeholder: "e.g., Vintage Leather Jacket", class: "form-control" %>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <%= f.label :price, "Price ($)" %>
+      <%= f.number_field :price, step: 0.01, min: 0, placeholder: "0.00", class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :category, "Category" %>
+      <%= f.select :category, 
+          options_for_select(Listing.available_categories, listing.category),
+          { include_blank: "Select a category" },
+          class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, "Description" %>
+    <%= f.text_area :description, rows: 5, placeholder: "Describe your item in detail...", class: "form-control" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit button_text || "Save Listing", class: "btn btn-primary" %>
+    <%= link_to "Cancel", seller_home_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>
+
+<style>
+.listing-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.error-messages {
+  background-color: #fee;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.error-messages h3 {
+  color: #c00;
+  font-size: 1rem;
+  margin: 0 0 8px 0;
+}
+
+.error-messages ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.error-messages li {
+  color: #c00;
+  font-size: 0.9rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #a7333f;
+  box-shadow: 0 0 0 3px rgba(167, 51, 63, 0.1);
+}
+
+textarea.form-control {
+  resize: vertical;
+  font-family: inherit;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary {
+  background-color: #a7333f;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #8b2a35;
+}
+
+.btn-secondary {
+  background-color: #e6e6e6;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background-color: #d0d0d0;
+}
+</style>

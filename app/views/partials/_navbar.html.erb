@@ -1,0 +1,122 @@
+<nav class="navbar-vertical">
+    <div class="navbar-top">
+        <div class="navbar-logo">
+            <span class="logo-text">logo</span>
+        </div>
+    </div>
+
+    <div class="navbar-center">
+        <ul class="navbar-links">
+            <li>
+                <%= link_to feed_path, class: "nav-link #{current_page?(feed_path) ? 'active' : ''}" do %>
+                    <%= icon "square-3-stack-3d", class: "nav-icon" %>
+                <% end %>
+            </li>
+            <li>
+                <%= link_to conversations_path, class: "nav-link #{current_page?('#') ? 'active' : ''}" do %>
+                    <%= icon "chat-bubble-oval-left", class: "nav-icon" %>
+                <% end %>
+            </li>
+
+            <% if current_user&.moderator? %>
+               
+                <li>
+                    <%= link_to moderations_path, class: "nav-link #{current_page?(moderations_path) ? 'active' : ''}", title: "User List" do %>
+                        <%= icon "user-group", class: "nav-icon" %>
+                    <% end %>
+                </li>
+                <li>
+                    <%= link_to reported_listings_path, class: "nav-link #{current_page?(reported_listings_path) ? 'active' : ''}" do %>
+                        <%= icon "flag", class: "nav-icon" %>
+                    <% end %>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+
+    <div class="navbar-bottom">
+        <div class="profile-dropdown">
+            <button class="profile-avatar" id="profileDropdownBtn">
+                <%= icon "user-circle" %>
+            </button>
+            <div class="dropdown-menu" id="profileDropdownMenu">
+                <%= link_to seller_home_path, class: "dropdown-item" do %>
+                    <%= icon "home", class: "dropdown-icon" %>
+                    <span>Seller Home</span>
+                <% end %>
+                <%= link_to "#", class: "dropdown-item disabled" do %>
+                    <%= icon "cog-6-tooth", class: "dropdown-icon" %>
+                    <span>Settings</span>
+                <% end %>
+                <%= link_to logout_path, method: :delete, class: "dropdown-item" do %>
+                    <%= icon "arrow-right-on-rectangle", class: "dropdown-icon" %>
+                    <span>Log Out</span>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+// Use turbo:load for Rails 8 Turbo compatibility
+document.addEventListener('turbo:load', function() {
+    const profileBtn = document.getElementById('profileDropdownBtn');
+    const dropdownMenu = document.getElementById('profileDropdownMenu');
+    
+    if (profileBtn && dropdownMenu) {
+        // Remove any existing listeners to prevent duplicates
+        const newProfileBtn = profileBtn.cloneNode(true);
+        profileBtn.parentNode.replaceChild(newProfileBtn, profileBtn);
+        
+        const updatedProfileBtn = document.getElementById('profileDropdownBtn');
+        const updatedDropdownMenu = document.getElementById('profileDropdownMenu');
+        
+        // Toggle dropdown on profile button click
+        updatedProfileBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            updatedDropdownMenu.classList.toggle('show');
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!updatedProfileBtn.contains(e.target) && !updatedDropdownMenu.contains(e.target)) {
+                updatedDropdownMenu.classList.remove('show');
+            }
+        });
+        
+        // Close dropdown when clicking on a link inside it
+        updatedDropdownMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                updatedDropdownMenu.classList.remove('show');
+            });
+        });
+    }
+});
+
+// Also listen for DOMContentLoaded for initial page load
+document.addEventListener('DOMContentLoaded', function() {
+    const profileBtn = document.getElementById('profileDropdownBtn');
+    const dropdownMenu = document.getElementById('profileDropdownMenu');
+    
+    if (profileBtn && dropdownMenu) {
+        profileBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('show');
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (!profileBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+        
+        dropdownMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                dropdownMenu.classList.remove('show');
+            });
+        });
+    }
+});
+</script>

@@ -1,11 +1,431 @@
-<h1><%= @listing.title %></h1>
+<div class="listing-show-container">
+  <div class="listing-show-header">
+    <%= link_to feed_path, class: "back-link" do %>
+      <%= icon "arrow-left", class: "back-icon" %>
+      <span>Back to Feed</span>
+    <% end %>
+  </div>
 
-<% if @listing.image.attached? %>
-  <%= image_tag @listing.image, alt: @listing.title, style: "max-width: 500px; height: auto;" %>
-<% end %>
+  <div class="listing-show-content">
+    <div class="listing-main">
+      <div class="listing-image-placeholder">
+        <%= icon "photo", class: "placeholder-icon" %>
+        <p class="placeholder-text">Image Preview</p>
+      </div>
 
-<p><%= @listing.description %></p>
-<p>Price: $<%= @listing.price %></p>
+      <div class="listing-details">
+        <div class="listing-title-section">
+          <h1 class="listing-title"><%= @listing.title %></h1>
+          <div class="listing-price-large"><%= number_to_currency(@listing.price) %></div>
+        </div>
 
-<%= link_to "Message Seller", new_listing_conversation_path(@listing), class: "btn btn-primary" %>
-<%= link_to "Report listing", new_listing_report_path(@listing), class: "btn btn-danger" %>
+        <div class="listing-meta-section">
+          <div class="meta-item">
+            <%= icon "tag", class: "meta-item-icon" %>
+            <div>
+              <div class="meta-label">Category</div>
+              <div class="meta-value"><%= @listing.category.presence || "Uncategorized" %></div>
+            </div>
+          </div>
+          <div class="meta-item">
+            <%= icon "clock", class: "meta-item-icon" %>
+            <div>
+              <div class="meta-label">Posted</div>
+              <div class="meta-value"><%= time_ago_in_words(@listing.created_at) %> ago</div>
+            </div>
+          </div>
+          <div class="meta-item">
+            <%= icon "user", class: "meta-item-icon" %>
+            <div>
+              <div class="meta-label">Seller</div>
+              <div class="meta-value"><%= @listing.user.name %></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="listing-description-section">
+          <h2 class="section-title">Description</h2>
+          <p class="listing-description-text"><%= simple_format(@listing.description) %></p>
+        </div>
+
+        <div class="listing-actions-section">
+          <% if current_user && current_user != @listing.user %>
+            <%= link_to new_listing_conversation_path(@listing), class: "btn btn-primary btn-large" do %>
+              <%= icon "chat-bubble-oval-left", class: "btn-icon" %>
+              <span>Message Seller</span>
+            <% end %>
+          <% end %>
+          
+          <% if current_user && @listing.user == current_user %>
+            <%= link_to edit_listing_path(@listing), class: "btn btn-secondary btn-large" do %>
+              <%= icon "pencil", class: "btn-icon" %>
+              <span>Edit Listing</span>
+            <% end %>
+          <% else %>
+            <%= link_to new_listing_report_path(@listing), class: "btn btn-outline btn-large" do %>
+              <%= icon "flag", class: "btn-icon" %>
+              <span>Report listing</span>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="listing-sidebar">
+      <div class="seller-card">
+        <h3 class="sidebar-title">Seller Information</h3>
+        <div class="seller-info">
+          <div class="seller-avatar">
+            <%= icon "user-circle", class: "seller-avatar-icon" %>
+          </div>
+          <div>
+            <div class="seller-name"><%= @listing.user.name %></div>
+            <div class="seller-email"><%= @listing.user.email %></div>
+          </div>
+        </div>
+        <div class="seller-stats">
+          <div class="stat-item">
+            <div class="stat-value"><%= @listing.user.listings.count %></div>
+            <div class="stat-label">Listings</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value"><%= @listing.user.created_at.strftime("%B %Y") %></div>
+            <div class="stat-label">Joined</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.listing-show-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.listing-show-header {
+  margin-bottom: 30px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #a7333f;
+}
+
+.back-icon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
+.listing-show-content {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 40px;
+}
+
+.listing-main {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.listing-image-placeholder {
+  background: #f5f5f5;
+  border-radius: 16px;
+  aspect-ratio: 16/9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #d0d0d0;
+}
+
+.placeholder-icon {
+  width: 80px;
+  height: 80px;
+  stroke: #999;
+  margin-bottom: 12px;
+}
+
+.placeholder-text {
+  color: #999;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.listing-details {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.listing-title-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 24px;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.listing-title {
+  font-size: 2.5rem;
+  margin: 0;
+  color: #333;
+  flex: 1;
+}
+
+.listing-price-large {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #a7333f;
+  white-space: nowrap;
+}
+
+.listing-meta-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.meta-item-icon {
+  width: 24px;
+  height: 24px;
+  stroke: #a7333f;
+  flex-shrink: 0;
+}
+
+.meta-label {
+  font-size: 0.85rem;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+.meta-value {
+  font-size: 1rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.listing-description-section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  margin: 0 0 16px 0;
+  color: #333;
+}
+
+.listing-description-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #666;
+  margin: 0;
+}
+
+.listing-actions-section {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-large {
+  flex: 1;
+  justify-content: center;
+  min-width: 200px;
+}
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
+.btn-primary {
+  background-color: #a7333f;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #8b2a35;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(167, 51, 63, 0.3);
+}
+
+.btn-secondary {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #d97706;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background-color: white;
+  color: #666;
+  border: 2px solid #d0d0d0;
+}
+
+.btn-outline:hover {
+  border-color: #a7333f;
+  color: #a7333f;
+}
+
+.listing-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.seller-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-title {
+  font-size: 1.25rem;
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.seller-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.seller-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seller-avatar-icon {
+  width: 40px;
+  height: 40px;
+  stroke: #999;
+}
+
+.seller-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.seller-email {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.seller-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 12px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #a7333f;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+@media (max-width: 1024px) {
+  .listing-show-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .listing-sidebar {
+    order: -1;
+  }
+  
+  .listing-title {
+    font-size: 2rem;
+  }
+  
+  .listing-price-large {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .listing-title-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .listing-meta-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .listing-actions-section {
+    flex-direction: column;
+  }
+  
+  .btn-large {
+    width: 100%;
+  }
+}
+</style>

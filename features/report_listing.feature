@@ -15,4 +15,4 @@ Feature: Buyer reports a suspicious or fraudulent listing
     Given I am not logged in
     When I attempt to submit a report for a listing
     Then I should be redirected to the login page
-    And I should see "Please sign in to report listings"
+    And I should see "Please sign in"

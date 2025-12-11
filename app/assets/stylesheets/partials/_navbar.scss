@@ -1,0 +1,214 @@
+.navbar-vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    width: 80px;
+    padding: 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
+    z-index: 1000;
+    
+    .navbar-top {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+
+        .navbar-logo {
+            background-color: #e6e6e6;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            width: 64px;
+            height: 64px;
+            
+            .logo-text {
+                color: #333;
+                font-size: 1rem;
+                font-weight: 400;
+            }
+        }
+    }
+    
+    .navbar-center {
+        
+        .navbar-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+            
+            li {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                
+                .nav-link {
+                    text-decoration: none;
+                    color: #333;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    //   padding: 15px;
+                    background-color: #e6e6e6;
+                    border-radius: 16px;
+                    transition: background-color 0.2s;
+                    width: 64px;
+                    height: 64px;
+                    
+                    .nav-icon {
+                        width: 36px;
+                        height: 36px;
+                        stroke: #333;
+                    }
+                    
+                    &:hover {
+                        background-color: #a7333f;
+                        
+                        .nav-icon {
+                            stroke: #fff;
+                        }
+                    }
+
+                    &.active {
+                        background-color: #a7333f;
+                        
+                        .nav-icon {
+                            stroke: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    .navbar-bottom {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        
+        .profile-dropdown {
+            position: relative;
+            
+            .profile-avatar {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                overflow: hidden;
+                background-color: #e6e6e6;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.2s;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                
+                &:hover {
+                    background-color: #d0d0d0;
+                }
+                
+                &:focus {
+                    outline: none;
+                }
+                
+                svg {
+                    width: 32px;
+                    height: 32px;
+                }
+            }
+            
+            .dropdown-menu {
+                position: absolute;
+                bottom: 60px;
+                left: 10px;
+                background-color: white;
+                border-radius: 6px;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+                border: 1px solid rgba(0, 0, 0, 0.08);
+                min-width: 160px;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(8px);
+                transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+                z-index: 1000;
+                padding: 4px 0;
+                
+                &.show {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateY(0);
+                }
+                
+                .dropdown-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 6px 12px;
+                    color: #333;
+                    text-decoration: none;
+                    transition: background-color 0.1s ease;
+                    cursor: pointer;
+                    
+                    .dropdown-icon {
+                        width: 16px;
+                        height: 16px;
+                        stroke: #333;
+                        flex-shrink: 0;
+                    }
+                    
+                    span {
+                        font-size: 13px;
+                        font-weight: 400;
+                        white-space: nowrap;
+                    }
+                    
+                    &:hover:not(.disabled) {
+                        background-color: #0969da;
+                        color: white;
+                        
+                        .dropdown-icon {
+                            stroke: white;
+                        }
+                    }
+                    
+                    &.disabled {
+                        opacity: 0.5;
+                        cursor: not-allowed;
+                        
+                        &:hover {
+                            background-color: transparent;
+                            color: #333;
+                            
+                            .dropdown-icon {
+                                stroke: #333;
+                            }
+                        }
+                    }
+                    
+                    &:first-child {
+                        border-radius: 6px 6px 0 0;
+                    }
+                    
+                    &:last-child {
+                        border-radius: 0 0 6px 6px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Adjust main content to not be hidden behind navbar
+body {
+    padding-left: 80px;
+}

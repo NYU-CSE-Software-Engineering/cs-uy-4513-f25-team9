@@ -51,6 +51,12 @@ jobs:
           bundle exec rails db:create --quiet 2>/dev/null || true
           bundle exec rails db:schema:load
 
+      # Set up required gems
+      - name: Set up required gems
+        run: |
+          bundle exec rails dartsass:install
+          bundle exec rails generate rails_icons:install --libraries=heroicons
+
       # Run RSpec
       - name: Run RSpec tests
         run: bundle exec rspec

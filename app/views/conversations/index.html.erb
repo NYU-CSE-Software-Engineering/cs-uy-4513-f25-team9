@@ -1,0 +1,349 @@
+<div class="seller-home-container">
+  <div class="seller-home-header">
+    <div>
+      <h1>Messages</h1>
+      <p class="header-subtitle">Your conversations</p>
+    </div>
+  </div>
+
+  <div class="seller-listings">
+    <div class="listings-header">
+      <h2>Active Conversations (<%= @conversations.count %>)</h2>
+      <% unless @conversations.empty? %>
+        <div class="listings-filter">
+          <span class="filter-label">Sort by:</span>
+          <select id="conversationsSort" class="sort-select">
+            <option value="recent">Most Recent</option>
+            <option value="oldest">Oldest</option>
+            <option value="listing">Listing Name</option>
+          </select>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @conversations.empty? %>
+      <div class="empty-state">
+        <h3>No conversations yet</h3>
+        <p>Start a conversation by messaging a seller about an item!</p>
+      </div>
+    <% else %>
+      <div class="listings-grid">
+        <% @conversations.each do |conversation| %>
+          <div class="listing-card" data-created="<%= conversation.updated_at.to_i %>" data-title="<%= conversation.listing.title.downcase %>">
+            <div class="listing-header">
+              <h3><%= link_to conversation.listing.title, conversation_path(conversation), class: "listing-title-link" %></h3>
+              <span class="listing-price"><%= number_to_currency(conversation.listing.price) %></span>
+            </div>
+
+            <div class="listing-meta">
+              <span class="listing-category">
+                <svg class="meta-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" />
+                </svg>
+                <% if current_user == conversation.buyer %>
+                  <%= conversation.seller.email %>
+                <% else %>
+                  <%= conversation.buyer.email %>
+                <% end %>
+              </span>
+              <span class="listing-date">
+                <svg class="meta-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z" clip-rule="evenodd" />
+                </svg>
+                <% if conversation.messages.any? %>
+                  <% last_message = conversation.messages.order(created_at: :desc).first %>
+                  Last message: <%= time_ago_in_words(last_message.created_at) %> ago
+                <% else %>
+                  Started: <%= time_ago_in_words(conversation.created_at) %> ago
+                <% end %>
+              </span>
+            </div>
+
+            <div class="listing-description">
+              <% if conversation.messages.any? %>
+                <% last_message = conversation.messages.order(created_at: :desc).first %>
+                <strong>Last message:</strong> <%= truncate(last_message.content, length: 100) %>
+              <% else %>
+                <em>No messages yet</em>
+              <% end %>
+            </div>
+
+            <div class="listing-actions">
+              <%= link_to conversation_path(conversation), class: "btn btn-view" do %>
+                <svg class="btn-icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path fill-rule="evenodd" d="M4.804 21.644A6.707 6.707 0 006 21.75a6.721 6.721 0 003.583-1.029c.774.182 1.584.279 2.417.279 5.322 0 9.75-3.97 9.75-9 0-5.03-4.428-9-9.75-9s-9.75 3.97-9.75 9c0 2.409 1.025 4.587 2.674 6.192.232.226.277.428.254.543a3.73 3.73 0 01-.814 1.686.75.75 0 00.44 1.223z" clip-rule="evenodd" />
+                </svg>
+                <span>Open Chat</span>
+              <% end %>
+              <%= link_to conversation.listing, class: "btn btn-edit" do %>
+                <svg class="btn-icon-sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                  <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd" />
+                </svg>
+                <span>View Listing</span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<style>
+    /* Icon sizing - same as seller homepage */
+    .btn-icon-sm {
+        width: 16px;
+        height: 16px;
+    }
+
+    .btn-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .meta-icon {
+        width: 14px;
+        height: 14px;
+        stroke: #999;
+    }
+
+    /* Reuse seller homepage styles */
+    .seller-home-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 30px 20px;
+    }
+
+    .seller-home-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .seller-home-header h1 {
+        font-size: 2.5rem;
+        margin: 0 0 4px 0;
+        color: #333;
+    }
+
+    .header-subtitle {
+        color: #666;
+        font-size: 1rem;
+        margin: 0;
+    }
+
+    .seller-listings {
+        margin-top: 40px;
+    }
+
+    .listings-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+    }
+
+    .listings-header h2 {
+        font-size: 1.75rem;
+        margin: 0;
+        color: #333;
+    }
+
+    .listings-filter {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .filter-label {
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .sort-select {
+        padding: 8px 12px;
+        border: 1px solid #d0d0d0;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        background: white;
+    }
+
+    .sort-select:focus {
+        outline: none;
+        border-color: #a7333f;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 80px 20px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .empty-state h3 {
+        font-size: 2rem;
+        margin: 0 0 16px 0;
+        color: #333;
+    }
+
+    .empty-state p {
+        font-size: 1.2rem;
+        color: #666;
+        margin: 0 0 32px 0;
+    }
+
+    .listings-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 24px;
+    }
+
+    .listing-card {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s, box-shadow 0.2s;
+        position: relative;
+    }
+
+    .listing-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .listing-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 12px;
+        gap: 12px;
+    }
+
+    .listing-header h3 {
+        font-size: 1.25rem;
+        margin: 0;
+        flex: 1;
+    }
+
+    .listing-title-link {
+        color: #333;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .listing-title-link:hover {
+        color: #a7333f;
+    }
+
+    .listing-price {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #a7333f;
+        white-space: nowrap;
+    }
+
+    .listing-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 12px;
+        font-size: 0.85rem;
+    }
+
+    .listing-category,
+    .listing-date {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #666;
+    }
+
+    .listing-description {
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.6;
+        min-height: 60px;
+    }
+
+    .listing-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .btn-view {
+        background-color: #a7333f;
+        color: white;
+        flex: 1;
+    }
+
+    .btn-view:hover {
+        background-color: #8b2a35;
+    }
+
+    .btn-edit {
+        background-color: #a7333f;
+        color: white;
+        flex: 1;
+    }
+
+    .btn-edit:hover {
+        background-color: #8b2a35;
+    }
+
+    @media (max-width: 768px) {
+        .seller-home-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .listings-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sortSelect = document.getElementById('conversationsSort');
+        if (sortSelect) {
+            sortSelect.addEventListener('change', function() {
+                const grid = document.querySelector('.listings-grid');
+                const cards = Array.from(grid.querySelectorAll('.listing-card'));
+
+                cards.sort((a, b) => {
+                    switch(this.value) {
+                        case 'recent':
+                            return parseInt(b.dataset.created) - parseInt(a.dataset.created);
+                        case 'oldest':
+                            return parseInt(a.dataset.created) - parseInt(b.dataset.created);
+                        case 'listing':
+                            return a.dataset.title.localeCompare(b.dataset.title);
+                    }
+                });
+
+                cards.forEach(card => grid.appendChild(card));
+            });
+        }
+    });
+</script>
