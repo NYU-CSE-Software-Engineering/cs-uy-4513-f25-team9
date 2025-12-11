@@ -1,0 +1,292 @@
+.user-list-container {
+  padding: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  min-height: calc(100vh - 80px);
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+
+  .page-header {
+    margin-bottom: 2rem;
+
+    h1 {
+      color: #1a202c;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-subtitle {
+      color: #718096;
+      font-size: 1rem;
+      margin: 0;
+    }
+  }
+
+  .empty-message {
+    text-align: center;
+    padding: 3rem;
+    background: #f7fafc;
+    border-radius: 12px;
+    border: 1px solid rgba(226, 232, 240, 0.2);
+
+    p {
+      color: #718096;
+      font-size: 1.125rem;
+      margin: 0;
+    }
+  }
+
+  .table-container {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(197, 34, 51, 0.1);
+    overflow: auto;
+  }
+
+  .users-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+
+      th {
+        padding: 1rem 1.25rem;
+        text-align: left;
+        font-weight: 600;
+        color: #1a202c !important;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        white-space: nowrap;
+        border-bottom: none !important;
+        border-top: none !important;
+        position: relative;
+        background: #fceeee !important;
+      }
+    }
+
+    tbody {
+      .user-row {
+        border-bottom: 1px solid rgba(226, 232, 240, 0.2);
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: #f7fafc;
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        td {
+          padding: 1.25rem 1.25rem;
+          vertical-align: middle;
+          border-bottom: 1px solid rgb(241, 222, 222) !important;
+
+          &.user-id {
+            font-weight: 600;
+            color: #c52233;
+            font-size: 0.875rem;
+            min-width: 60px;
+            width: 80px;
+          }
+
+          &.user-name {
+            font-weight: 600;
+            color: #1a202c;
+            font-size: 1rem;
+            min-width: 150px;
+            width: 200px;
+          }
+
+          &.user-email {
+            color: #4a5568;
+            font-size: 0.9375rem;
+            min-width: 200px;
+            width: 250px;
+          }
+
+          &.user-type {
+            font-weight: 600;
+            font-size: 0.875rem;
+            min-width: 100px;
+            width: 120px;
+
+            .badge {
+              display: inline-block;
+              padding: 0.375rem 0.75rem;
+              border-radius: 6px;
+              font-size: 0.8125rem;
+              font-weight: 600;
+              text-transform: uppercase;
+              letter-spacing: 0.025em;
+
+              &.badge-admin {
+                background: #fed7d7;
+                color: #742a2a;
+                border: 1px solid rgba(252, 129, 129, 0.2);
+              }
+
+              &.badge-moderator {
+                background: #bee3f8;
+                color: #2c5282;
+                border: 1px solid rgba(66, 153, 225, 0.2);
+              }
+
+              &.badge-user {
+                background: #c6f6d5;
+                color: #276749;
+                border: 1px solid rgba(72, 187, 120, 0.2);
+              }
+            }
+          }
+
+          &.user-reports {
+            font-weight: 600;
+            font-size: 1rem;
+            min-width: 100px;
+            width: 150px;
+            text-align: center;
+
+            .report-count {
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              min-width: 2.5rem;
+              height: 2.5rem;
+              padding: 0 0.75rem;
+              background: #fff5f5;
+              color: #c53030;
+              border-radius: 8px;
+              font-weight: 700;
+              border: 2px solid rgba(252, 129, 129, 0.2);
+
+              &.no-reports {
+                background: #f0fff4;
+                color: #22543d;
+                border-color: rgba(154, 230, 180, 0.2);
+              }
+            }
+          }
+
+          &.user-actions {
+            min-width: 150px;
+            width: auto;
+
+            .actions-wrapper {
+              display: flex;
+              gap: 0.5rem;
+              flex-wrap: wrap;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .btn-delete {
+    background: #c52233;
+    color: #fff;
+    border: none;
+    padding: 0.625rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(197, 34, 51, 0.2);
+    white-space: nowrap;
+
+    &:hover {
+      background: #9f1b29;
+      box-shadow: 0 4px 8px rgba(197, 34, 51, 0.3);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(197, 34, 51, 0.2);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(197, 34, 51, 0.2);
+    }
+
+    &:disabled,
+    &[disabled] {
+      background: #cbd5e0;
+      color: #a0aec0;
+      cursor: not-allowed;
+      box-shadow: none;
+      opacity: 0.6;
+
+      &:hover {
+        background: #cbd5e0;
+        box-shadow: none;
+        transform: none;
+      }
+    }
+  }
+
+  .btn-remove-privileges {
+    background: #d69e2e;
+    color: #fff;
+    border: none;
+    padding: 0.625rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(214, 158, 46, 0.2);
+    white-space: nowrap;
+
+    &:hover {
+      background: #b7791f;
+      box-shadow: 0 4px 8px rgba(214, 158, 46, 0.3);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(214, 158, 46, 0.2);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(214, 158, 46, 0.2);
+    }
+  }
+}
+
+// Flash messages styling
+.notice,
+.alert,
+.error {
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  border-left: 4px solid;
+
+  &.notice {
+    background: #f0fff4;
+    color: #22543d;
+    border-color: #48bb78;
+  }
+
+  &.alert,
+  &.error {
+    background: #fff5f5;
+    color: #c53030;
+    border-color: #fc8181;
+  }
+}
