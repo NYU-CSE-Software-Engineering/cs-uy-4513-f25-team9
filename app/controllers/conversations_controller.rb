@@ -39,6 +39,13 @@ class ConversationsController < ApplicationController
     conversation_params = params[:conversation] || {}
     initial_message = conversation_params[:initial_message]
 
+    if initial_message.blank? && params[:conversation].present?
+      @conversation = Conversation.new
+      flash.now[:alert] = "Message content cannot be empty"
+      render :new, status: :unprocessable_content
+      return
+    end
+
     @conversation = Conversation.new(
       buyer: current_user,
       seller: @listing.user,

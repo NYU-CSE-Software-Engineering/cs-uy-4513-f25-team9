@@ -33,7 +33,7 @@ When('I update that listing to {string}') do |new_title|
 end
 
 When('I delete that listing') do
-  visit listings_path
+  visit seller_home_path
   within("#listing_#{@listing.id}") do
     click_link 'Delete'
   end

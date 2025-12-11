@@ -21,6 +21,7 @@
 
       <%= form_with(model: [@listing, @report], local: true, class: "report-form") do |f| %>
         <div class="form-group">
+          <%= f.label :reason, "Reason", class: "form-label" %>
           <%= f.text_field :reason,
                            class: "form-input",
                            required: true %>

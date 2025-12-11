@@ -4,6 +4,11 @@ class ListingsController < ApplicationController
   before_action :authorize_owner, only: [:edit, :update, :destroy]
 
   def index
+    # Seller's own listings (for cucumber test)
+    @listings = current_user ? current_user.listings : Listing.none
+  end
+
+  def liked
     if current_user
       # Show only listings the current user has shown interest in
       @listings = Listing.joins(:interests)
@@ -12,6 +17,7 @@ class ListingsController < ApplicationController
     else
       @listings = Listing.none
     end
+    render :index
   end
 
   def seller_home

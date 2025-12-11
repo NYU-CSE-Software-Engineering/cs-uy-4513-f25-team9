@@ -1,7 +1,7 @@
 <div class="listing-show-container">
   <div class="listing-show-header">
     <% if params[:from] == 'liked' %>
-      <%= link_to listings_path, class: "back-link" do %>
+      <%= link_to liked_listings_path, class: "back-link" do %>
         <%= icon "arrow-left", class: "back-icon" %>
         <span>Back to Liked Listings</span>
       <% end %>

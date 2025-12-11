@@ -13,7 +13,7 @@
                 <% end %>
             </li>
             <li>
-                <%= link_to listings_path, class: "nav-link #{current_page?(listings_path) ? 'active' : ''}" do %>
+                <%= link_to liked_listings_path, class: "nav-link #{current_page?(liked_listings_path) ? 'active' : ''}" do %>
                     <%= icon "heart", class: "nav-icon" %>
                 <% end %>
             </li>
