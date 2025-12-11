@@ -1,5 +1,8 @@
 source "https://rubygems.org"
 
+# Load environment variables from .env file (must be early)
+gem 'dotenv-rails', groups: [:development, :test], require: 'dotenv/load'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.0"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
@@ -67,10 +70,7 @@ group :development, :test do
   gem 'capybara'
 
   # Cleans your database between test runs
-  gem 'database_cleaner-active_record'  
-
-  # Load environment variables from .env file
-  gem 'dotenv-rails'
+  gem 'database_cleaner-active_record'
 end
 
 group :development do
