@@ -260,27 +260,3 @@
     }
   }
 }
-
-// Flash messages styling
-.notice,
-.alert,
-.error {
-  padding: 1rem 1.5rem;
-  margin-bottom: 1.5rem;
-  border-radius: 8px;
-  font-weight: 500;
-  border-left: 4px solid;
-
-  &.notice {
-    background: var(--color-success-bg);
-    color: var(--color-success);
-    border-color: var(--color-accent-green);
-  }
-
-  &.alert,
-  &.error {
-    background: var(--color-error-bg);
-    color: var(--color-error);
-    border-color: var(--color-error-border);
-  }
-}

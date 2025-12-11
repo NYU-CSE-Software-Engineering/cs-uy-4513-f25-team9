@@ -104,3 +104,55 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
+
+// Flash messages styling
+.flash-messages {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 90%;
+  max-width: 600px;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.notice,
+.alert,
+.error {
+  padding: 1rem 1.5rem;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  font-weight: 500;
+  border-left: 4px solid;
+  box-shadow: 0 4px 12px var(--shadow-md);
+  animation: slideDown 0.3s ease-out;
+
+  &.notice {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+    border-color: var(--color-accent-green);
+  }
+
+  &.alert,
+  &.error {
+    background: var(--color-error-bg);
+    color: var(--color-error);
+    border-color: var(--color-error-border);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
