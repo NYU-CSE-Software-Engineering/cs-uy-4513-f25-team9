@@ -254,6 +254,13 @@ The My Feed feature is implemented in:
 
 ### Setup
 
+Clone the repo below:
+
+```sh
+git clone https://github.com/NYU-CSE-Software-Engineering/cs-uy-4513-f25-team9.git
+cd cs-uy-4513-f25-team9
+```
+
 After cloning the repo and having the necessary Ruby and Rails versions, run:
 
 ```sh
