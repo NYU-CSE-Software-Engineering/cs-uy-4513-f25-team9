@@ -68,6 +68,23 @@
   --shadow-md: rgba(0, 0, 0, 0.1);
   --shadow-lg: rgba(0, 0, 0, 0.15);
   --shadow-primary: rgba(197, 34, 51, 0.2);
+  --shadow-primary-sm: rgba(197, 34, 51, 0.1);
+  --shadow-primary-lg: rgba(197, 34, 51, 0.3);
+  --shadow-warning-sm: rgba(214, 158, 46, 0.2);
+  --shadow-warning-lg: rgba(214, 158, 46, 0.3);
+
+  // Table Colors
+  --color-table-header-bg: #fceeee;
+  --color-table-border: #f1dede;
+  --color-border-subtle: rgba(226, 232, 240, 0.2);
+
+  // Badge Colors
+  --color-badge-admin-text: #742a2a;
+  --color-badge-admin-border: rgba(252, 129, 129, 0.2);
+  --color-badge-moderator-text: #2c5282;
+  --color-badge-moderator-border: rgba(66, 153, 225, 0.2);
+  --color-badge-user-text: #276749;
+  --color-badge-user-border: rgba(72, 187, 120, 0.2);
 }
 
 * {
