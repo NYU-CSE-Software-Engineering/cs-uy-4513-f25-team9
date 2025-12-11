@@ -4,10 +4,14 @@ class ListingsController < ApplicationController
   before_action :authorize_owner, only: [:edit, :update, :destroy]
 
   def index
-    @categories = Listing.available_categories
-
-    listings = build_filtered_listings
-    @listings = listings.by_sort(params[:sort])
+    if current_user
+      # Show only listings the current user has shown interest in
+      @listings = Listing.joins(:interests)
+                         .where(interests: { buyer_id: current_user.id })
+                         .distinct
+    else
+      @listings = Listing.none
+    end
   end
 
   def seller_home

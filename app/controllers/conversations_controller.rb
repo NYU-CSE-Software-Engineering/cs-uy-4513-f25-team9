@@ -39,14 +39,6 @@ class ConversationsController < ApplicationController
     conversation_params = params[:conversation] || {}
     initial_message = conversation_params[:initial_message]
 
-    # Validate that initial message is present
-    if initial_message.blank?
-      @conversation = Conversation.new
-      flash.now[:alert] = "Message content cannot be empty"
-      render :new, status: :unprocessable_content
-      return
-    end
-
     @conversation = Conversation.new(
       buyer: current_user,
       seller: @listing.user,
@@ -54,11 +46,17 @@ class ConversationsController < ApplicationController
     )
 
     if @conversation.save
-      @conversation.messages.create!(
-        content: initial_message,
-        user: current_user
-      )
-      redirect_to @conversation, notice: "Message sent successfully"
+      # Only create message if there is one
+      if initial_message.present?
+        @conversation.messages.create!(
+          content: initial_message,
+          user: current_user
+        )
+        notice = "Message sent successfully"
+      else
+        notice = "Conversation started"
+      end
+      redirect_to @conversation, notice: notice
     else
       render :new, status: :unprocessable_content
     end

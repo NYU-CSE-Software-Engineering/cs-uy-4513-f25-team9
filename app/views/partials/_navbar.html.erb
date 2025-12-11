@@ -13,6 +13,11 @@
                 <% end %>
             </li>
             <li>
+                <%= link_to listings_path, class: "nav-link #{current_page?(listings_path) ? 'active' : ''}" do %>
+                    <%= icon "heart", class: "nav-icon" %>
+                <% end %>
+            </li>
+            <li>
                 <%= link_to conversations_path, class: "nav-link #{current_page?(conversations_path) ? 'active' : ''}" do %>
                     <%= icon "chat-bubble-oval-left", class: "nav-icon" %>
                 <% end %>
