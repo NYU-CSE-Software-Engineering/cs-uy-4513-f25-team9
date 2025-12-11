@@ -13,8 +13,14 @@
                 <% end %>
             </li>
             <li>
-                <%= link_to conversations_path, class: "nav-link #{current_page?('#') ? 'active' : ''}" do %>
+                <%= link_to conversations_path, class: "nav-link #{current_page?(conversations_path) ? 'active' : ''}", style: "position: relative;" do %>
                     <%= icon "chat-bubble-oval-left", class: "nav-icon" %>
+                    <% if current_user %>
+                        <% unread_count = Message.unread_count_for(current_user) %>
+                        <% if unread_count > 0 %>
+                            <span class="message-badge" style="position: absolute; top: -8px; right: -8px; width: 16px; height: 16px; background: #a7333f; border-radius: 50%; border: 2px solid #e6e6e6;"></span>
+                        <% end %>
+                    <% end %>
                 <% end %>
             </li>
 

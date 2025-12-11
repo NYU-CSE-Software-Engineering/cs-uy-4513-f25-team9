@@ -35,6 +35,14 @@
               <span class="listing-price"><%= number_to_currency(conversation.listing.price) %></span>
             </div>
 
+            <% unread_in_convo = conversation.messages.unread_for(current_user).count %>
+            <% if unread_in_convo > 0 %>
+              <div class="unread-indicator">
+                <span class="unread-dot"></span>
+                <%= pluralize(unread_in_convo, 'unread message') %>
+              </div>
+            <% end %>
+
             <div class="listing-meta">
               <span class="listing-category">
                 <svg class="meta-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -274,6 +282,14 @@
         display: flex;
         gap: 8px;
         flex-wrap: wrap;
+    }
+
+    .unread-dot {
+        width: 8px;
+        height: 8px;
+        background: #a7333f;
+        border-radius: 50%;
+        display: inline-block;
     }
 
     .btn {
