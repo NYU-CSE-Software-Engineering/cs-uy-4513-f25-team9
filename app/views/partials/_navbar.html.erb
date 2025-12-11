@@ -8,19 +8,27 @@
     <div class="navbar-center">
         <ul class="navbar-links">
             <li>
-                <%= link_to "Feed", feed_path, class: "nav-link #{current_page?(feed_path) ? 'active' : ''}" %>
+                <%= link_to feed_path, class: "nav-link #{current_page?(feed_path) ? 'active' : ''}" do %>
+                    <%= icon "square-3-stack-3d", class: "nav-icon" %>
+                <% end %>
             </li>
             <li>
-                <%= link_to "Messages", conversations_path, class: "nav-link #{current_page?('#') ? 'active' : ''}" %>
+                <%= link_to conversations_path, class: "nav-link #{current_page?('#') ? 'active' : ''}" do %>
+                    <%= icon "chat-bubble-oval-left", class: "nav-icon" %>
+                <% end %>
             </li>
 
             <% if current_user&.moderator? %>
                
                 <li>
-                    <%= link_to "Users", moderations_path, class: "nav-link #{current_page?(moderations_path) ? 'active' : ''}" %>
+                    <%= link_to moderations_path, class: "nav-link #{current_page?(moderations_path) ? 'active' : ''}", title: "User List" do %>
+                        <%= icon "user-group", class: "nav-icon" %>
+                    <% end %>
                 </li>
                 <li>
-                    <%= link_to "Reports", reported_listings_path, class: "nav-link #{current_page?(reported_listings_path) ? 'active' : ''}" %>
+                    <%= link_to reported_listings_path, class: "nav-link #{current_page?(reported_listings_path) ? 'active' : ''}" do %>
+                        <%= icon "flag", class: "nav-icon" %>
+                    <% end %>
                 </li>
             <% end %>
         </ul>
@@ -29,12 +37,21 @@
     <div class="navbar-bottom">
         <div class="profile-dropdown">
             <button class="profile-avatar" id="profileDropdownBtn">
-                Profile
+                <%= icon "user-circle" %>
             </button>
             <div class="dropdown-menu" id="profileDropdownMenu">
-                <%= link_to "Seller Home", seller_home_path, class: "dropdown-item" %>
-                <%= link_to "Settings", "#", class: "dropdown-item disabled" %>
-                <%= link_to "Log Out", logout_path, method: :delete, class: "dropdown-item" %>
+                <%= link_to seller_home_path, class: "dropdown-item" do %>
+                    <%= icon "home", class: "dropdown-icon" %>
+                    <span>Seller Home</span>
+                <% end %>
+                <%= link_to "#", class: "dropdown-item disabled" do %>
+                    <%= icon "cog-6-tooth", class: "dropdown-icon" %>
+                    <span>Settings</span>
+                <% end %>
+                <%= link_to logout_path, method: :delete, class: "dropdown-item" do %>
+                    <%= icon "arrow-right-on-rectangle", class: "dropdown-icon" %>
+                    <span>Log Out</span>
+                <% end %>
             </div>
         </div>
     </div>
