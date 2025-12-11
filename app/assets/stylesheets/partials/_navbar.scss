@@ -201,7 +201,7 @@
                     align-items: center;
                     gap: 8px;
                     padding: 6px 12px;
-                    color: var(--color-gray-800);
+                    color: var(--text-primary);
                     text-decoration: none;
                     transition: background-color 0.1s ease;
                     cursor: pointer;
@@ -209,7 +209,7 @@
                     .dropdown-icon {
                         width: 16px;
                         height: 16px;
-                        stroke: var(--color-gray-800);
+                        stroke: var(--text-primary);
                         flex-shrink: 0;
                     }
                     
@@ -220,7 +220,7 @@
                     }
                     
                     &:hover:not(.disabled) {
-                        background-color: var(--color-accent-blue);
+                        background-color: var(--color-primary-dark);
                         color: var(--color-white);
                         
                         .dropdown-icon {

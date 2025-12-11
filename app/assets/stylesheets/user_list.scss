@@ -12,14 +12,14 @@
     margin-bottom: 2rem;
 
     h1 {
-      color: #1a202c;
-      font-size: 2rem;
+      color: var(--color-gray-800);
+      font-size: 2.5rem;
+      margin: 0 0 4px 0;
       font-weight: 700;
-      margin-bottom: 0.5rem;
     }
 
     .page-subtitle {
-      color: #718096;
+      color: var(--color-gray-500);
       font-size: 1rem;
       margin: 0;
     }
@@ -28,21 +28,21 @@
   .empty-message {
     text-align: center;
     padding: 3rem;
-    background: #f7fafc;
+    background: var(--color-gray-50);
     border-radius: 12px;
-    border: 1px solid rgba(226, 232, 240, 0.2);
+    border: 1px solid var(--color-border-subtle);
 
     p {
-      color: #718096;
+      color: var(--color-gray-500);
       font-size: 1.125rem;
       margin: 0;
     }
   }
 
   .table-container {
-    background: #fff;
+    background: var(--color-white);
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(197, 34, 51, 0.1);
+    box-shadow: 0 2px 8px var(--shadow-md);
     overflow: auto;
   }
 
@@ -60,7 +60,7 @@
         padding: 1rem 1.25rem;
         text-align: left;
         font-weight: 600;
-        color: #1a202c !important;
+        color: var(--color-gray-800) !important;
         font-size: 0.875rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
@@ -68,17 +68,17 @@
         border-bottom: none !important;
         border-top: none !important;
         position: relative;
-        background: #fceeee !important;
+        background: var(--color-table-header-bg) !important;
       }
     }
 
     tbody {
       .user-row {
-        border-bottom: 1px solid rgba(226, 232, 240, 0.2);
+        border-bottom: 1px solid var(--color-border-subtle);
         transition: background-color 0.2s;
 
         &:hover {
-          background-color: #f7fafc;
+          background-color: var(--color-gray-50);
         }
 
         &:last-child {
@@ -88,11 +88,11 @@
         td {
           padding: 1.25rem 1.25rem;
           vertical-align: middle;
-          border-bottom: 1px solid rgb(241, 222, 222) !important;
+          border-bottom: 1px solid var(--color-table-border) !important;
 
           &.user-id {
             font-weight: 600;
-            color: #c52233;
+            color: var(--color-primary);
             font-size: 0.875rem;
             min-width: 60px;
             width: 80px;
@@ -100,14 +100,14 @@
 
           &.user-name {
             font-weight: 600;
-            color: #1a202c;
+            color: var(--color-gray-800);
             font-size: 1rem;
             min-width: 150px;
             width: 200px;
           }
 
           &.user-email {
-            color: #4a5568;
+            color: var(--color-gray-600);
             font-size: 0.9375rem;
             min-width: 200px;
             width: 250px;
@@ -129,21 +129,21 @@
               letter-spacing: 0.025em;
 
               &.badge-admin {
-                background: #fed7d7;
-                color: #742a2a;
-                border: 1px solid rgba(252, 129, 129, 0.2);
+                background: var(--color-primary-lightest);
+                color: var(--color-badge-admin-text);
+                border: 1px solid var(--color-badge-admin-border);
               }
 
               &.badge-moderator {
-                background: #bee3f8;
-                color: #2c5282;
-                border: 1px solid rgba(66, 153, 225, 0.2);
+                background: var(--color-accent-blue-light);
+                color: var(--color-badge-moderator-text);
+                border: 1px solid var(--color-badge-moderator-border);
               }
 
               &.badge-user {
-                background: #c6f6d5;
-                color: #276749;
-                border: 1px solid rgba(72, 187, 120, 0.2);
+                background: var(--color-accent-green-light);
+                color: var(--color-badge-user-text);
+                border: 1px solid var(--color-badge-user-border);
               }
             }
           }
@@ -162,16 +162,16 @@
               min-width: 2.5rem;
               height: 2.5rem;
               padding: 0 0.75rem;
-              background: #fff5f5;
-              color: #c53030;
+              background: var(--color-error-bg);
+              color: var(--color-error);
               border-radius: 8px;
               font-weight: 700;
-              border: 2px solid rgba(252, 129, 129, 0.2);
+              border: 2px solid var(--color-badge-admin-border);
 
               &.no-reports {
-                background: #f0fff4;
-                color: #22543d;
-                border-color: rgba(154, 230, 180, 0.2);
+                background: var(--color-success-bg);
+                color: var(--color-success);
+                border-color: var(--color-badge-user-border);
               }
             }
           }
@@ -192,8 +192,8 @@
   }
 
   .btn-delete {
-    background: #c52233;
-    color: #fff;
+    background: var(--color-primary);
+    color: var(--color-white);
     border: none;
     padding: 0.625rem 1rem;
     border-radius: 8px;
@@ -201,35 +201,35 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 0 2px 4px rgba(197, 34, 51, 0.2);
+    box-shadow: 0 2px 4px var(--shadow-primary);
     white-space: nowrap;
 
     &:hover {
-      background: #9f1b29;
-      box-shadow: 0 4px 8px rgba(197, 34, 51, 0.3);
+      background: var(--color-primary-dark);
+      box-shadow: 0 4px 8px var(--shadow-primary-lg);
       transform: translateY(-1px);
     }
 
     &:active {
       transform: translateY(0);
-      box-shadow: 0 2px 4px rgba(197, 34, 51, 0.2);
+      box-shadow: 0 2px 4px var(--shadow-primary);
     }
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 3px rgba(197, 34, 51, 0.2);
+      box-shadow: 0 0 0 3px var(--shadow-primary);
     }
 
     &:disabled,
     &[disabled] {
-      background: #cbd5e0;
-      color: #a0aec0;
+      background: var(--color-gray-300);
+      color: var(--color-gray-400);
       cursor: not-allowed;
       box-shadow: none;
       opacity: 0.6;
 
       &:hover {
-        background: #cbd5e0;
+        background: var(--color-gray-300);
         box-shadow: none;
         transform: none;
       }
@@ -237,8 +237,8 @@
   }
 
   .btn-remove-privileges {
-    background: #d69e2e;
-    color: #fff;
+    background: var(--color-secondary);
+    color: var(--color-white);
     border: none;
     padding: 0.625rem 1rem;
     border-radius: 8px;
@@ -246,47 +246,23 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 0 2px 4px rgba(214, 158, 46, 0.2);
+    box-shadow: 0 2px 4px var(--shadow-warning-sm);
     white-space: nowrap;
 
     &:hover {
-      background: #b7791f;
-      box-shadow: 0 4px 8px rgba(214, 158, 46, 0.3);
+      background: var(--color-secondary-dark);
+      box-shadow: 0 4px 8px var(--shadow-warning-lg);
       transform: translateY(-1px);
     }
 
     &:active {
       transform: translateY(0);
-      box-shadow: 0 2px 4px rgba(214, 158, 46, 0.2);
+      box-shadow: 0 2px 4px var(--shadow-warning-sm);
     }
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 3px rgba(214, 158, 46, 0.2);
+      box-shadow: 0 0 0 3px var(--shadow-warning-sm);
     }
-  }
-}
-
-// Flash messages styling
-.notice,
-.alert,
-.error {
-  padding: 1rem 1.5rem;
-  margin-bottom: 1.5rem;
-  border-radius: 8px;
-  font-weight: 500;
-  border-left: 4px solid;
-
-  &.notice {
-    background: #f0fff4;
-    color: #22543d;
-    border-color: #48bb78;
-  }
-
-  &.alert,
-  &.error {
-    background: #fff5f5;
-    color: #c53030;
-    border-color: #fc8181;
   }
 }

@@ -68,6 +68,23 @@
   --shadow-md: rgba(0, 0, 0, 0.1);
   --shadow-lg: rgba(0, 0, 0, 0.15);
   --shadow-primary: rgba(197, 34, 51, 0.2);
+  --shadow-primary-sm: rgba(197, 34, 51, 0.1);
+  --shadow-primary-lg: rgba(197, 34, 51, 0.3);
+  --shadow-warning-sm: rgba(214, 158, 46, 0.2);
+  --shadow-warning-lg: rgba(214, 158, 46, 0.3);
+
+  // Table Colors
+  --color-table-header-bg: #fceeee;
+  --color-table-border: #f1dede;
+  --color-border-subtle: rgba(226, 232, 240, 0.2);
+
+  // Badge Colors
+  --color-badge-admin-text: #742a2a;
+  --color-badge-admin-border: rgba(252, 129, 129, 0.2);
+  --color-badge-moderator-text: #2c5282;
+  --color-badge-moderator-border: rgba(66, 153, 225, 0.2);
+  --color-badge-user-text: #276749;
+  --color-badge-user-border: rgba(72, 187, 120, 0.2);
 }
 
 * {
@@ -86,4 +103,56 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+// Flash messages styling
+.flash-messages {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 90%;
+  max-width: 600px;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.notice,
+.alert,
+.error {
+  padding: 1rem 1.5rem;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  font-weight: 500;
+  border-left: 4px solid;
+  box-shadow: 0 4px 12px var(--shadow-md);
+  animation: slideDown 0.3s ease-out;
+
+  &.notice {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+    border-color: var(--color-accent-green);
+  }
+
+  &.alert,
+  &.error {
+    background: var(--color-error-bg);
+    color: var(--color-error);
+    border-color: var(--color-error-border);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
