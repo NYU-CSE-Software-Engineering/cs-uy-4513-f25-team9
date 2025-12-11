@@ -2,6 +2,7 @@ class Listing < ApplicationRecord
   belongs_to :user
   has_many :reports, dependent: :destroy
   has_many :interests, dependent: :destroy
+  has_one_attached :image
   validates :title, presence: true
 
   # Filter by category if present
