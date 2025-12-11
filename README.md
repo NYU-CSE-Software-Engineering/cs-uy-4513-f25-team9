@@ -5,6 +5,8 @@ CS-UY 4513 Software Engineering Project
 The system, named Thryft, will be a centralized platform for buying and selling goods through a swipe-based interface inspired by Tinder. It is intended to be used by students, local sellers, and administrators who want a streamlined, engaging way to exchange goods. It features user authentication, listings, messaging, moderation, and more.
 **We are online! [thryft-team9-34327d4250fb.herokuapp.com](https://thryft-team9-34327d4250fb.herokuapp.com/)**
 
+Code coverage breakdown: https://nyu-cse-software-engineering.github.io/cs-uy-4513-f25-team9/#_AllFiles
+
 ---
 
 ## Table of Contents
