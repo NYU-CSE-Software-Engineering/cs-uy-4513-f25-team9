@@ -1,5 +1,8 @@
 # Clear existing data
 puts "Clearing existing data..."
+Message.destroy_all
+Conversation.destroy_all
+Report.destroy_all
 Listing.destroy_all
 User.destroy_all
 
@@ -220,13 +223,251 @@ if fraudulent_listing1 && fraudulent_listing2
     reason: "Fraudulent listing - seller not responding"
   )
   
+  # Add more reported listings
+  Report.create!(
+    user: user3,
+    listing: user2.listings.last,
+    reason: "Item is damaged but seller claims it's in perfect condition"
+  )
+  
+  Report.create!(
+    user: user1,
+    listing: user3.listings.first,
+    reason: "Overpriced compared to market value"
+  )
+  
   puts "Created #{Report.count} reports"
 end
+
+# Create conversations and messages
+puts "Creating conversations and messages..."
+
+# Conversation 1: user2 interested in user1's MacBook
+listing1 = user1.listings.find_by(title: "MacBook Pro 2021 - 16 inch")
+if listing1
+  conv1 = Conversation.create!(
+    buyer_id: user2.id,
+    seller_id: user1.id,
+    listing_id: listing1.id
+  )
+  
+  Message.create!([
+    {
+      conversation: conv1,
+      user: user2,
+      content: "Hi! Is the MacBook still available? I'm very interested!",
+      read: true,
+      created_at: 3.days.ago
+    },
+    {
+      conversation: conv1,
+      user: user1,
+      content: "Yes, it's still available! It's in excellent condition, barely used.",
+      read: true,
+      created_at: 3.days.ago + 30.minutes
+    },
+    {
+      conversation: conv1,
+      user: user2,
+      content: "Great! Does it come with the original box and accessories?",
+      read: true,
+      created_at: 3.days.ago + 1.hour
+    },
+    {
+      conversation: conv1,
+      user: user1,
+      content: "Yes! It includes the original box, charger, and USB-C cable. I also kept the Apple stickers if you want them 😊",
+      read: true,
+      created_at: 3.days.ago + 2.hours
+    },
+    {
+      conversation: conv1,
+      user: user2,
+      content: "Perfect! Would you be willing to meet at the campus coffee shop tomorrow around 2pm?",
+      read: false,
+      created_at: 2.days.ago
+    }
+  ])
+  puts "✓ Created conversation about MacBook with #{conv1.messages.count} messages"
+end
+
+# Conversation 2: user3 interested in user2's headphones
+listing2 = user2.listings.find_by(title: "Sony WH-1000XM4 Headphones")
+if listing2
+  conv2 = Conversation.create!(
+    buyer_id: user3.id,
+    seller_id: user2.id,
+    listing_id: listing2.id
+  )
+  
+  Message.create!([
+    {
+      conversation: conv2,
+      user: user3,
+      content: "Hey! How long have you had these headphones?",
+      read: true,
+      created_at: 5.days.ago
+    },
+    {
+      conversation: conv2,
+      user: user2,
+      content: "I've had them for about 6 months. They work perfectly, I'm just upgrading to a newer model.",
+      read: true,
+      created_at: 5.days.ago + 1.hour
+    },
+    {
+      conversation: conv2,
+      user: user3,
+      content: "Do they have any scratches or wear marks?",
+      read: true,
+      created_at: 5.days.ago + 3.hours
+    },
+    {
+      conversation: conv2,
+      user: user2,
+      content: "Minor wear on the headband padding, but nothing significant. The ear cups are in great shape. I can send you more photos if you'd like!",
+      read: true,
+      created_at: 4.days.ago
+    },
+    {
+      conversation: conv2,
+      user: user3,
+      content: "That would be great, thanks! Also, is the noise cancellation still working well?",
+      read: true,
+      created_at: 4.days.ago + 30.minutes
+    },
+    {
+      conversation: conv2,
+      user: user2,
+      content: "Absolutely! The noise cancellation is one of the best features. Works like new.",
+      read: false,
+      created_at: 4.days.ago + 2.hours
+    }
+  ])
+  puts "✓ Created conversation about headphones with #{conv2.messages.count} messages"
+end
+
+# Conversation 3: user1 interested in user3's gaming chair
+listing3 = user3.listings.find_by(title: "Gaming Chair - Racing Style")
+if listing3
+  conv3 = Conversation.create!(
+    buyer_id: user1.id,
+    seller_id: user3.id,
+    listing_id: listing3.id
+  )
+  
+  Message.create!([
+    {
+      conversation: conv3,
+      user: user1,
+      content: "Hi! Does this chair support tall people? I'm 6'2\"",
+      read: true,
+      created_at: 1.day.ago
+    },
+    {
+      conversation: conv3,
+      user: user3,
+      content: "Yes definitely! I'm 6'1\" and it's been very comfortable for me. The backrest is adjustable too.",
+      read: true,
+      created_at: 1.day.ago + 45.minutes
+    },
+    {
+      conversation: conv3,
+      user: user1,
+      content: "Awesome! Can I come check it out this weekend?",
+      read: false,
+      created_at: 1.day.ago + 2.hours
+    }
+  ])
+  puts "✓ Created conversation about gaming chair with #{conv3.messages.count} messages"
+end
+
+# Conversation 4: user2 interested in user1's coffee table
+listing4 = user1.listings.find_by(title: "Modern Coffee Table")
+if listing4
+  conv4 = Conversation.create!(
+    buyer_id: user2.id,
+    seller_id: user1.id,
+    listing_id: listing4.id
+  )
+  
+  Message.create!([
+    {
+      conversation: conv4,
+      user: user2,
+      content: "Beautiful table! Is it solid oak or veneer?",
+      read: true,
+      created_at: 6.days.ago
+    },
+    {
+      conversation: conv4,
+      user: user1,
+      content: "Thanks! It's solid oak, very sturdy and heavy.",
+      read: true,
+      created_at: 6.days.ago + 20.minutes
+    },
+    {
+      conversation: conv4,
+      user: user2,
+      content: "Would you be able to help deliver it? I don't have a truck.",
+      read: true,
+      created_at: 6.days.ago + 1.hour
+    },
+    {
+      conversation: conv4,
+      user: user1,
+      content: "If you're on campus or nearby, I can probably help. Where are you located?",
+      read: true,
+      created_at: 5.days.ago
+    },
+    {
+      conversation: conv4,
+      user: user2,
+      content: "I'm in the dorms on campus. That would be amazing if you could help!",
+      read: false,
+      created_at: 5.days.ago + 30.minutes
+    }
+  ])
+  puts "✓ Created conversation about coffee table with #{conv4.messages.count} messages"
+end
+
+# Conversation 5: user3 interested in user2's vinyl record player
+listing5 = user2.listings.find_by(title: "Vintage Record Player")
+if listing5
+  conv5 = Conversation.create!(
+    buyer_id: user3.id,
+    seller_id: user2.id,
+    listing_id: listing5.id
+  )
+  
+  Message.create!([
+    {
+      conversation: conv5,
+      user: user3,
+      content: "Wow, this is exactly what I've been looking for! What records are included?",
+      read: true,
+      created_at: 8.hours.ago
+    },
+    {
+      conversation: conv5,
+      user: user2,
+      content: "Mix of classic rock and jazz - Pink Floyd, Led Zeppelin, Miles Davis, Coltrane, and more!",
+      read: false,
+      created_at: 6.hours.ago
+    }
+  ])
+  puts "✓ Created conversation about record player with #{conv5.messages.count} messages"
+end
+
+puts "Created #{Conversation.count} conversations"
+puts "Created #{Message.count} messages"
 
 puts "\n=== Seed Data Summary ==="
 puts "Users created: #{User.count}"
 puts "Listings created: #{Listing.count}"
 puts "Reports created: #{Report.count}"
+puts "Conversations created: #{Conversation.count}"
+puts "Messages created: #{Message.count}"
 puts "\nTest accounts:"
 puts "Email: seller@example.com | Password: password123 (#{user1.listings.count} listings)"
 puts "Email: john@example.com | Password: password123 (#{user2.listings.count} listings)"
