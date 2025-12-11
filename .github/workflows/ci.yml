@@ -45,11 +45,10 @@ jobs:
           bundler-cache: true # This automatically runs 'bundle install' and caches your gems
 
       # Set up the database
-      # Use schema:load instead of db:setup to avoid migration check issues with DATABASE_URL
       - name: Set up database
         run: |
           bundle exec rails db:create --quiet 2>/dev/null || true
-          bundle exec rails db:schema:load
+          bundle exec rails db:migrate
 
       # Set up required gems
       - name: Set up required gems
