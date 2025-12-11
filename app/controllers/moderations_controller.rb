@@ -1,7 +1,8 @@
 class ModerationsController < ApplicationController
   before_action :require_moderator
   before_action :set_listing, only: [:destroy_listing]
-  before_action :set_user, only: [:destroy_user]
+  before_action :set_user, only: [:destroy_user, :remove_moderator]
+  before_action :require_admin, only: [:remove_moderator]
 
   def user_list
     @users = User.all
@@ -24,6 +25,12 @@ class ModerationsController < ApplicationController
       return
     end
 
+    if @user.id == current_user.id
+      flash[:error] = "You cannot delete yourself"
+      redirect_to moderations_path
+      return
+    end
+
     unless current_user.can_delete_user?(@user)
       flash[:error] = "You don't have permission to delete User with ID #{params[:id]}"
       redirect_to moderations_path
@@ -34,6 +41,30 @@ class ModerationsController < ApplicationController
     user_id = @user.id
     @user.destroy
     flash[:notice] = "User #{user_name} with ID #{user_id} has been deleted"
+    redirect_to moderations_path
+  end
+
+  def remove_moderator
+    if @user.nil?
+      flash[:error] = "User does not exist"
+      redirect_to moderations_path
+      return
+    end
+
+    unless @user.moderator?
+      flash[:error] = "User #{@user.name} is not a moderator"
+      redirect_to moderations_path
+      return
+    end
+
+    if @user.admin?
+      flash[:error] = "Cannot remove admin privileges through this action"
+      redirect_to moderations_path
+      return
+    end
+
+    @user.update(is_moderator: false)
+    flash[:notice] = "Moderator privileges removed from #{@user.name}"
     redirect_to moderations_path
   end
 
@@ -50,6 +81,13 @@ class ModerationsController < ApplicationController
   def require_moderator
     unless current_user&.moderator?
       redirect_to root_path, alert: "You don't have permission to access this page"
+    end
+  end
+
+  def require_admin
+    unless current_user&.admin?
+      flash[:error] = "Only admins can perform this action"
+      redirect_to moderations_path
     end
   end
 
