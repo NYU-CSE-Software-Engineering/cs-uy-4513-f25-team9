@@ -286,12 +286,8 @@ createuser --superuser $(whoami)
 ```
 
 If you are having Postgres login issues do the following:
-<<<<<<< Updated upstream
-Comment out lines `31-35` and `61-63` in `database.yml` to use systems default credentials
-=======
 Uncomment lines `12-14` and `19-21` in `database.yml` to use your credentials. Make sure to update your .env with
 your POSTGRES password.
->>>>>>> Stashed changes
 
 **Windows:**
 Just use WSL and follow the Linux instructions. Makes life easier. Trust me.
