@@ -15,8 +15,7 @@
     stroke: #999;
 }
 
-/* Reuse seller homepage styles */
-.seller-home-container {
+.conversations-container {
     padding: 2rem;
     max-width: 1600px;
     margin: 0 auto;
@@ -25,219 +24,220 @@
     @media (max-width: 768px) {
         padding: 1rem;
     }
-}
 
-.seller-home-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-}
 
-.seller-home-header h1 {
-    font-size: 2.5rem;
-    margin: 0 0 4px 0;
-    color: #333;
-}
-
-.header-subtitle {
-    color: var(--color-gray-500);
-    font-size: 1rem;
-    margin: 0;
-}
-
-.seller-listings {
-    margin-top: 40px;
-}
-
-.listings-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-}
-
-.listings-header h2 {
-    font-size: 1.75rem;
-    margin: 0;
-    color: #333;
-}
-
-.listings-filter {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.filter-label {
-    font-size: 0.9rem;
-    color: #666;
-}
-
-.sort-select {
-    padding: 8px 12px;
-    border: 1px solid #d0d0d0;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    background: white;
-}
-
-.sort-select:focus {
-    outline: none;
-    border-color: #a7333f;
-}
-
-.empty-state {
-    text-align: center;
-    padding: 80px 20px;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.empty-state h3 {
-    font-size: 2rem;
-    margin: 0 0 16px 0;
-    color: #333;
-}
-
-.empty-state p {
-    font-size: 1.2rem;
-    color: #666;
-    margin: 0 0 32px 0;
-}
-
-.listings-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 24px;
-}
-
-.listing-card {
-    background: white;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
-    position: relative;
-}
-
-.listing-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-}
-
-.listing-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    margin-bottom: 12px;
-    gap: 12px;
-}
-
-.listing-header h3 {
-    font-size: 1.25rem;
-    margin: 0;
-    flex: 1;
-}
-
-.listing-title-link {
-    color: #333;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.listing-title-link:hover {
-    color: #a7333f;
-}
-
-.listing-price {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: #a7333f;
-    white-space: nowrap;
-}
-
-.listing-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 12px;
-    font-size: 0.85rem;
-}
-
-.listing-category,
-.listing-date {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: #666;
-}
-
-.listing-description {
-    color: #666;
-    margin-bottom: 20px;
-    line-height: 1.6;
-    min-height: 60px;
-}
-
-.listing-actions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.unread-dot {
-    width: 8px;
-    height: 8px;
-    background: #a7333f;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 16px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.btn-view {
-    background-color: #a7333f;
-    color: white;
-    flex: 1;
-}
-
-.btn-view:hover {
-    background-color: #8b2a35;
-}
-
-.btn-edit {
-    background-color: #a7333f;
-    color: white;
-    flex: 1;
-}
-
-.btn-edit:hover {
-    background-color: #8b2a35;
-}
-
-@media (max-width: 768px) {
     .seller-home-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
     }
-
+    
+    .seller-home-header h1 {
+        font-size: 2.5rem;
+        margin: 0 0 4px 0;
+        color: #333;
+    }
+    
+    .header-subtitle {
+        color: var(--color-gray-500);
+        font-size: 1rem;
+        margin: 0;
+    }
+    
+    .seller-listings {
+        margin-top: 40px;
+    }
+    
+    .listings-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+    }
+    
+    .listings-header h2 {
+        font-size: 1.75rem;
+        margin: 0;
+        color: #333;
+    }
+    
+    .listings-filter {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .filter-label {
+        font-size: 0.9rem;
+        color: #666;
+    }
+    
+    .sort-select {
+        padding: 8px 12px;
+        border: 1px solid #d0d0d0;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        background: white;
+    }
+    
+    .sort-select:focus {
+        outline: none;
+        border-color: #a7333f;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 80px 20px;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .empty-state h3 {
+        font-size: 2rem;
+        margin: 0 0 16px 0;
+        color: #333;
+    }
+    
+    .empty-state p {
+        font-size: 1.2rem;
+        color: #666;
+        margin: 0 0 32px 0;
+    }
+    
     .listings-grid {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 24px;
+    }
+    
+    .listing-card {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s, box-shadow 0.2s;
+        position: relative;
+    }
+    
+    .listing-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+    
+    .listing-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 12px;
+        gap: 12px;
+    }
+    
+    .listing-header h3 {
+        font-size: 1.25rem;
+        margin: 0;
+        flex: 1;
+    }
+    
+    .listing-title-link {
+        color: #333;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    
+    .listing-title-link:hover {
+        color: #a7333f;
+    }
+    
+    .listing-price {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #a7333f;
+        white-space: nowrap;
+    }
+    
+    .listing-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 12px;
+        font-size: 0.85rem;
+    }
+    
+    .listing-category,
+    .listing-date {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #666;
+    }
+    
+    .listing-description {
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.6;
+        min-height: 60px;
+    }
+    
+    .listing-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    
+    .unread-dot {
+        width: 8px;
+        height: 8px;
+        background: #a7333f;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .btn-view {
+        background-color: #a7333f;
+        color: white;
+        flex: 1;
+    }
+    
+    .btn-view:hover {
+        background-color: #8b2a35;
+    }
+    
+    .btn-edit {
+        background-color: #a7333f;
+        color: white;
+        flex: 1;
+    }
+    
+    .btn-edit:hover {
+        background-color: #8b2a35;
+    }
+    
+    @media (max-width: 768px) {
+        .seller-home-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+        }
+    
+        .listings-grid {
+            grid-template-columns: 1fr;
+        }
     }
 }
