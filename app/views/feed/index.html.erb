@@ -56,8 +56,13 @@
       <p><%= @listing.description %></p>
 
       <div class="swipe-actions">
-        <%= button_to "Like", swipes_path(listing_id: @listing.id, state: :liked), method: :post, class: "btn-like" %>
-        <%= button_to "Pass", swipes_path(listing_id: @listing.id, state: :passed), method: :post, class: "btn-pass" %>
+        <div class="main-actions">
+          <%= button_to "Like", swipes_path(listing_id: @listing.id, state: :liked), method: :post, class: "btn-like" %>
+          <%= button_to "Pass", swipes_path(listing_id: @listing.id, state: :passed), method: :post, class: "btn-pass" %>
+        </div>
+        <div class="secondary-actions">
+          <%= link_to "Report Listing", new_listing_report_path(@listing), class: "btn-report" %>
+        </div>
       </div>
     </div>
   <% else %>

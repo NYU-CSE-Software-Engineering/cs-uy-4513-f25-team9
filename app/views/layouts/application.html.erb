@@ -26,18 +26,55 @@
   <body>
     <%= render 'partials/navbar' %>
 
-    <% if notice.present? %>
-      <p class="notice"><%= notice %></p>
-    <% end %>
-    <% if alert.present? %>
-      <p class="alert"><%= alert %></p>
-    <% end %>
-    <% if flash[:error].present? %>
-      <p class="error"><%= flash[:error] %></p> 
-    <% end %>
+    <div class="flash-messages">
+      <% if notice.present? %>
+        <p class="notice"><%= notice %></p>
+      <% end %>
+      <% if alert.present? %>
+        <p class="alert"><%= alert %></p>
+      <% end %>
+      <% if flash[:error].present? %>
+        <p class="error"><%= flash[:error] %></p> 
+      <% end %>
+    </div>
 
     <div class="main-content">
       <%= yield %>
     </div>
+
+    <script>
+      // Auto-dismiss flash messages after 5 seconds
+      function dismissFlashMessages() {
+        const flashMessages = document.querySelectorAll('.flash-messages .notice, .flash-messages .alert, .flash-messages .error');
+        
+        flashMessages.forEach(message => {
+          if (message && !message.dataset.dismissed) {
+            message.dataset.dismissed = 'true';
+            
+            setTimeout(() => {
+              message.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+              message.style.opacity = '0';
+              message.style.transform = 'translateY(-20px)';
+              
+              setTimeout(() => {
+                if (message.parentNode) {
+                  message.remove();
+                }
+              }, 500);
+            }, 3000);
+          }
+        });
+      }
+      
+      // Run on page load
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', dismissFlashMessages);
+      } else {
+        dismissFlashMessages();
+      }
+      
+      // Run after Turbo navigation
+      document.addEventListener('turbo:load', dismissFlashMessages);
+    </script>
   </body>
 </html>

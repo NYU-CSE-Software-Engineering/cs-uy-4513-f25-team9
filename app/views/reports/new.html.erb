@@ -41,9 +41,14 @@
 <style>
     /* Reuse seller homepage container styles - they're already global */
     .seller-home-container {
-        max-width: 1400px;
+        padding: 2rem;
+        max-width: 1600px;
         margin: 0 auto;
-        padding: 30px 20px;
+        min-height: calc(100vh - 80px);
+
+        @media (max-width: 768px) {
+          padding: 1rem;
+        }
     }
 
     .seller-home-header {

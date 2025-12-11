@@ -1,5 +1,6 @@
-<%= form_with(model: listing, local: true, class: "listing-form") do |f| %>
-  <% if listing.errors.any? %>
+<div class="form-container">
+  <%= form_with(model: listing, local: true, class: "listing-form") do |f| %>
+    <% if listing.errors.any? %>
     <div class="error-messages">
       <h3><%= pluralize(listing.errors.count, "error") %> prevented this listing from being saved:</h3>
       <ul>
@@ -50,9 +51,17 @@
 <% end %>
 
 <style>
-.listing-form {
-  max-width: 600px;
+.form-container {
+  max-width: 700px;
   margin: 0 auto;
+  background: var(--color-white);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px var(--shadow-md);
+  padding: 2rem;
+}
+
+.listing-form {
+  width: 100%;
 }
 
 .error-messages {
