@@ -80,7 +80,7 @@ The application exposes a RESTful interface. Below are the key endpoints based o
 - `GET /logout` — End the current session (GET alternative)
 - `POST /users` — Register a new user account
 
-### 🛒 Listings & Reports
+### Listings & Reports
 
 - `GET /listings` — List all listings (supports filtering, search, sort)
 - `GET /listings/:id` — View a specific listing
@@ -285,6 +285,9 @@ brew services start postgresql
 createuser --superuser $(whoami)
 ```
 
+If you are having Postgres login issues do the following:
+Comment out lines `31-35` and `61-63` in `database.yml` to use systems default credentials
+
 **Windows:**
 Just use WSL and follow the Linux instructions. Makes life easier. Trust me.
 
@@ -298,16 +301,7 @@ rails db:migrate
 rails db:seed
 ```
 
-#### Required Gem Setup
-
-```sh
-rails dartsass:install
-rails generate rails_icons:install --libraries=heroicons
-```
-
----
-
-## Running the App 🏃‍♂️
+## Running the App
 
 Run the script:
 
