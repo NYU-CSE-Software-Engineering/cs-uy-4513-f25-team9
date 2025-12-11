@@ -34,14 +34,9 @@
 /config/*.key
 
 /coverage
-/coverage/*
 
 # Ignore personal JetBrains IDE settings
 .idea/
 
-/app/assets/builds/*
-!/app/assets/builds/.keep
-
-/coverage/*
 /app/assets/builds/*
 !/app/assets/builds/.keep

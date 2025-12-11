@@ -3,7 +3,10 @@ class Listing < ApplicationRecord
   has_many :reports, dependent: :destroy
   has_many :interests, dependent: :destroy
   has_one_attached :image
+  
   validates :title, presence: true
+  validates :price, presence: true, numericality: { greater_than: 0 }
+  validates :user, presence: true
 
   # Filter by category if present
   scope :by_category, ->(category) { where(category: category) if category.present? }
