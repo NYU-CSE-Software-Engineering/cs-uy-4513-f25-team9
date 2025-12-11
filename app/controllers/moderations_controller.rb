@@ -25,6 +25,12 @@ class ModerationsController < ApplicationController
       return
     end
 
+    if @user.id == current_user.id
+      flash[:error] = "You cannot delete yourself"
+      redirect_to moderations_path
+      return
+    end
+
     unless current_user.can_delete_user?(@user)
       flash[:error] = "You don't have permission to delete User with ID #{params[:id]}"
       redirect_to moderations_path
