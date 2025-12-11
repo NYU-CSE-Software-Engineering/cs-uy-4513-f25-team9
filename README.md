@@ -2,7 +2,7 @@
 
 CS-UY 4513 Software Engineering Project
 
-The system, named Thryft, will be a centralized platform for buying and selling goods through a swipe-based interface inspired by Tinder. It is intended to be used by students, local sellers, and administrators who want a streamlined, engaging way to exchange goods. It features user authentication, listings, messaging, moderation, and more.
+The system, named Thryft, will be a centralized platform for buying and selling goods through a liking-based interface inspired by Tinder. It is intended to be used by students, local sellers, and administrators who want a streamlined, engaging way to exchange goods. It features user authentication, listings, messaging, moderation, and more.
 **We are online! [thryft-team9-34327d4250fb.herokuapp.com](https://thryft-team9-34327d4250fb.herokuapp.com/)**
 
 ---
@@ -61,9 +61,9 @@ See the linked documents for detailed writeups on each feature.
 - Users can report listings or users
 - Moderators can remove users or listings
 
-### Swiping & Feed
+### Liking & Feed
 
-- Browse listings with a swipe interface
+- Browse listings with a like and pass interface
 - Personalized feed based on user activity
 
 ---
@@ -100,7 +100,7 @@ The application exposes a RESTful interface. Below are the key endpoints based o
 - `POST /listings/:listing_id/conversations` — Start a new conversation about a listing
 - `POST /conversations/:conversation_id/messages` — Send a message in a conversation
 
-### Feed & Swiping
+### Feed & Like
 
 - `GET /feed` — Personalized feed (listings to swipe)
 - `POST /swipes` — Like or pass on a listing
@@ -286,7 +286,7 @@ createuser --superuser $(whoami)
 ```
 
 If you are having Postgres login issues do the following:
-Uncomment  lines `12-14` and `19-21` in `database.yml` to use your credentials. Make sure to update your .env with 
+Uncomment lines `12-14` and `19-21` in `database.yml` to use your credentials. Make sure to update your .env with
 your POSTGRES password.
 
 **Windows:**
