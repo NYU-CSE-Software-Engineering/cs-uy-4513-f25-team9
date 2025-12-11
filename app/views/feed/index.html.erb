@@ -36,10 +36,14 @@
 
   <% if @listing %>
     <div class="listing-card">
-      <div class="listing-image-placeholder">
-        <%= icon "photo", class: "placeholder-icon" %>
-        <p class="placeholder-text">Image preview</p>
-      </div>
+      <% if @listing.image.attached? %>
+        <%= image_tag @listing.image, alt: @listing.title, class: "listing-image" %>
+      <% else %>
+        <div class="listing-image-placeholder">
+          <%= icon "photo", class: "placeholder-icon" %>
+          <p class="placeholder-text">Image preview</p>
+        </div>
+      <% end %>
       <div class="divider"></div>
 
       <h2><%= @listing.title %></h2>
