@@ -1,9 +1,13 @@
 // Feed page styling
 .page-feed {
-  padding: 24px 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  padding: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  min-height: calc(100vh - 80px);
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 
   .feed-header {
     display: flex;
@@ -11,10 +15,10 @@
     justify-content: space-between;
 
     h1 {
-      margin: 0;
-      font-size: 24px;
-      font-weight: 600;
-      color: #222;
+      color: var(--color-gray-800);
+      font-size: 2.5rem;
+      margin: 0 0 4px 0;
+      font-weight: 700;
     }
   }
 

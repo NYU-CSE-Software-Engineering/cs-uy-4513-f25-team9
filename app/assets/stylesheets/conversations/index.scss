@@ -17,16 +17,21 @@
 
 /* Reuse seller homepage styles */
 .seller-home-container {
-    max-width: 1400px;
+    padding: 2rem;
+    max-width: 1600px;
     margin: 0 auto;
-    padding: 30px 20px;
+    min-height: calc(100vh - 80px);
+
+    @media (max-width: 768px) {
+        padding: 1rem;
+    }
 }
 
 .seller-home-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 2rem;
 }
 
 .seller-home-header h1 {
@@ -36,7 +41,7 @@
 }
 
 .header-subtitle {
-    color: #666;
+    color: var(--color-gray-500);
     font-size: 1rem;
     margin: 0;
 }
